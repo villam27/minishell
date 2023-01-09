@@ -1,0 +1,13 @@
+.DS_Store
+.vscode
+infile
+outfile
+
+# Object files
+*.o
+
+# Libraries
+*.a
+
+# Executables
+*.out

@@ -1,0 +1,14 @@
+.DS_Store
+.vscode
+*.dSYM
+vgcore.*
+
+# Object files
+*.o
+
+# Libraries
+*.a
+
+# Executables
+*.out
+minishell
