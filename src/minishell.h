@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/10 09:53:18 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/10 10:31:12 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ typedef struct s_env_var
 {
 	char				*name;
 	char				*content;
-	typedef s_env_var	*next;
+	struct s_env_var	*next;
 }	t_env_var;
 
 typedef struct s_command
@@ -26,7 +26,7 @@ typedef struct s_command
 	int			fd_out;
 	int			fd_err;
 	char		*cmd;
-	char		*args;
+	char		**args;
 	t_env_var	*vars;
 }	t_command;
 
@@ -39,7 +39,7 @@ typedef struct s_commands
 /*
 	command init and destruction
 */
-t_command	*init_command(char *cmd, char *args, t_env_var *vars);
+t_command	*init_command(char *cmd, char **args, t_env_var *vars);
 void		set_fd(t_command **cmd, int fd_in, int fd_out, int fd_err);
 void		destroy_command(t_command *cmd);
 
