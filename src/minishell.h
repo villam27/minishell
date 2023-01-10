@@ -6,12 +6,13 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/10 14:29:26 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/10 17:42:17 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# include "../libft/libft.h"
 
 typedef struct s_env_var
 {
@@ -35,13 +36,6 @@ typedef struct s_commands
 	t_command	*cmd;
 	t_command	*next;
 }	t_commands;
-
-typedef struct s_heredoc
-{
-	char				*out_cmd;
-	struct s_heredoc	*next;
-}	t_heredoc;
-
 /*
 	command init and destruction
 */
@@ -59,5 +53,8 @@ t_env_var	*new_var(char *name, char *content);
 void		free_var(t_env_var *var);
 void		add_var(t_env_var *vars, t_env_var *new_var);
 void		destroy_vars(t_env_var **vars);
-
+/*
+	Parsing
+*/
+int			parsing_errors(char *str);
 #endif

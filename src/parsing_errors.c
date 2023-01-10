@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:08:27 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/10 14:29:40 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/10 17:56:08 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,34 @@ static int	while_dquote(char *str, int *i)
 	return (1);
 }
 
+static int	two_good(int a, int b, int c)
+{
+	if (a && b)
+		return (1);
+	if (a && c)
+		return (1);
+	if (b && c)
+		return (1);
+	return (0);
+}
+
 int	parsing_errors(char *str)
 {
 	int	i;
-	int	is_pipe;
-	int	is_chev;
+	int	pipe;
+	int	chev;
+	int	bchev;
 
 	i = 0;
-	is_chev = 0;
-	is_pipe = 0;
+	chev = 0;
+	bchev = 0;
+	pipe = 0;
 	while (str[i])
 	{
-		if (is_in(str[i], "< \n\t\v\r"))
-			is_chev++;
-		else
-			is_chev = 0;
-		if (is_chev > 2)
-			return (1);
-		if (is_in(str[i], "| \n\t\v\r"))
-			is_pipe++;
-		else
-			is_pipe = 0;
-		if (is_pipe > 1)
+		chev = (chev + is_in(str[i], "< \n\t")) * is_in(str[i], "< \n\t");
+		bchev = (chev + is_in(str[i], "> \n\t")) * is_in(str[i], "> \n\t");
+		pipe = (pipe + is_in(str[i], "| \n\t")) * is_in(str[i], "| \n\t");
+		if (chev > 2 || pipe > 1 || bchev > 2 || two_good(chev, pipe, bchev))
 			return (1);
 		if (str[i] == '\'')
 			if (!while_quote(str, &i))
@@ -75,7 +81,5 @@ int	parsing_errors(char *str)
 				return (1);
 		i++;
 	}
-	if (is_pipe)
-		return (1);
-	return (0);
+	return (pipe || chev || bchev);
 }

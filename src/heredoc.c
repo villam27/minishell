@@ -6,12 +6,12 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/10 14:29:56 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/10 15:56:02 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
+
 static int	is_in(char c, char *str)
 {
 	int	i;
@@ -26,17 +26,33 @@ static int	is_in(char c, char *str)
 	return (0);
 }
 
-t_heredoc	create_heredocs(char *str)
+t_list	*create_heredocs(char *str)
 {
-	int	i;
+	int		i;
+	int		j;
+	t_list	*lst;
 
-	int	j;
+	lst = NULL;
 	i = 1;
 	while (str[i])
 	{
-		if (str[i] == "<" && str[i - 1] == "<")
+		j = 0;
+		if (str[i] == '<' && str[i - 1] == '<')
 		{
-			while (is_in(str[i], ""))
+			while (str[i] && is_in(str[i], ' \f\n\t\v\r'))
+				i++;
+			if (!str[i])
+				return (NULL);
+			if ((str[i] == '\"') || (str[i] == '\"'))
+			{
+				while (str[i + j] != str[i])
+					j++;
+			}
+			else
+			{
+				while (!is_in(str[i + j], ' \f\n\t\v\r'))
+					j++;
+			}
 		}
 	}
 }
@@ -45,4 +61,3 @@ void	do_heredocs(char *str)
 {
 
 }
-*/
