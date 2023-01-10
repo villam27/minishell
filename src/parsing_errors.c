@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:08:27 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/10 10:54:44 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/10 14:29:40 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,21 @@ int	parsing_errors(char *str)
 {
 	int	i;
 	int	is_pipe;
+	int	is_chev;
 
 	i = 0;
+	is_chev = 0;
 	is_pipe = 0;
 	while (str[i])
 	{
+		if (is_in(str[i], "< \n\t\v\r"))
+			is_chev++;
+		else
+			is_chev = 0;
+		if (is_chev > 2)
+			return (1);
 		if (is_in(str[i], "| \n\t\v\r"))
-			is_pipe = 1;
+			is_pipe++;
 		else
 			is_pipe = 0;
 		if (is_pipe > 1)

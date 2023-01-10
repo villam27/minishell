@@ -1,0 +1,2 @@
+plus de 2 '<', '|' etc.. : 258
+quote pas fermé : 258

@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/10 10:31:12 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/10 14:29:26 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ typedef struct s_commands
 	t_command	*cmd;
 	t_command	*next;
 }	t_commands;
+
+typedef struct s_heredoc
+{
+	char				*out_cmd;
+	struct s_heredoc	*next;
+}	t_heredoc;
 
 /*
 	command init and destruction
