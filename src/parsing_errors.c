@@ -6,9 +6,11 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:08:27 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/10 17:56:08 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/10 18:17:57 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 static int	is_in(char c, char *str)
 {
@@ -57,10 +59,10 @@ static int	two_good(int a, int b, int c)
 
 int	parsing_errors(char *str)
 {
-	int	i;
-	int	pipe;
-	int	chev;
-	int	bchev;
+	int		i;
+	int		pipe;
+	int		chev;
+	int		bchev;
 
 	i = 0;
 	chev = 0;

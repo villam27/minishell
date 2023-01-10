@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/10 15:56:02 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/10 18:24:10 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@ static int	is_in(char c, char *str)
 		i++;
 	}
 	return (0);
+}
+
+int	while_till(char *str, int i, char c)
+{
+	int	j;
+
+	j = 1;
+	while (str[i + j] != c)
+		j++;
+	return (j);
 }
 
 t_list	*create_heredocs(char *str)
