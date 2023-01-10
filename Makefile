@@ -6,7 +6,7 @@
 #    By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/09 15:27:30 by alboudje         ###   ########.fr        #
+#    Updated: 2023/01/10 13:09:46 by alboudje         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ LIBFT_FILES		= 	libft/*.c libft/*.h libft/Makefile
 
 SRC_FOLDER		= 	src/
 OBJS_FOLDER		=	objs/
-SRC_FILES		= 	main.c
+SRC_FILES		= 	main.c \
+					command.c \
+					command_list.c
 					
 SRC 			= 	$(addprefix $(SRC_FOLDER), $(SRC_FILES))
 
@@ -27,7 +29,7 @@ INCLUDES_FILES 	= 	minishell.h
 INCLUDES 		= 	$(addprefix $(SRC_FOLDER), $(INCLUDES_FILES))
 
 OBJ 			= 	${SRC_FILES:.c=.o}
-CFLAGS 			= 	-Wall -Wextra -Werror # -g3 -fsanitize=address
+CFLAGS 			= 	-Wall -Wextra -Werror -g3 -fsanitize=address
 OBJS			= 	$(addprefix $(OBJS_FOLDER), $(OBJ))
 
 all : title $(NAME)
