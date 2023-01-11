@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/11 12:26:18 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/11 14:07:11 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 int	main(void)
 {
-	do_heredocs("<< p <<   justedance caca ls << llol <<l");
+	do_heredocs("<< p << justedance caca ls << llol <<l");
+	return (0);
 }

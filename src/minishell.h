@@ -6,13 +6,17 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/11 12:25:52 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/11 13:54:59 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "../libft/libft.h"
+# include <stdio.h>
+# include <termios.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef struct s_env_var
 {

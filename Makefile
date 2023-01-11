@@ -6,7 +6,7 @@
 #    By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/11 11:16:22 by tibernot         ###   ########.fr        #
+#    Updated: 2023/01/11 14:05:48 by tibernot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,9 @@ SRC_FILES		= 	main.c \
 					parsing_errors.c \
 					heredoc.c
 
+RD_LIB_H=~/.brew/opt/readline/include
+RD_LIB_A=-L ~/.brew/opt/readline/lib -lreadline
+
 SRC 			= 	$(addprefix $(SRC_FOLDER), $(SRC_FILES))
 
 INCLUDES_FILES 	= 	minishell.h
@@ -32,15 +35,17 @@ OBJ 			= 	${SRC_FILES:.c=.o}
 CFLAGS 			= 	-Wall -Wextra -Werror # -g3 -fsanitize=address
 OBJS			= 	$(addprefix $(OBJS_FOLDER), $(OBJ))
 
+
+
 all : title $(NAME)
 
 $(NAME) : $(OBJS_FOLDER) $(OBJS)
 	@make -C libft
-	@$(CC) -o $(NAME) $(CFLAGS) $(OBJS) $(LIBFT)
+	$(CC) -o $(NAME) $(CFLAGS) $(RD_LIB_A) $(OBJS) $(LIBFT)
 	@printf "$(GREEN)Creating $(PURPLE)$(NAME)$(END): OK\n"
 
 $(OBJS_FOLDER)%.o : $(SRC_FOLDER)%.c $(INCLUDES) Makefile $(LIBFT_FILES)
-	@$(CC) $(CFLAGS) -o $@ -c $<
+	@$(CC) $(CFLAGS) -o $@ -c $< -I $(RD_LIB_H)
 	@printf "$(BLUE)Compiling $(NAME): $(CYAN)$<: $(GREEN)OK$(END)\n"
 
 $(OBJS_FOLDER):
