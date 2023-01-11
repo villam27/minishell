@@ -6,7 +6,7 @@
 #    By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/10 13:09:46 by alboudje         ###   ########.fr        #
+#    Updated: 2023/01/11 13:01:12 by alboudje         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRC_FOLDER		= 	src/
 OBJS_FOLDER		=	objs/
 SRC_FILES		= 	main.c \
 					command.c \
-					command_list.c
+					command_list.c \
+					execution.c
 					
 SRC 			= 	$(addprefix $(SRC_FOLDER), $(SRC_FILES))
 

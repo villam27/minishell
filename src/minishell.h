@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/10 13:48:09 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/11 12:22:51 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		set_fd(t_command **cmd, int fd_in, int fd_out, int fd_err);
 void		destroy_command(t_command *cmd);
 
 t_commands	*init_commands(void);
-void		add_command(t_commands **cmds_list, t_command *cmd);
+void		add_command(t_commands **cmds_list, t_command **cmd);
 void		rm_command(t_commands **cmds_list);
 int			size_commands(t_commands *cmds_list);
 
