@@ -6,7 +6,7 @@
 #    By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/10 17:42:25 by tibernot         ###   ########.fr        #
+#    Updated: 2023/01/11 11:16:22 by tibernot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ LIBFT_FILES		= 	libft/*.c libft/*.h libft/Makefile
 SRC_FOLDER		= 	src/
 OBJS_FOLDER		=	objs/
 SRC_FILES		= 	main.c \
-					parsing_errors.c
+					parsing_errors.c \
+					heredoc.c
 
 SRC 			= 	$(addprefix $(SRC_FOLDER), $(SRC_FILES))
 

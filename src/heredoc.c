@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/10 18:24:10 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/11 11:40:59 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	while_till(char *str, int i, char c)
 	int	j;
 
 	j = 1;
-	while (str[i + j] != c)
+	while (str[i + j] && str[i + j] != c)
 		j++;
 	return (j);
 }
@@ -43,31 +43,32 @@ t_list	*create_heredocs(char *str)
 	t_list	*lst;
 
 	lst = NULL;
-	i = 1;
-	while (str[i])
+	i = 0;
+	while (str[++i])
 	{
 		j = 0;
 		if (str[i] == '<' && str[i - 1] == '<')
 		{
-			while (str[i] && is_in(str[i], ' \f\n\t\v\r'))
+			i++;
+			while (str[i] && is_in(str[i], " \f\n\t\v\r"))
 				i++;
 			if (!str[i])
 				return (NULL);
 			if ((str[i] == '\"') || (str[i] == '\"'))
-			{
-				while (str[i + j] != str[i])
-					j++;
-			}
+				j = while_till(str, i, str[i]);
 			else
-			{
-				while (!is_in(str[i + j], ' \f\n\t\v\r'))
-					j++;
-			}
+				j = while_till(str, i, ' ');
+			ft_lstadd_back(&lst, ft_lstnew(ft_substr(str, i, j)));
+			i = i + j;
 		}
 	}
+	return (lst);
 }
 
+
+/*
 void	do_heredocs(char *str)
 {
 
 }
+*/
