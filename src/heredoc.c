@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/11 11:40:59 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/11 12:32:56 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,49 @@ t_list	*create_heredocs(char *str)
 	return (lst);
 }
 
+int	good_heredocs(char	*str, t_list *hd)
+{
+	int		nb_hd;
+	int		i;
+	t_list	*tmp;
 
-/*
+	tmp = hd;
+	nb_hd = 0;
+	i = 0;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		nb_hd++;
+	}
+	while (str[++i])
+	{
+		if (str[i] == '<' && str[i - 1] == '<')
+		nb_hd--;
+	}
+	if (nb_hd != 0)
+		return (0);
+	return (1);
+}
+
+void	do_heredoc(char *hd_out)
+{
+	(void) hd_out;
+}
+
 void	do_heredocs(char *str)
 {
+	t_list	*heredocs;
+	t_list	*tmp;
+
+	heredocs = create_heredocs(str);
+	if (!good_heredocs(str, heredocs))
+		ft_lstclear(&heredocs, free);
+	tmp = heredocs;
+	while (tmp)
+	{
+		do_heredoc(tmp->content);
+		tmp = tmp->next;
+	}
+	ft_lstclear(&heredocs, free);
 
 }
-*/

@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/11 11:16:01 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/11 12:25:52 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,5 @@ int			parsing_errors(char *str);
 	Heredocs
 */
 t_list		*create_heredocs(char *str);
+void		do_heredocs(char *str);
 #endif
