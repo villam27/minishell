@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/11 16:54:25 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:55:59 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,71 +26,47 @@ void	print_cmd(t_command *cmd)
 	ft_printf("in: %d, out %d, err %d\n", cmd->fd_in, cmd->fd_out, cmd->fd_err);
 }
 
-/*pid_t	first_process(char *cmds, char **args, int pipe_fd[2])
+pid_t	last_process(t_command *cmd, int pipe_old[2])
 {
 	pid_t	pid;
+	ft_printf("here last\n");
 
 	pid = fork();
 	if (pid < 0)
 		return (-1);
 	if (pid == 0)
 	{
-		if (dup2(pipe_fd[STDOUT_FILENO], STDOUT_FILENO) < 0
-			|| close(pipe_fd[0]) < 0 || close(pipe_fd[1]) < 0)
-		{
-			exit(EXIT_FAILURE);
-			return (-1);
-		}
-		if (execve(cmds, cmds, NULL) < 0)
-			return (-1);
-	}
-	return (pid);
-}
-*/
-pid_t	last_process(char *cmds, char **args, int pipe_old[2])
-{
-	pid_t	pid;
-	//int		pipe_fd[2];
-	ft_printf("here\n");
-
-	//pipe(pipe_fd);
-	pid = fork();
-	if (pid < 0)
-		return (-1);
-	if (pid == 0)
-	{
-		dup2(pipe_old[STDIN_FILENO], STDIN_FILENO);
+		dup2(pipe_old[STDIN_FILENO], cmd->fd_in);
+		dup2(STDOUT_FILENO, cmd->fd_out);
 		close(pipe_old[0]);
 		close(pipe_old[1]);
-		execve(cmds, args, NULL);
+		if (cmd->fd_out > 2)
+			close(cmd->fd_out);
+		if (cmd->fd_in > 2)
+			close(cmd->fd_in);
+		execve(cmd->cmd, cmd->args, NULL);
 	}
-	//dup2(pipe_fd[STDOUT_FILENO], p[STDIN_FILENO]);
-	//dup2(p[STDIN_FILENO], pipe_fd[STDIN_FILENO]);
 	return (pid);
 }
 
-pid_t	new_process(char *cmds, char **args, int pipe_old[2], int pipe_new[2])
+pid_t	new_process(t_command *cmd, int pipe_old[2], int pipe_new[2])
 {
 	pid_t	pid;
-	//int		pipe_fd[2];
 	ft_printf("here\n");
 
-	//pipe(pipe_fd);
 	pid = fork();
 	if (pid < 0)
 		return (-1);
 	if (pid == 0)
 	{
 		dup2(pipe_new[STDOUT_FILENO], STDOUT_FILENO);
-		dup2(pipe_old[STDIN_FILENO], STDIN_FILENO);
+		dup2(pipe_old[STDIN_FILENO], cmd->fd_in);
 		close(pipe_old[0]);
 		close(pipe_old[1]);
 		close(pipe_new[0]);
 		close(pipe_new[1]);
-		execve(cmds, args, NULL);
+		execve(cmd->cmd, cmd->args, NULL);
 	}
-	//dup2(pipe_fd[STDOUT_FILENO], p[STDIN_FILENO]);
-	//dup2(p[STDIN_FILENO], pipe_fd[STDIN_FILENO]);
 	return (pid);
 }
 
@@ -99,17 +75,18 @@ int	run_cmds(t_commands **cmds_list)
 	int	cmds_size;
 	int	i;
 	int	pipe_fd[2][2];
+	int	temp_fd[2];
 
+	temp_fd[STDIN_FILENO] = dup(STDIN_FILENO);
+	temp_fd[STDOUT_FILENO] = dup(STDOUT_FILENO);
 	i = 0;
 	cmds_size = size_commands(*cmds_list);
 	pipe(pipe_fd[0]);
 	pipe(pipe_fd[1]);
-	pipe_fd[0][0] = 0;
 	while (i < cmds_size - 1)
 	{
 		ft_printf("%d\n", i);
-		//print_cmd((*cmds_list)->cmd);
-		new_process((*cmds_list)->cmd->cmd, (*cmds_list)->cmd->args, pipe_fd[0], pipe_fd[1]);
+		new_process((*cmds_list)->cmd, pipe_fd[0], pipe_fd[1]);
 		close(pipe_fd[0][0]);
 		close(pipe_fd[0][1]);
 		pipe_fd[0][0] = pipe_fd[1][0];
@@ -118,7 +95,13 @@ int	run_cmds(t_commands **cmds_list)
 		rm_command(cmds_list);
 		i++;
 	}
-	last_process((*cmds_list)->cmd->cmd, (*cmds_list)->cmd->args, pipe_fd[0]);
+	ft_printf("bonjour\n");
+	dup2((*cmds_list)->cmd->fd_in, STDIN_FILENO);
+	dup2((*cmds_list)->cmd->fd_out, STDOUT_FILENO);
+	last_process((*cmds_list)->cmd , pipe_fd[0]);
+	dup2(temp_fd[STDIN_FILENO], STDIN_FILENO);
+	dup2(temp_fd[STDOUT_FILENO], STDOUT_FILENO);
+	ft_printf("bonjour\n");
 	rm_command(cmds_list);
 	close(pipe_fd[0][0]);
 	close(pipe_fd[0][1]);
