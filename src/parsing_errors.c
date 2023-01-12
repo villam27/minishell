@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:08:27 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/12 12:26:44 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/12 14:38:25 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ int	parsing_errors(char *str)
 
 	i = 0;
 	chev = 0;
-	bchev = 2;
-	pipe = 1;
+	bchev = 0;
+	pipe = 0;
 	while (str[i])
-	{/*mettre que juste pipe debut ca degage*/
+	{
 		chev = (chev + is_in(str[i], "<")) * is_in(str[i], "< \n\t");
 		bchev = (bchev + is_in(str[i], ">")) * is_in(str[i], "> \n\t");
 		pipe = (pipe + is_in(str[i], "|")) * is_in(str[i], "| \n\t");
@@ -69,5 +69,5 @@ int	parsing_errors(char *str)
 				return (1);
 		i++;
 	}
-	return (pipe || chev || bchev);
+	return ((pipe || chev || bchev) && (i > 0));
 }
