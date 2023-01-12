@@ -1,16 +1,8 @@
 plus de 2 '<', '|' etc.. : 258
 quote pas fermé : 258
+no file dir ou permiision denied : 1
+command not found : 127
+illegal option : 1
 
-readline
-rl_clear_history
-rl_on_new_line
-rl_replace_line
-rl_redisplay
-add_history
-access
-signal
-sigaction
-sigemptyset
-sigaddset
-27031
-22730
+mettre -2 en out quand un heredoce dans un pipe et -2 en in quand heredoce dans le pipe d'avant
+

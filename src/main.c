@@ -6,14 +6,49 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/11 14:07:11 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/12 12:25:12 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	main(void)
+/*
+void	prompt()
 {
-	do_heredocs("<< p << justedance caca ls << llol <<l");
+
+}
+*/
+
+int	main(int argc, char **argv, char **envp)
+{
+	char	*line;
+	char	*user;
+
+	(void) argc;
+	(void) argv;
+	(void) envp;
+	user = "tibernot$ ";
+	/*init env_vars*/
+	/*while do prompt*/
+	/*get signal quit*/
+	/*add_historique*/
+	/*get string in str*/
+	line = "l";
+	/*add_history(line);
+	if (parsing_errors(line))
+		ft_putendl_fd("Parsing error", 2);*/
+	while (line)
+	{
+		line = readline(user);
+		add_history(line);
+		if (parsing_errors(line))
+			ft_putendl_fd("Parsing error", 2);
+		do_heredocs(line);
+		free(line);
+	}
+	/*get string without '<<'*/
+	/*split on pipes*/
+	/*do the command list*/
+	/*exec commands*/
+	/*free str*/
 	return (0);
 }

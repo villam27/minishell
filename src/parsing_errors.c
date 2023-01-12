@@ -6,25 +6,11 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:08:27 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/10 18:17:57 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/12 12:26:44 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	is_in(char c, char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
 
 static int	while_quote(char *str, int *i)
 {
@@ -66,13 +52,13 @@ int	parsing_errors(char *str)
 
 	i = 0;
 	chev = 0;
-	bchev = 0;
-	pipe = 0;
+	bchev = 2;
+	pipe = 1;
 	while (str[i])
-	{
-		chev = (chev + is_in(str[i], "< \n\t")) * is_in(str[i], "< \n\t");
-		bchev = (chev + is_in(str[i], "> \n\t")) * is_in(str[i], "> \n\t");
-		pipe = (pipe + is_in(str[i], "| \n\t")) * is_in(str[i], "| \n\t");
+	{/*mettre que juste pipe debut ca degage*/
+		chev = (chev + is_in(str[i], "<")) * is_in(str[i], "< \n\t");
+		bchev = (bchev + is_in(str[i], ">")) * is_in(str[i], "> \n\t");
+		pipe = (pipe + is_in(str[i], "|")) * is_in(str[i], "| \n\t");
 		if (chev > 2 || pipe > 1 || bchev > 2 || two_good(chev, pipe, bchev))
 			return (1);
 		if (str[i] == '\'')

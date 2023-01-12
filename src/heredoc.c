@@ -6,25 +6,11 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/11 14:20:19 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/11 15:32:48 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	is_in(char c, char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
 
 static int	while_till(char *str, int i, char c)
 {
@@ -96,7 +82,11 @@ void	do_heredoc(char *hd_out)
 
 	line = readline("> ");
 	while (ft_strncmp(hd_out, line, ft_strlen(line)) != 0)
+	{
+		free(line);
 		line = readline("> ");
+	}
+	free(line);
 }
 
 void	do_heredocs(char *str)
