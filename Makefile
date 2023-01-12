@@ -6,7 +6,7 @@
 #    By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/11 15:31:34 by tibernot         ###   ########.fr        #
+#    Updated: 2023/01/12 18:59:42 by tibernot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ OBJS_FOLDER		=	objs/
 SRC_FILES		= 	main.c \
 					parsing_errors.c \
 					heredoc.c \
-					minishell_utils.c
+					minishell_utils.c \
+					heredoc_utils.c
 
 RD_LIB_H=~/.brew/opt/readline/include
 RD_LIB_A=-L ~/.brew/opt/readline/lib -lreadline

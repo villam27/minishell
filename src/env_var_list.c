@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:41:22 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/12 14:21:42 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/12 19:02:47 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_lst_env_var_add_back(t_env_var **vars, t_env_var *new)
 	temp->next = new;
 }
 
-void		ft_env_var_lst_clear(t_env_var **vars, void (*del)(void*))
+void	ft_env_var_lst_clear(t_env_var **vars, void (*del)(void*))
 {
 	t_env_var	*next_temp;
 

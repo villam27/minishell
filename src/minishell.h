@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/12 15:37:36 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/12 19:02:09 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,8 @@ void		do_heredocs(char *str);
 	Utils
 */
 int			is_in(char c, char *str);
+
+/*heredoc utils*/
+int			in_quote(char *str, int index);
+int			while_out(char *str, int i);
 #endif
