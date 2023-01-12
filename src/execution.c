@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/12 16:55:59 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/12 17:24:33 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ pid_t	new_process(t_command *cmd, int pipe_old[2], int pipe_new[2])
 		return (-1);
 	if (pid == 0)
 	{
-		dup2(pipe_new[STDOUT_FILENO], STDOUT_FILENO);
+		dup2(pipe_new[STDOUT_FILENO], cmd->fd_out);
 		dup2(pipe_old[STDIN_FILENO], cmd->fd_in);
 		close(pipe_old[0]);
 		close(pipe_old[1]);
@@ -85,8 +85,12 @@ int	run_cmds(t_commands **cmds_list)
 	pipe(pipe_fd[1]);
 	while (i < cmds_size - 1)
 	{
-		ft_printf("%d\n", i);
+		//ft_printf("%d\n", i);
+		dup2((*cmds_list)->cmd->fd_in, STDIN_FILENO);
+		dup2((*cmds_list)->cmd->fd_out, STDOUT_FILENO);
 		new_process((*cmds_list)->cmd, pipe_fd[0], pipe_fd[1]);
+		dup2(temp_fd[STDIN_FILENO], STDIN_FILENO);
+		dup2(temp_fd[STDOUT_FILENO], STDOUT_FILENO);
 		close(pipe_fd[0][0]);
 		close(pipe_fd[0][1]);
 		pipe_fd[0][0] = pipe_fd[1][0];
