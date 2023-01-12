@@ -6,13 +6,13 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/12 12:25:12 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/12 19:20:27 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 /*
-void	prompt()
+void	prompt() //put hte prompt and exec in that function
 {
 
 }
@@ -42,7 +42,8 @@ int	main(int argc, char **argv, char **envp)
 		add_history(line);
 		if (parsing_errors(line))
 			ft_putendl_fd("Parsing error", 2);
-		do_heredocs(line);
+		else
+			do_heredocs(line); // to change to do in a fork
 		free(line);
 	}
 	/*get string without '<<'*/

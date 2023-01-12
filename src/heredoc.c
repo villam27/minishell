@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/12 19:01:51 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/12 19:24:02 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ char	*to_gd_hd(char *str)
 			|| (str[i] == '\'' && is_dquote)
 			|| (str[i] == '\"' && is_quote))
 		{
-			res[j] = str[i];
-			j++;
+			res[j++] = str[i];
 		}
 		i++;
 	}
+	res[j] = '\0';
 	return (free(str), res);
 }
 
