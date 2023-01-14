@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:37:03 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/11 12:46:12 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/14 12:57:22 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	rm_command(t_commands **cmds_list)
 	(*cmds_list) = (*cmds_list)->next;
 	cmd->next = NULL;
 	destroy_command(cmd->cmd);
+	free(cmd);
 }
 
 int	size_commands(t_commands *cmds_list)

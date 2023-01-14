@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/12 17:25:04 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/14 12:55:14 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char **argv)
 		cmd = init_command(ft_strdup(args[0]), args, NULL);
 		//set_fd(&cmd, fd_in[i - 1], fd_out[i - 1], 2);
 		add_command(&cmds, &cmd);
-		i++;		
+		i++;	
 	}
 	run_cmds(&cmds);
 	//close(fd_in);
