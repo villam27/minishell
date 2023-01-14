@@ -6,7 +6,7 @@
 #    By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/14 14:57:00 by alboudje         ###   ########.fr        #
+#    Updated: 2023/01/14 15:42:43 by alboudje         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ OBJS_FOLDER		=	objs/
 SRC_FILES		= 	main.c \
 					command.c \
 					command_list.c \
-					execution.c
+					execution.c \
+					builtins/ft_pwd.c
 					
 SRC 			= 	$(addprefix $(SRC_FOLDER), $(SRC_FILES))
 
@@ -47,6 +48,7 @@ $(OBJS_FOLDER)%.o : $(SRC_FOLDER)%.c $(INCLUDES) Makefile $(LIBFT_FILES)
 
 $(OBJS_FOLDER):
 	mkdir $(OBJS_FOLDER)
+	mkdir $(OBJS_FOLDER)/builtins
 
 clean :
 	-rm -rf $(OBJS_FOLDER)

@@ -6,12 +6,13 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/14 14:28:07 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/14 17:18:20 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "execution.h"
+#include "builtins.h"
 #include <fcntl.h>
 
 int	main(int argc, char **argv)
@@ -37,6 +38,8 @@ int	main(int argc, char **argv)
 		add_command(&cmds, &cmd);
 		i++;	
 	}
-	run_cmds(&cmds);
+	if (size_commands(cmds))
+		run_cmds(&cmds);
+	ft_pwd();
 	return (0);
 }

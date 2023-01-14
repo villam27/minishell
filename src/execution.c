@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/14 14:58:08 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/14 17:04:28 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	print_cmd(t_command *cmd)
 pid_t	last_process(t_command *cmd, int pipe_old[2])
 {
 	pid_t	pid;
-	ft_printf("here last\n");
+	//ft_printf("here last\n");
 
 	pid = fork();
 	if (pid < 0)
@@ -54,7 +54,7 @@ pid_t	last_process(t_command *cmd, int pipe_old[2])
 pid_t	new_process(t_command *cmd, int pipe_old[2], int pipe_new[2])
 {
 	pid_t	pid;
-	ft_printf("here\n");
+	//ft_printf("here\n");
 
 	pid = fork();
 	if (pid < 0)

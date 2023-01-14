@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 14:28:30 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/14 15:34:29 by alboudje         ###   ########.fr       */
+/*   Created: 2023/01/14 15:31:29 by alboudje          #+#    #+#             */
+/*   Updated: 2023/01/14 15:36:05 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
-# include "minishell.h"
+#include "../builtins.h"
+#include <limits.h>
 
-int	ft_echo(char **args, t_env_var *vars);
-int	ft_cd(char *arg, t_env_var *vars);
-int	ft_pwd(void);
-int	ft_export(char **args, t_env_var *vars);
-int	ft_unset(char *arg, t_env_var *vars);
-int	ft_env(t_env_var *vars);
-int	ft_exit(void);
+int	ft_pwd(void)
+{
+	char	pwd[PATH_MAX];
 
-#endif
+	if (getcwd(pwd, PATH_MAX))
+	{
+		ft_printf("%s\n", pwd);
+		return (1);
+	}
+	return (0);
+}
