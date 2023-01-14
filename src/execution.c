@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/14 13:57:57 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/14 14:58:08 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	run_cmds(t_commands **cmds_list)
 	cmds_size = size_commands(*cmds_list);
 	pipe(pipe_fd[0]);
 	pipe(pipe_fd[1]);
+	pipe_fd[0][0] = dup(0);
+	pipe_fd[0][1] = dup(1);
 	while (i < cmds_size - 1)
 	{
 		new_process((*cmds_list)->cmd, pipe_fd[0], pipe_fd[1]);
