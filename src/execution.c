@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/14 13:36:11 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/14 13:57:57 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ pid_t	last_process(t_command *cmd, int pipe_old[2])
 		return (-1);
 	if (pid == 0)
 	{
+		dup2(cmd->fd_in, STDIN_FILENO);
+		dup2(cmd->fd_out, STDOUT_FILENO);
 		dup2(pipe_old[STDIN_FILENO], cmd->fd_in);
 		dup2(STDOUT_FILENO, cmd->fd_out);
 		close(pipe_old[0]);
@@ -59,12 +61,18 @@ pid_t	new_process(t_command *cmd, int pipe_old[2], int pipe_new[2])
 		return (-1);
 	if (pid == 0)
 	{
+		dup2(cmd->fd_in, STDIN_FILENO);
+		dup2(cmd->fd_out, STDOUT_FILENO);
 		dup2(pipe_new[STDOUT_FILENO], cmd->fd_out);
 		dup2(pipe_old[STDIN_FILENO], cmd->fd_in);
 		close(pipe_old[0]);
 		close(pipe_old[1]);
 		close(pipe_new[0]);
 		close(pipe_new[1]);
+		if (cmd->fd_out > 2)
+			close(cmd->fd_out);
+		if (cmd->fd_in > 2)
+			close(cmd->fd_in);
 		execve(cmd->cmd, cmd->args, NULL);
 	}
 	return (pid);
@@ -75,23 +83,14 @@ int	run_cmds(t_commands **cmds_list)
 	int	cmds_size;
 	int	i;
 	int	pipe_fd[2][2];
-	int	temp_fd[2];
 
-	temp_fd[STDIN_FILENO] = dup(STDIN_FILENO);
-	temp_fd[STDOUT_FILENO] = dup(STDOUT_FILENO);
 	i = 0;
 	cmds_size = size_commands(*cmds_list);
 	pipe(pipe_fd[0]);
 	pipe(pipe_fd[1]);
-	pipe_fd[0][STDIN_FILENO] = dup(STDIN_FILENO);
-	pipe_fd[0][STDOUT_FILENO] = dup(STDOUT_FILENO);
 	while (i < cmds_size - 1)
 	{
-		dup2((*cmds_list)->cmd->fd_in, STDIN_FILENO);
-		dup2((*cmds_list)->cmd->fd_out, STDOUT_FILENO);
 		new_process((*cmds_list)->cmd, pipe_fd[0], pipe_fd[1]);
-		dup2(temp_fd[STDIN_FILENO], STDIN_FILENO);
-		dup2(temp_fd[STDOUT_FILENO], STDOUT_FILENO);
 		close(pipe_fd[0][0]);
 		close(pipe_fd[0][1]);
 		pipe_fd[0][0] = pipe_fd[1][0];
@@ -100,11 +99,7 @@ int	run_cmds(t_commands **cmds_list)
 		rm_command(cmds_list);
 		i++;
 	}
-	dup2((*cmds_list)->cmd->fd_in, STDIN_FILENO);
-	dup2((*cmds_list)->cmd->fd_out, STDOUT_FILENO);
 	last_process((*cmds_list)->cmd , pipe_fd[0]);
-	dup2(temp_fd[STDIN_FILENO], STDIN_FILENO);
-	dup2(temp_fd[STDOUT_FILENO], STDOUT_FILENO);
 	rm_command(cmds_list);
 	close(pipe_fd[0][0]);
 	close(pipe_fd[0][1]);
