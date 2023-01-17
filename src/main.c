@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/14 17:18:20 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/17 12:23:40 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 {
 	int			i;
 	t_commands 	*cmds;
-	char		**args;
+	//char		**args;
 	//int			fd_in[2];
 	//int			fd_out[2];
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 	fd_out[0] = open("out", O_CREAT | O_WRONLY, 0644);
 	fd_in[1] = open(".gitignore", O_RDONLY);
 	fd_out[1] = open("out2", O_CREAT | O_WRONLY, 0644);*/
-	while (i < argc)
+	/*while (i < argc)
 	{
 		args = ft_split(argv[i], ' ');
 		t_command *cmd;
@@ -39,7 +39,8 @@ int	main(int argc, char **argv)
 		i++;	
 	}
 	if (size_commands(cmds))
-		run_cmds(&cmds);
-	ft_pwd();
+		run_cmds(&cmds);*/
+	//ft_pwd();
+	ft_echo(argv + 1, argc - 1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:28:30 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/14 15:34:29 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:44:37 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define BUILTINS_H
 # include "minishell.h"
 
-int	ft_echo(char **args, t_env_var *vars);
+int	ft_echo(char **argv, int argc);
 int	ft_cd(char *arg, t_env_var *vars);
 int	ft_pwd(void);
 int	ft_export(char **args, t_env_var *vars);
