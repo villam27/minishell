@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/17 12:23:40 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/17 14:46:12 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 #include "builtins.h"
 #include <fcntl.h>
 
-int	main(int argc, char **argv)
+void	ft_print_env(t_env_var *var);
+
+int	main(int argc, char **argv, char **envp)
 {
 	int			i;
 	t_commands 	*cmds;
+	t_env_var	*vars = NULL;
 	//char		**args;
 	//int			fd_in[2];
 	//int			fd_out[2];
@@ -42,5 +45,14 @@ int	main(int argc, char **argv)
 		run_cmds(&cmds);*/
 	//ft_pwd();
 	ft_echo(argv + 1, argc - 1);
+	i = 0;
+	while (envp[i])
+	{
+		char **sp = ft_split(envp[i], '=');
+		ft_export(sp[0], sp[1], &vars);
+		free_all(sp);
+		i++;
+	}
+	ft_print_env(vars);
 	return (0);
 }
