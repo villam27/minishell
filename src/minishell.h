@@ -6,14 +6,14 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/16 10:30:32 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/19 11:57:32 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "../libft/libft.h"
-//# include <wait.h>
+# include <wait.h>
 
 typedef struct s_env_var
 {

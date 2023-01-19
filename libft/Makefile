@@ -6,7 +6,7 @@
 #    By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 23:55:26 by alboudje          #+#    #+#              #
-#    Updated: 2022/12/30 15:54:22 by alboudje         ###   ########.fr        #
+#    Updated: 2023/01/19 12:05:41 by alboudje         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC			=	ft_atoi.c \
 				ft_strlen.c \
 				ft_strmapi.c \
 				ft_strncmp.c \
+				ft_strcmp.c \
 				ft_strnstr.c \
 				ft_strrchr.c \
 				ft_strtrim.c \

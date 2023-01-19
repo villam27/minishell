@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/17 14:46:12 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/19 11:57:19 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ void	ft_print_env(t_env_var *var);
 int	main(int argc, char **argv, char **envp)
 {
 	int			i;
-	t_commands 	*cmds;
+//	t_commands 	*cmds;
 	t_env_var	*vars = NULL;
 	//char		**args;
 	//int			fd_in[2];
 	//int			fd_out[2];
 
 	i = 1;
-	cmds = NULL;
+//	cmds = NULL;
 	/*fd_in[0] = open("Makefile", O_RDONLY);
 	fd_out[0] = open("out", O_CREAT | O_WRONLY, 0644);
 	fd_in[1] = open(".gitignore", O_RDONLY);
