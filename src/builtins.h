@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:28:30 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/19 12:12:26 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/19 13:52:28 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include "minishell.h"
 
 int	ft_echo(char **argv, int argc);
-int	ft_cd(char *arg, t_env_var *vars);
+int	ft_cd(char **args, int argc, t_env_var *vars);
 int	ft_pwd(void);
 int	ft_export(char *name, char *value, t_env_var **vars);
 int	ft_unset(char *arg, t_env_var **vars);
