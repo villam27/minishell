@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/12 19:02:09 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/19 11:12:12 by ratinax          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_command
 typedef struct s_commands
 {
 	t_command	*cmd;
-	t_command	*next;
+	struct s_commands	*next;
 }	t_commands;
 /*
 	command init and destruction
@@ -65,13 +65,16 @@ int			parsing_errors(char *str);
 	Heredocs
 */
 t_list		*create_heredocs(char *str);
-void		do_heredocs(char *str);
+char		**do_heredoc(char *hd_out);
+char		**do_heredocs(char *str);
 /*
 	Utils
 */
 int			is_in(char c, char *str);
+void		put_astring(char **str);
 
 /*heredoc utils*/
 int			in_quote(char *str, int index);
 int			while_out(char *str, int i);
+char		**to_astr_endl(t_list **lst);
 #endif

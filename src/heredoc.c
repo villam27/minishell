@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/12 19:24:02 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/19 11:14:41 by ratinax          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <sys/types.h>
+#include <sys/wait.h>
 
 char	*to_gd_hd(char *str)
 {
@@ -94,32 +96,51 @@ int	good_heredocs(char	*str, t_list *hd)
 	return (1);
 }
 
-void	do_heredoc(char *hd_out)
+char	**do_heredoc(char *hd_out)
 {
+	int		pid;
 	char	*line;
+	t_list	*line_lst;
 
-	line = readline("> ");
-	while (ft_strncmp(hd_out, line, ft_strlen(hd_out)) != 0)
+	line_lst = NULL;
+	pid = fork();
+	if (pid < 0)
+		return (NULL);
+	if (pid == 0)
 	{
-		free(line);
 		line = readline("> ");
+		if (ft_strncmp(hd_out, line, ft_strlen(hd_out)) != 0)
+			line_lst = ft_lstnew((char *)line);
+		while (ft_strncmp(hd_out, line, ft_strlen(hd_out)) != 0)
+		{
+			line = readline("> ");
+			if (ft_strncmp(hd_out, line, ft_strlen(hd_out)) != 0)
+				ft_lstadd_back(&line_lst, ft_lstnew((char *)line));
+		}
+		return (to_astr_endl(&line_lst));
 	}
-	free(line);
+	waitpid(pid, NULL, 0);
+	return (NULL);
 }
 
-void	do_heredocs(char *str)
+char	**do_heredocs(char *str)
 {
 	t_list	*heredocs;
 	t_list	*tmp;
+	char	**res;
 
+	res = NULL;
 	heredocs = create_heredocs(str);
 	if (!good_heredocs(str, heredocs))
 		ft_lstclear(&heredocs, free);
 	tmp = heredocs;
 	while (tmp)
 	{
-		do_heredoc(tmp->content);
+		res = do_heredoc(tmp->content);
+		if (tmp->next)
+			free_all(res);
 		tmp = tmp->next;
 	}
 	ft_lstclear(&heredocs, free);
+	return (res);
 }
