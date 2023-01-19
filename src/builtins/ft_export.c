@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:43:05 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/19 16:09:23 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/19 16:13:57 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_env_var	*ft_env_new(char *name, char *content)
 	return (result);
 }
 
-static void	ft_sort_int_tab(t_env_var **var)
+static void	ft_sort_env_var(t_env_var **var)
 {
 	t_env_var	*temp1;
 	t_env_var	*temp2;
