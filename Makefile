@@ -6,7 +6,7 @@
 #    By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/19 12:46:27 by alboudje         ###   ########.fr        #
+#    Updated: 2023/01/19 13:13:58 by alboudje         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC_FILES		= 	main.c \
 					builtins/ft_pwd.c \
 					builtins/ft_export.c \
 					builtins/ft_unset.c \
+					builtins/ft_env.c \
 					builtins/ft_echo.c
 					
 SRC 			= 	$(addprefix $(SRC_FOLDER), $(SRC_FILES))

@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:43:05 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/19 13:03:57 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/19 13:13:38 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_env_var	*ft_env_new(char *name, char *content)
 	return (result);
 }
 
-static int	ft_env_size(t_env_var *var)
+/*static int	ft_env_size(t_env_var *var)
 {
 	int	i;
 
@@ -44,7 +44,7 @@ static int	ft_env_size(t_env_var *var)
 		var = var->next;
 	}
 	return (i);
-}
+}*/
 
 static void	ft_sort_int_tab(t_env_var **var)
 {
