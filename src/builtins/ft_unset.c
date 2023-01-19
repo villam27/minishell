@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:12:06 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/19 12:45:48 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/19 16:17:29 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	ft_unset(char *arg, t_env_var **vars)
 	if (!arg || !(*vars))
 		return (0);
 	temp = (*vars);
-	prev = NULL;
 	if (!ft_strcmp(arg, temp->name))
 	{
 		(*vars) = (*vars)->next;
@@ -43,8 +42,7 @@ int	ft_unset(char *arg, t_env_var **vars)
 		if (!ft_strcmp(arg, temp->name))
 		{
 			prev->next = temp->next;
-			ft_delone(temp);
-			return (1);
+			return (ft_delone(temp));
 		}
 		prev = temp;
 		temp = temp->next;
