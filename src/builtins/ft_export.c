@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:43:05 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/18 15:50:19 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/19 13:03:57 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	ft_sort_int_tab(t_env_var **var)
 		temp2 = temp1->next;
 		while (temp2->next)
 		{
-			if (ft_strncmp(temp1->name, temp2->name, 100) > 0)
+			if (ft_strcmp(temp1->name, temp2->name) > 0)
 			{
 				name = temp1->name;
 				temp1->name = temp2->name;
@@ -95,14 +95,19 @@ static t_env_var	*ft_env_dup(t_env_var *var)
 void	ft_print_env(t_env_var *var)
 {
 	t_env_var	*var_dup;
+	t_env_var	*temp;
 	
 	var_dup = ft_env_dup(var);
+	temp = var_dup;
 	ft_sort_int_tab(&var_dup);
-	ft_printf("%d\n", ft_env_size(var));
 	while (var_dup != NULL)
 	{
 		ft_printf("declare -x %s=\"%s\"\n", var_dup->name, var_dup->content);
 		var_dup = var_dup->next;
+	}
+	while (temp)
+	{
+		ft_unset(temp->name, &temp);
 	}
 }
 

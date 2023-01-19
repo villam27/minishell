@@ -6,7 +6,7 @@
 #    By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/18 15:46:06 by alboudje         ###   ########.fr        #
+#    Updated: 2023/01/19 12:46:27 by alboudje         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC_FILES		= 	main.c \
 					execution.c \
 					builtins/ft_pwd.c \
 					builtins/ft_export.c \
+					builtins/ft_unset.c \
 					builtins/ft_echo.c
 					
 SRC 			= 	$(addprefix $(SRC_FOLDER), $(SRC_FILES))
@@ -34,7 +35,7 @@ INCLUDES_FILES 	= 	minishell.h \
 INCLUDES 		= 	$(addprefix $(SRC_FOLDER), $(INCLUDES_FILES))
 
 OBJ 			= 	${SRC_FILES:.c=.o}
-CFLAGS 			= 	-Wall -Wextra -Werror #-g3 -fsanitize=address
+CFLAGS 			= 	-Wall -Wextra -Werror -g3 -fsanitize=address
 OBJS			= 	$(addprefix $(OBJS_FOLDER), $(OBJ))
 
 all : title $(NAME)
