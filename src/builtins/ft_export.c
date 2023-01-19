@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:43:05 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/19 16:13:57 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/19 16:15:14 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	ft_print_env(t_env_var *var)
 	if (!var_dup)
 		return ;
 	temp = var_dup;
-	ft_sort_int_tab(&var_dup);
+	ft_sort_env_var(&var_dup);
 	while (var_dup != NULL)
 	{
 		ft_printf("declare -x %s=\"%s\"\n", var_dup->name, var_dup->content);
