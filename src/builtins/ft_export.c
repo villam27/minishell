@@ -6,17 +6,11 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:43:05 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/19 13:13:38 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/19 16:09:23 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtins.h"
-
-/*
-	export VAR 	//do nothing
-	export VAR= //create empty
-	export 		//print all var in ascii order
-*/
 
 static t_env_var	*ft_env_new(char *name, char *content)
 {
@@ -28,33 +22,23 @@ static t_env_var	*ft_env_new(char *name, char *content)
 	if (result == NULL)
 		return (NULL);
 	result->content = ft_strdup(content);
+	if (!result->content)
+		return (free(result), NULL);
 	result->name = ft_strdup(name);
+	if (!result->name)
+		return (free(result->content), free(result), NULL);
 	result->next = NULL;
 	return (result);
 }
-
-/*static int	ft_env_size(t_env_var *var)
-{
-	int	i;
-
-	i = 0;
-	while (var != NULL)
-	{
-		i++;
-		var = var->next;
-	}
-	return (i);
-}*/
 
 static void	ft_sort_int_tab(t_env_var **var)
 {
 	t_env_var	*temp1;
 	t_env_var	*temp2;
-	char		*name = NULL;
-	char		*cont = NULL;
+	char		*name;
+	char		*cont;
 
 	temp1 = *var;
-	temp2 = *var;
 	while (temp1->next)
 	{
 		temp2 = temp1->next;
@@ -76,12 +60,17 @@ static void	ft_sort_int_tab(t_env_var **var)
 	}
 }
 
+/*
+	TODO: clear list if malloc broke while looping
+*/
 static t_env_var	*ft_env_dup(t_env_var *var)
 {
 	t_env_var	*dup_env;
 	t_env_var	*temp;
-	
+
 	dup_env = ft_env_new(var->name, var->content);
+	if (!dup_env)
+		return (NULL);
 	temp = dup_env;
 	while (var->next != NULL)
 	{
@@ -96,8 +85,10 @@ void	ft_print_env(t_env_var *var)
 {
 	t_env_var	*var_dup;
 	t_env_var	*temp;
-	
+
 	var_dup = ft_env_dup(var);
+	if (!var_dup)
+		return ;
 	temp = var_dup;
 	ft_sort_int_tab(&var_dup);
 	while (var_dup != NULL)
@@ -111,6 +102,9 @@ void	ft_print_env(t_env_var *var)
 	}
 }
 
+/*
+	TODO: Check if the var contains a '?' return an error
+*/
 int	ft_export(char *name, char *content, t_env_var **vars)
 {
 	t_env_var	*new;
@@ -123,11 +117,9 @@ int	ft_export(char *name, char *content, t_env_var **vars)
 	}
 	if (!name)
 		return (0);
-	if (ft_strchr(name, '?'))
-		return (ft_putstr_fd("minishell: export: `?': not a valid identifier", 2));
 	new = ft_env_new(name, content);
 	if (!new)
-		return (0);
+		return (1);
 	temp = *vars;
 	if (temp == NULL)
 	{
