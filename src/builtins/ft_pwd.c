@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:31:29 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/14 15:36:05 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/20 19:49:31 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_pwd(void)
 	if (getcwd(pwd, PATH_MAX))
 	{
 		ft_printf("%s\n", pwd);
-		return (1);
+		return (0);
 	}
-	return (0);
+	return (1);
 }
