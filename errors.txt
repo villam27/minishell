@@ -1,0 +1,8 @@
+plus de 2 '<', '|' etc.. : 258
+quote pas fermé : 258
+no file dir ou permiision denied : 1
+command not found : 127
+illegal option : 1
+
+mettre -2 en out quand un heredoce dans un pipe et -2 en in quand heredoce dans le pipe d'avant
+

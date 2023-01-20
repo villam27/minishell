@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboudje <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:27:12 by alboudje          #+#    #+#             */
-/*   Updated: 2022/12/19 12:09:50 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/12 11:48:48 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_printf(const char *str, ...);
 ssize_t	ft_putchar_fd(char c, int fd);
 ssize_t	ft_putnbr_fd(int n, int fd);
+void	ft_putendl_fd(char *s, int fd);
 ssize_t	ft_putnbrbase_fd(int n, char *base, int fd);
 ssize_t	ft_putstr_fd(char *s, int fd);
 ssize_t	ft_ullputnbrbase_fd(unsigned long long int n, char *base, int fd);

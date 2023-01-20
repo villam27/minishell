@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/10 13:09:46 by alboudje         ###   ########.fr        #
+#    Updated: 2023/01/20 18:00:59 by ratinax          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,14 @@ LIBFT_FILES		= 	libft/*.c libft/*.h libft/Makefile
 SRC_FOLDER		= 	src/
 OBJS_FOLDER		=	objs/
 SRC_FILES		= 	main.c \
-					command.c \
-					command_list.c
-					
+					parsing_errors.c \
+					heredoc.c \
+					minishell_utils.c \
+					heredoc_utils.c
+
+RD_LIB_H=~/.brew/opt/readline/include
+RD_LIB_A=-L ~/.brew/opt/readline/lib -lreadline
+
 SRC 			= 	$(addprefix $(SRC_FOLDER), $(SRC_FILES))
 
 INCLUDES_FILES 	= 	minishell.h
@@ -29,18 +34,22 @@ INCLUDES_FILES 	= 	minishell.h
 INCLUDES 		= 	$(addprefix $(SRC_FOLDER), $(INCLUDES_FILES))
 
 OBJ 			= 	${SRC_FILES:.c=.o}
-CFLAGS 			= 	-Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS 			= 	-Wall -Wextra -Werror # -g3 -fsanitize=address
 OBJS			= 	$(addprefix $(OBJS_FOLDER), $(OBJ))
 
-all : title $(NAME)
+
+
+all : title
+		gcc src/*.c libft/*.c -L/usr/local/lib -I/usr/local/include -lreadline
+
 
 $(NAME) : $(OBJS_FOLDER) $(OBJS)
 	@make -C libft
-	@$(CC) -o $(NAME) $(CFLAGS) $(OBJS) $(LIBFT)
+	$(CC) -o $(NAME) $(CFLAGS) $(RD_LIB_A) $(OBJS) $(LIBFT)
 	@printf "$(GREEN)Creating $(PURPLE)$(NAME)$(END): OK\n"
 
 $(OBJS_FOLDER)%.o : $(SRC_FOLDER)%.c $(INCLUDES) Makefile $(LIBFT_FILES)
-	@$(CC) $(CFLAGS) -o $@ -c $<
+	@$(CC) $(CFLAGS) -o $@ -c $< -I $(RD_LIB_H)
 	@printf "$(BLUE)Compiling $(NAME): $(CYAN)$<: $(GREEN)OK$(END)\n"
 
 $(OBJS_FOLDER):
@@ -58,10 +67,10 @@ re : fclean all
 
 title :
 	@printf "$(PURPLE)    __  ________   ______          __         ____		\n"
-	@printf	"$(PURPLE)   /  |/  /  _/ | / /  _/    _____/ /_  ___  / / /		\n" 
+	@printf	"$(PURPLE)   /  |/  /  _/ | / /  _/    _____/ /_  ___  / / /		\n"
 	@printf "$(PURPLE)  / /|_/ // //  |/ // /_____/ ___/ __ \\/ _ \\/ / /		\n"
 	@printf "$(PURPLE) / /  / // // /|  // /_____(__  ) / / /  __/ / /	 		\n"
-	@printf "$(PURPLE)/_/  /_/___/_/ |_/___/    /____/_/ /_/\\___/_/_/   $(END)	\n" 
+	@printf "$(PURPLE)/_/  /_/___/_/ |_/___/    /____/_/ /_/\\___/_/_/   $(END)	\n"
 	@printf "___________________________$(RED)tibernot & alboudje$(END)_\n"
 
 .PHONY: all clean fclean re

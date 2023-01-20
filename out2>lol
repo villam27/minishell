@@ -1,0 +1,6 @@
+if nb + 1% 3 == 0:
+	a
+else if nb + 2% 3 == 0:
+	b
+else
+	c
