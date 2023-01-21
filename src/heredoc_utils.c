@@ -6,7 +6,7 @@
 /*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:58:38 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/21 10:26:12 by ratinax          ###   ########.fr       */
+/*   Updated: 2023/01/21 10:59:00 by ratinax          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,19 @@ int	in_quote(char *str, int index)
 	return (is_quote || is_dquote);
 }
 
-char	*str_append(char *origin, const char *str2, const char *str3)
+char	*str_append(char *origin, char *str2, char *str3)
 {
 	char	*res;
 
-	res = malloc(sizeof(char) * (ft_strlen(origin)
-				+ ft_strlen(str2) + ft_strlen(str3) + 1));
+	res = ft_calloc((ft_strlen(origin)
+				+ ft_strlen(str2) + ft_strlen(str3) + 1), sizeof(char));
 	if (!res)
 		return (NULL);
 	ft_strlcat(res, origin, ft_strlen(origin) + 1);
-	ft_strlcat(res, (char *)str2, ft_strlen(origin) + ft_strlen(str2) + 1);
+	if (str2)
+		ft_strlcat(res, (char *)str2, ft_strlen(origin) + ft_strlen(str2) + 1);
 	ft_strlcat(res, (char *)str3, ft_strlen(origin)
 		+ ft_strlen(str2) + ft_strlen(str3) + 1);
-	res[ft_strlen(origin) + ft_strlen(str2) + ft_strlen(str3) + 1] = '\0';
 	if (origin)
 		free(origin);
 	return (res);

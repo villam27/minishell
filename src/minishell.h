@@ -6,7 +6,7 @@
 /*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/20 18:28:21 by ratinax          ###   ########.fr       */
+/*   Updated: 2023/01/21 10:55:20 by ratinax          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,11 @@ char		**do_heredocs(char *str);
 */
 int			is_in(char c, char *str);
 void		put_astring(char **str);
+char		**ft_split_not_in_quotes(char *s, char c);
 
 /*heredoc utils*/
 int			in_quote(char *str, int index);
 int			while_out(char *str, int i);
-char		*str_append(char *origin, const char *str2, const char *str3);
+char		*str_append(char *origin, char *str2, char *str3);
 
 #endif

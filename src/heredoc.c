@@ -6,7 +6,7 @@
 /*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/21 10:26:45 by ratinax          ###   ########.fr       */
+/*   Updated: 2023/01/21 10:59:30 by ratinax          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,5 @@ char	**do_heredocs(char *str)
 	}
 	res[i] = NULL;
 	ft_lstclear(&heredocs, free);
-	return (NULL);
+	return (res);
 }
