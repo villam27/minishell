@@ -6,7 +6,7 @@
 /*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:58:38 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/21 10:59:00 by ratinax          ###   ########.fr       */
+/*   Updated: 2023/01/21 17:14:22 by ratinax          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	while_out(char *str, int i)
 	k = 0;
 	while (str[i + j] && str[i + j] != ' ')
 	{
+		if (str[i + j] == '<' && str[i + j - 1] == '<' && !in_quote(str, i))
+			return (j - 1);
 		if (is_in(str[i + j], "\'\""))
 		{
 			k = 1;
@@ -28,8 +30,7 @@ int	while_out(char *str, int i)
 				k++;
 			j += k;
 		}
-		else
-			j++;
+		j++;
 	}
 	return (j);
 }

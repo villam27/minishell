@@ -6,7 +6,7 @@
 /*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/21 10:59:30 by ratinax          ###   ########.fr       */
+/*   Updated: 2023/01/21 17:04:48 by ratinax          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ t_list	*create_heredocs(char *str)
 				i++;
 				while (str[i] && is_in(str[i], " \f\n\t\v\r"))
 					i++;
-				if (!str[i])
-					return (NULL);
 				j = while_out(str, i);
 				ft_lstadd_back(&lst, ft_lstnew(to_gd_hd(ft_substr(str, i, j))));
 				i += j - 1;

@@ -6,7 +6,7 @@
 /*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/21 11:36:35 by ratinax          ###   ########.fr       */
+/*   Updated: 2023/01/21 15:02:06 by ratinax          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,10 @@ char		***get_all(char	*line);
 int			in_quote(char *str, int index);
 int			while_out(char *str, int i);
 char		*str_append(char *origin, char *str2, char *str3);
-
+/*Parse and split utils*/
+void		free_aastring(char ***str);
+void		put_aastring(char ***str);
+size_t		ft_astrlen(char **str);
+size_t		ft_aastrlen(char ***astr);
+void		free_alist(t_list **alst);
 #endif

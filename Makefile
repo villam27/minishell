@@ -6,7 +6,7 @@
 #    By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/21 09:53:16 by ratinax          ###   ########.fr        #
+#    Updated: 2023/01/21 18:02:49 by ratinax          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ OBJS			= 	$(addprefix $(OBJS_FOLDER), $(OBJ))
 
 
 all : title
-		gcc -fsanitize=address src/*.c libft/*.c -L/usr/local/lib -I/usr/local/include -lreadline
+		gcc -g3 -fsanitize=address src/*.c libft/*.c -L/usr/local/lib -I/usr/local/include -lreadline
 
 
 $(NAME) : $(OBJS_FOLDER) $(OBJS)
