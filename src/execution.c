@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/20 20:01:56 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/21 13:16:04 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,20 @@ void	print_cmd(t_command *cmd)
 	ft_printf("in: %d, out %d, err %d\n", cmd->fd_in, cmd->fd_out, cmd->fd_err);
 }
 
-static int	run_builtins(t_command *cmd)
+static int	run_builtins(t_command *cmd, t_env_var **vars)
 {
 	if (!ft_strcmp(cmd->cmd, "pwd"))
 		return (exit(ft_pwd()), 1);
+	if (!ft_strcmp(cmd->cmd, "cd"))
+		return (exit(ft_cd(cmd->args + 1, 1, *vars)), 1);
+	if (!ft_strcmp(cmd->cmd, "echo"))
+		return (exit(ft_echo(cmd->args + 1, 1)), 1);
+	if (!ft_strcmp(cmd->cmd, "export"))
+		return (exit(ft_export(NULL, NULL, vars)), 1);
+	if (!ft_strcmp(cmd->cmd, "unset"))
+		return (exit(ft_unset(cmd->args[1], vars)), 1);
+	if (!ft_strcmp(cmd->cmd, "env"))
+		return (exit(ft_env(*vars)), 1);
 	return (0);
 }
 
@@ -54,8 +64,8 @@ static void	wait_cmds(int cmds_size)
 	}
 }
 
-static pid_t	new_process(t_command *cmd, int pipe_old[2]
-	, int pipe_new[2], t_commands *last)
+static pid_t	new_process(t_command *cmd, int pipes[2][2],
+	t_commands *last, t_env_var **vars)
 {
 	pid_t	pid;
 
@@ -66,24 +76,23 @@ static pid_t	new_process(t_command *cmd, int pipe_old[2]
 	{
 		dup2(cmd->fd_in, STDIN_FILENO);
 		dup2(cmd->fd_out, STDOUT_FILENO);
-		dup2(pipe_old[STDIN_FILENO], cmd->fd_in);
+		dup2(pipes[0][STDIN_FILENO], cmd->fd_in);
 		if (last)
-			dup2(pipe_new[STDOUT_FILENO], cmd->fd_out);
+			dup2(pipes[1][STDOUT_FILENO], cmd->fd_out);
 		else
 			dup2(STDOUT_FILENO, cmd->fd_out);
-		multi_close(pipe_old, pipe_new);
+		multi_close(pipes[0], pipes[1]);
 		if (cmd->fd_out > 2)
 			close(cmd->fd_out);
 		if (cmd->fd_in > 2)
 			close(cmd->fd_in);
-		if (!run_builtins(cmd))
+		if (!run_builtins(cmd, vars))
 			execve(cmd->cmd, cmd->args, NULL);
-		ft_putstr_fd("a", 2);
 	}
 	return (pid);
 }
 
-int	run_cmds(t_commands **cmds_list)
+int	run_cmds(t_commands **cmds_list, t_env_var **vars)
 {
 	int	cmds_size;
 	int	pipe_fd[2][2];
@@ -96,7 +105,7 @@ int	run_cmds(t_commands **cmds_list)
 	while ((*cmds_list))
 	{
 		new_process((*cmds_list)->cmd,
-			pipe_fd[0], pipe_fd[1], (*cmds_list)->next);
+			pipe_fd, (*cmds_list)->next, vars);
 		close(pipe_fd[0][0]);
 		close(pipe_fd[0][1]);
 		pipe_fd[0][0] = pipe_fd[1][0];

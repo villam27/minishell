@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:43:05 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/19 16:15:14 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/21 13:17:39 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	ft_export(char *name, char *content, t_env_var **vars)
 
 	if (!name && !content)
 	{
-		ft_print_env(NULL);
+		ft_print_env(*vars);
 		return (1);
 	}
 	if (!name)

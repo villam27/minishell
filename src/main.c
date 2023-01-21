@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/20 18:29:16 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/21 13:47:45 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,26 @@ int	main(int argc, char **argv, char **envp)
 {
 	int			i;
 	t_commands 	*cmds;
-	//t_env_var	*vars = NULL;
+	t_env_var	*vars = NULL;
 	char		**args;
 	//int			fd_in[2];
 	//int			fd_out[2];
 
-	i = 1;
 	cmds = NULL;
 	(void)envp;
 	/*fd_in[0] = open("Makefile", O_RDONLY);
 	fd_out[0] = open("out", O_CREAT | O_WRONLY, 0644);
 	fd_in[1] = open(".gitignore", O_RDONLY);
 	fd_out[1] = open("out2", O_CREAT | O_WRONLY, 0644);*/
+	i = 0;
+	while (envp[i])
+	{
+		char **sp = ft_split(envp[i], '=');
+		ft_export(sp[0], sp[1], &vars);
+		free_all(sp);
+		i++;
+	}
+	i = 1;
 	while (i < argc)
 	{
 		args = ft_split(argv[i], ' ');
@@ -42,24 +50,14 @@ int	main(int argc, char **argv, char **envp)
 		add_command(&cmds, &cmd);
 		i++;	
 	}
-	if (size_commands(cmds))
-		run_cmds(&cmds);
-	//ft_pwd();
-	/*ft_echo(argv + 1, argc - 1);
-	i = 0;
-	while (envp[i])
-	{
-		char **sp = ft_split(envp[i], '=');
-		ft_export(sp[0], sp[1], &vars);
-		free_all(sp);
-		i++;
-	}
-	ft_pwd();
-	ft_cd(argv + 1, argc - 1, vars);
+	if (size_commands(cmds) == 1 && is_builtins(cmds->cmd))
+		run_builtin(&cmds, &vars);
+	else if (size_commands(cmds))
+		run_cmds(&cmds, &vars);
 	ft_pwd();
 	while (vars)
 	{
 		ft_unset(vars->name, &vars);
-	}*/
+	}
 	return (0);
 }
