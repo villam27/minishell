@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:28:46 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/19 15:02:45 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/21 15:41:59 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static char	*get_home_path(t_env_var *vars)
 			return (ft_strdup(vars->content));
 		vars = vars->next;
 	}
-	ft_printf("fksdh\n");
 	return (NULL);
 }
 

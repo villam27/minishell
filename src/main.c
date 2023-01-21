@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/21 13:47:45 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/21 15:16:15 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ int	main(int argc, char **argv, char **envp)
 		add_command(&cmds, &cmd);
 		i++;	
 	}
-	if (size_commands(cmds) == 1 && is_builtins(cmds->cmd))
-		run_builtin(&cmds, &vars);
-	else if (size_commands(cmds))
-		run_cmds(&cmds, &vars);
+	run_everything(&cmds, &vars);	
 	ft_pwd();
 	while (vars)
 	{
