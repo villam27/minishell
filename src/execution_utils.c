@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:37:57 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/21 15:32:10 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/21 16:00:56 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int	run_builtin(t_commands **cmds, t_env_var **vars)
 		return (ft_pwd());
 	if (!ft_strcmp((*cmds)->cmd->cmd, "cd"))
 		return (ft_cd((*cmds)->cmd->args + 1
-			, arg_size((*cmds)->cmd->args + 1), *vars));
+				, arg_size((*cmds)->cmd->args + 1), *vars));
 	if (!ft_strcmp((*cmds)->cmd->cmd, "echo"))
 		return (ft_echo((*cmds)->cmd->args + 1
-			, arg_size((*cmds)->cmd->args + 1)));
+				, arg_size((*cmds)->cmd->args + 1)));
 	if (!ft_strcmp((*cmds)->cmd->cmd, "export"))
 		return (ft_export(NULL, NULL, vars));
 	if (!ft_strcmp((*cmds)->cmd->cmd, "unset"))
@@ -55,4 +55,14 @@ void	run_everything(t_commands **cmds, t_env_var **vars)
 		run_builtin(cmds, vars);
 	else if (size_commands(*cmds))
 		run_cmds(cmds, vars);
+}
+
+int	arg_size(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+		i++;
+	return (i);
 }

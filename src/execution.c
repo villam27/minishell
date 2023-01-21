@@ -6,36 +6,12 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/21 15:42:58 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/21 16:00:35 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "builtins.h"
-
-void	print_cmd(t_command *cmd)
-{
-	int	i;
-
-	i = 0;
-	ft_printf("command: %s\n", cmd->cmd);
-	while (cmd->args[i])
-	{
-		ft_printf("arg %d: %s\n", i, cmd->args[i]);
-		i++;
-	}
-	ft_printf("in: %d, out %d, err %d\n", cmd->fd_in, cmd->fd_out, cmd->fd_err);
-}
-
-int	arg_size(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i])
-		i++;
-	return (i);
-}
 
 static int	run_builtins(t_command *cmd, t_env_var **vars)
 {
@@ -43,10 +19,10 @@ static int	run_builtins(t_command *cmd, t_env_var **vars)
 		return (exit(ft_pwd()), 1);
 	if (!ft_strcmp(cmd->cmd, "cd"))
 		return (exit(ft_cd(cmd->args + 1,
-			arg_size(cmd->args + 1), *vars)), 1);
+					arg_size(cmd->args + 1), *vars)), 1);
 	if (!ft_strcmp(cmd->cmd, "echo"))
 		return (exit(ft_echo(cmd->args + 1,
-			arg_size(cmd->args + 1))), 1);
+					arg_size(cmd->args + 1))), 1);
 	if (!ft_strcmp(cmd->cmd, "export"))
 		return (exit(ft_export(NULL, NULL, vars)), 1);
 	if (!ft_strcmp(cmd->cmd, "unset"))
