@@ -6,7 +6,7 @@
 /*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/21 09:52:49 by ratinax          ###   ########.fr       */
+/*   Updated: 2023/01/21 10:45:41 by ratinax          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	main(int argc, char **argv, char **envp)
 			ft_putendl_fd("Parsing error", 2);
 		else
 			hds = do_heredocs(line); // to change to do in a fork
-
 		if (hds)
 			put_astring(hds);
 		if (hds)
@@ -57,3 +56,4 @@ int	main(int argc, char **argv, char **envp)
 	/*free str*/
 	return (0);
 }
+
