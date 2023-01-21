@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/21 19:32:04 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/21 20:00:11 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ int	main(int argc, char **argv, char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		char **sp = ft_split(envp[i], '=');
-		ft_export(sp[0], sp[1], &vars);
-		free_all(sp);
+		ft_export(envp[i], &vars);
 		i++;
 	}
 	i = 1;

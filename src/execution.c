@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/21 16:00:35 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/21 20:00:33 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	run_builtins(t_command *cmd, t_env_var **vars)
 		return (exit(ft_echo(cmd->args + 1,
 					arg_size(cmd->args + 1))), 1);
 	if (!ft_strcmp(cmd->cmd, "export"))
-		return (exit(ft_export(NULL, NULL, vars)), 1);
+		return (exit(ft_export(NULL, vars)), 1);
 	if (!ft_strcmp(cmd->cmd, "unset"))
 		return (exit(ft_unset(cmd->args[1], vars)), 1);
 	if (!ft_strcmp(cmd->cmd, "env"))

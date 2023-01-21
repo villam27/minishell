@@ -6,13 +6,13 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:43:05 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/21 19:35:37 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/21 20:18:12 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtins.h"
 
-static t_env_var	*ft_env_new(char *name, char *content)
+static t_env_var	*ft_env_new(char *name, char *content, int p_env)
 {
 	t_env_var	*result;
 
@@ -23,6 +23,8 @@ static t_env_var	*ft_env_new(char *name, char *content)
 		return (NULL);
 	if (content)
 		result->content = ft_strdup(content);
+	else if (p_env)
+		result->content = ft_strdup("");
 	else
 		result->content = NULL;
 	result->name = ft_strdup(name);
@@ -69,14 +71,14 @@ static t_env_var	*ft_env_dup(t_env_var *var)
 	t_env_var	*dup_env;
 	t_env_var	*temp;
 
-	dup_env = ft_env_new(var->name, var->content);
+	dup_env = ft_env_new(var->name, var->content, 1);
 	if (!dup_env)
 		return (NULL);
 	temp = dup_env;
 	while (var->next != NULL)
 	{
 		var = var->next;
-		temp->next = ft_env_new(var->name, var->content);
+		temp->next = ft_env_new(var->name, var->content, 1);
 		temp = temp->next;
 	}
 	return (dup_env);
@@ -121,12 +123,12 @@ t_env_var	*get_var_addr(char *name, t_env_var **vars)
 	return (NULL);
 }
 
-int	add_env(char *name, char *content, t_env_var **vars)
+int	add_env(char *name, char *content, t_env_var **vars, int p_env)
 {
 	t_env_var	*new;
 	t_env_var	*temp;
 
-	new = ft_env_new(name, content);
+	new = ft_env_new(name, content, p_env);
 	if (!new)
 		return (1);
 	temp = *vars;
@@ -146,24 +148,33 @@ int	mod_env(char *content, t_env_var **var)
 	free((*var)->content);
 	if (content)
 		(*var)->content = ft_strdup(content);
+	else
+		(*var)->content = ft_strdup("");
 	return (0);
 }
 
-int	ft_export(char *name, char *content, t_env_var **vars)
+int	ft_export(char *value, t_env_var **vars)
 {
-	t_env_var *var;
+	t_env_var	*var;
+	char		**variable;
+	int			p_env;
 
-	if (!name && !content)
+	p_env = 0;
+	if (ft_strchr(value, '='))
+		p_env = 1;
+	variable = ft_split(value, '=');
+	if (!variable[0] && !variable[1])
 	{
 		ft_print_env(*vars);
 		return (1);
 	}
-	if (!name)
+	if (!variable[0])
 		return (0);
-	var = get_var_addr(name, vars);
+	var = get_var_addr(variable[0], vars);
 	if (var)
-		mod_env(content, &var);
+		mod_env(variable[1], &var);
 	else
-		add_env(name, content, vars);
+		add_env(variable[0], variable[1], vars, p_env);
+	free_all(variable);
 	return (0);
 }
