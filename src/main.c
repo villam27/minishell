@@ -6,7 +6,7 @@
 /*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/21 10:45:41 by ratinax          ###   ########.fr       */
+/*   Updated: 2023/01/21 11:47:54 by ratinax          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	char	*user;
 	char	**hds;
+	char	***cmds;
 
 	(void) argc;
 	(void) argv;
 	(void) envp;
-	user = "tibernot$ ";
+	user = "Minishell$ ";
 	/*init env_vars*/
 	/*while do prompt*/
 	/*get signal quit*/
-	/*add_historique*/
-	/*get string in str*/
 	line = "l";
 	hds = NULL;
+	cmds = NULL;
 	while (line)
 	{
 		line = readline(user);
@@ -47,9 +47,9 @@ int	main(int argc, char **argv, char **envp)
 			put_astring(hds);
 		if (hds)
 			free_all(hds);
+		get_all(line);
 		free(line);
 	}
-	/*get string without '<<'*/
 	/*split on pipes*/
 	/*do the command list*/
 	/*exec commands*/

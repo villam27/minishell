@@ -6,7 +6,7 @@
 /*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:28:30 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/21 09:50:59 by ratinax          ###   ########.fr       */
+/*   Updated: 2023/01/21 11:56:25 by ratinax          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	put_astring(char **str)
 	i = 0;
 	while (str[i])
 	{
-		ft_printf("%s", str[i]);
+		ft_printf("%s ", str[i]);
 		i++;
 	}
 }

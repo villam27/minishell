@@ -6,7 +6,7 @@
 /*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/21 10:55:20 by ratinax          ###   ########.fr       */
+/*   Updated: 2023/01/21 11:36:35 by ratinax          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_command
 	char		*cmd;
 	char		**args;
 	t_env_var	*vars;
+	char		*heredoc;
 }	t_command;
 
 typedef struct s_commands
@@ -72,7 +73,7 @@ char		**do_heredocs(char *str);
 int			is_in(char c, char *str);
 void		put_astring(char **str);
 char		**ft_split_not_in_quotes(char *s, char c);
-
+char		***get_all(char	*line);
 /*heredoc utils*/
 int			in_quote(char *str, int index);
 int			while_out(char *str, int i);

@@ -6,7 +6,7 @@
 /*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:27:15 by ratinax           #+#    #+#             */
-/*   Updated: 2023/01/19 17:23:20 by ratinax          ###   ########.fr       */
+/*   Updated: 2023/01/21 11:54:38 by ratinax          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ size_t	size_word(char *s, char c, int ind)
 		i++;
 	while (s[i])
 	{
-		if (s[i] == c && !in_quote(s, c))
+		if (s[i] == c && !in_quote(s, i))
 		{
 			ind--;
 			while (s[i] == c)
 				i++;
 		}
-		while (s[i] && (s[i] != c || in_quote(s, c)) && ind == 0)
+		while (s[i] && (s[i] != c || in_quote(s, i)) && ind == 0)
 		{
 			i++;
 			j++;
@@ -85,7 +85,7 @@ size_t	size_word(char *s, char c, int ind)
 			return (j);
 		i++;
 	}
-	return (-1);
+	return (i);
 }
 
 void	free_array(char **astring, int n)
