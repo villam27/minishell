@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/12 19:24:02 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/21 10:26:45 by ratinax          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*to_gd_hd(char *str)
 	j = 0;
 	is_quote = 0;
 	is_dquote = 0;
-	res = malloc(sizeof(char) * ft_strlen(str));
+	res = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	while (str[i])
 	{
 		is_quote = is_quote ^ ((str[i] == '\'') * !is_dquote);
@@ -63,7 +63,7 @@ t_list	*create_heredocs(char *str)
 					return (NULL);
 				j = while_out(str, i);
 				ft_lstadd_back(&lst, ft_lstnew(to_gd_hd(ft_substr(str, i, j))));
-				i += j;
+				i += j - 1;
 			}
 		}
 	}
@@ -94,32 +94,48 @@ int	good_heredocs(char	*str, t_list *hd)
 	return (1);
 }
 
-void	do_heredoc(char *hd_out)
+char	*do_heredoc(char *hd_out)
 {
 	char	*line;
+	char	*res;
 
+	res = NULL;
 	line = readline("> ");
-	while (ft_strncmp(hd_out, line, ft_strlen(hd_out)) != 0)
+	if (ft_strncmp(hd_out, line, ft_strlen(hd_out) + ft_strlen(line)) != 0)
+		res = str_append(res, line, "\n");
+	while (ft_strncmp(hd_out, line, ft_strlen(hd_out) + ft_strlen(line)) != 0)
 	{
 		free(line);
 		line = readline("> ");
+		if (ft_strncmp(hd_out, line, ft_strlen(hd_out) + ft_strlen(line)) != 0)
+			res = str_append(res, line, "\n");
 	}
 	free(line);
+	return (res);
 }
 
-void	do_heredocs(char *str)
+char	**do_heredocs(char *str)
 {
 	t_list	*heredocs;
 	t_list	*tmp;
+	char	**res;
+	int		i;
 
+	i = 0;
 	heredocs = create_heredocs(str);
 	if (!good_heredocs(str, heredocs))
 		ft_lstclear(&heredocs, free);
+	res = malloc(sizeof(char *) * (ft_lstsize(heredocs) + 1));
+	if (!res)
+		return (NULL);
 	tmp = heredocs;
 	while (tmp)
 	{
-		do_heredoc(tmp->content);
+		res[i] = do_heredoc(tmp->content);
+		i++;
 		tmp = tmp->next;
 	}
+	res[i] = NULL;
 	ft_lstclear(&heredocs, free);
+	return (NULL);
 }

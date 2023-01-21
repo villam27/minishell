@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/12 19:20:27 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/21 09:52:49 by ratinax          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	char	*user;
+	char	**hds;
 
 	(void) argc;
 	(void) argv;
@@ -33,9 +34,7 @@ int	main(int argc, char **argv, char **envp)
 	/*add_historique*/
 	/*get string in str*/
 	line = "l";
-	/*add_history(line);
-	if (parsing_errors(line))
-		ft_putendl_fd("Parsing error", 2);*/
+	hds = NULL;
 	while (line)
 	{
 		line = readline(user);
@@ -43,7 +42,12 @@ int	main(int argc, char **argv, char **envp)
 		if (parsing_errors(line))
 			ft_putendl_fd("Parsing error", 2);
 		else
-			do_heredocs(line); // to change to do in a fork
+			hds = do_heredocs(line); // to change to do in a fork
+
+		if (hds)
+			put_astring(hds);
+		if (hds)
+			free_all(hds);
 		free(line);
 	}
 	/*get string without '<<'*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:58:38 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/12 19:02:25 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/21 10:26:12 by ratinax          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,22 @@ int	in_quote(char *str, int index)
 		i++;
 	}
 	return (is_quote || is_dquote);
+}
+
+char	*str_append(char *origin, const char *str2, const char *str3)
+{
+	char	*res;
+
+	res = malloc(sizeof(char) * (ft_strlen(origin)
+				+ ft_strlen(str2) + ft_strlen(str3) + 1));
+	if (!res)
+		return (NULL);
+	ft_strlcat(res, origin, ft_strlen(origin) + 1);
+	ft_strlcat(res, (char *)str2, ft_strlen(origin) + ft_strlen(str2) + 1);
+	ft_strlcat(res, (char *)str3, ft_strlen(origin)
+		+ ft_strlen(str2) + ft_strlen(str3) + 1);
+	res[ft_strlen(origin) + ft_strlen(str2) + ft_strlen(str3) + 1] = '\0';
+	if (origin)
+		free(origin);
+	return (res);
 }

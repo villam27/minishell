@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboudje <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:20:12 by alboudje          #+#    #+#             */
-/*   Updated: 2022/11/29 09:12:39 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/21 09:53:06 by ratinax          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	free_all(char **str)
 		i++;
 	}
 	free(str);
+	str = NULL;
 }
 
 char	**ft_split(char const *s, char c)
