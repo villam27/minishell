@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:43:05 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/21 13:17:39 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/21 19:35:37 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ static t_env_var	*ft_env_new(char *name, char *content)
 	result = malloc(sizeof(t_env_var));
 	if (result == NULL)
 		return (NULL);
-	result->content = ft_strdup(content);
-	if (!result->content)
-		return (free(result), NULL);
+	if (content)
+		result->content = ft_strdup(content);
+	else
+		result->content = NULL;
 	result->name = ft_strdup(name);
 	if (!result->name)
 		return (free(result->content), free(result), NULL);
@@ -105,18 +106,26 @@ void	ft_print_env(t_env_var *var)
 /*
 	TODO: Check if the var contains a '?' return an error
 */
-int	ft_export(char *name, char *content, t_env_var **vars)
+
+t_env_var	*get_var_addr(char *name, t_env_var **vars)
+{
+	t_env_var	*temp;
+
+	temp = *vars;
+	while (temp)
+	{
+		if (!ft_strcmp(temp->name, name))
+			return (temp);
+		temp = temp->next;
+	}
+	return (NULL);
+}
+
+int	add_env(char *name, char *content, t_env_var **vars)
 {
 	t_env_var	*new;
 	t_env_var	*temp;
 
-	if (!name && !content)
-	{
-		ft_print_env(*vars);
-		return (1);
-	}
-	if (!name)
-		return (0);
 	new = ft_env_new(name, content);
 	if (!new)
 		return (1);
@@ -129,5 +138,32 @@ int	ft_export(char *name, char *content, t_env_var **vars)
 	while (temp->next != NULL)
 		temp = temp->next;
 	temp->next = new;
+	return (0);
+}
+
+int	mod_env(char *content, t_env_var **var)
+{
+	free((*var)->content);
+	if (content)
+		(*var)->content = ft_strdup(content);
+	return (0);
+}
+
+int	ft_export(char *name, char *content, t_env_var **vars)
+{
+	t_env_var *var;
+
+	if (!name && !content)
+	{
+		ft_print_env(*vars);
+		return (1);
+	}
+	if (!name)
+		return (0);
+	var = get_var_addr(name, vars);
+	if (var)
+		mod_env(content, &var);
+	else
+		add_env(name, content, vars);
 	return (0);
 }

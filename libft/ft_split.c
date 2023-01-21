@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboudje <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:20:12 by alboudje          #+#    #+#             */
-/*   Updated: 2022/11/29 09:12:39 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/21 17:57:48 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	free_all(char **str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return ;
 	while (str[i] != NULL)
 	{
 		free(str[i]);
