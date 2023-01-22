@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/22 14:24:33 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/22 15:56:53 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int	main(int argc, char **argv, char **envp)
 		add_command(&cmds, &cmd);
 		i++;	
 	}
-	ft_env(vars);
+	//ft_env(vars);
 	run_everything(&cmds, &vars);	
 	ft_printf("---");
-	ft_env(vars);
+	//ft_env(vars);
 	ft_export(NULL, &vars);
 	while (vars)
 	{
