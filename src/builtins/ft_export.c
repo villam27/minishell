@@ -6,13 +6,13 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:43:05 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/21 20:18:12 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/22 14:27:43 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtins.h"
 
-static t_env_var	*ft_env_new(char *name, char *content, int p_env)
+t_env_var	*ft_env_new(char *name, char *content, int p_env)
 {
 	t_env_var	*result;
 
@@ -108,71 +108,27 @@ void	ft_print_env(t_env_var *var)
 /*
 	TODO: Check if the var contains a '?' return an error
 */
-
-t_env_var	*get_var_addr(char *name, t_env_var **vars)
-{
-	t_env_var	*temp;
-
-	temp = *vars;
-	while (temp)
-	{
-		if (!ft_strcmp(temp->name, name))
-			return (temp);
-		temp = temp->next;
-	}
-	return (NULL);
-}
-
-int	add_env(char *name, char *content, t_env_var **vars, int p_env)
-{
-	t_env_var	*new;
-	t_env_var	*temp;
-
-	new = ft_env_new(name, content, p_env);
-	if (!new)
-		return (1);
-	temp = *vars;
-	if (temp == NULL)
-	{
-		*vars = new;
-		return (0);
-	}
-	while (temp->next != NULL)
-		temp = temp->next;
-	temp->next = new;
-	return (0);
-}
-
-int	mod_env(char *content, t_env_var **var)
-{
-	free((*var)->content);
-	if (content)
-		(*var)->content = ft_strdup(content);
-	else
-		(*var)->content = ft_strdup("");
-	return (0);
-}
-
 int	ft_export(char *value, t_env_var **vars)
 {
 	t_env_var	*var;
 	char		**variable;
 	int			p_env;
 
-	p_env = 0;
-	if (ft_strchr(value, '='))
-		p_env = 1;
-	variable = ft_split(value, '=');
-	if (!variable[0] && !variable[1])
+	ft_putstr_fd("duck", 2);
+	if (!value)
 	{
 		ft_print_env(*vars);
 		return (1);
 	}
+	p_env = 0;
+	if (ft_strchr(value, '='))
+		p_env = 1;
+	variable = ft_split(value, '=');
 	if (!variable[0])
 		return (0);
 	var = get_var_addr(variable[0], vars);
 	if (var)
-		mod_env(variable[1], &var);
+		mod_env(variable[1], &var, p_env);
 	else
 		add_env(variable[0], variable[1], vars, p_env);
 	free_all(variable);
