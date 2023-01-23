@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 12:37:04 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:59:37 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char		**do_heredocs(char *str);
 int			is_in(char c, char *str);
 void		put_astring(char **str);
 char		**ft_split_not_in_quotes(char *s, char c);
-char		***get_all(char	*line, int	*fds);
+t_list		**get_all(char	*line);
 /*heredoc utils*/
 int			in_quote(char *str, int index);
 int			while_out(char *str, int i);
@@ -89,7 +89,7 @@ void		rm_heredoc(t_list *lst);
 void		rm_heredocs(t_list **lst);
 void		update_string_hd(t_list *lst, int i);
 t_list		**aastr_to_at_list(char ***aastr);
-t_list		*get_beggining(char	*str, int i);
+t_list		*get_beggining(char	*str, int i, char c);
 t_list		*get_end(char *str, int i);
 t_list		*get_end_hd(char *str, int i);
 t_list		*astr_to_t_list(char **str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_not_in_quotes.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:27:15 by ratinax           #+#    #+#             */
-/*   Updated: 2023/01/21 11:54:38 by ratinax          ###   ########.fr       */
+/*   Updated: 2023/01/23 15:09:47 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,4 +127,3 @@ char	**ft_split_not_in_quotes(char *s, char c)
 	astring[i] = NULL;
 	return (astring);
 }
-

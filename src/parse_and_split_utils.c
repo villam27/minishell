@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_and_split_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 14:23:15 by ratinax           #+#    #+#             */
-/*   Updated: 2023/01/21 15:04:45 by ratinax          ###   ########.fr       */
+/*   Updated: 2023/01/23 15:55:50 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ void	free_aastring(char ***str)
 	int	i;
 
 	i = 0;
-	while (str[i])
+	if (!str)
+		return ;
+	while (i < 1)
 	{
 		free_all(str[i]);
 		i++;

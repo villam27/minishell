@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 09:47:50 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/23 14:01:35 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:25:12 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,35 +21,33 @@ void	invert(t_list *lst, t_list *lst2)
 	lst2->content = content;
 }
 
-void	update_string_fi(t_list *lst, int i, char *str_end)
+void	update_string_fi(t_list *lst, int i, char *str_end, char *str)
 {
-	int		j;
 	t_list	*start;
 	t_list	*end;
 
 	end = NULL;
-	start = NULL;
-	j = 0;
-	ft_printf("lst : %s\n", lst->content);
-	start = get_beggining(lst->content, i);
+	start = get_beggining(lst->content, i, str[i]);
 	if (str_end)
 		end = ft_lstnew(ft_strdup(str_end));
-	if (end)
+	if (end && ((char *)end->content)[0])
 	{
-		ft_printf("end : %s\n", lst->content);
 		end->next = lst->next;
 		lst->next = end;
 	}
+	else
+		ft_lstdelone(end, free);
 	if (start)
 	{
-		ft_printf("start : %s\n", lst->content);
 		start->next = lst->next;
 		lst->next = start;
-		lst->content = str_to_chr(lst->content, 1);
+		lst->content = str_to_chr(lst->content, str[i]
+				+ (str[i] == str[i + 1]) - 70);
 		invert(lst, start);
 	}
 	else
-		lst->content = str_to_chr(lst->content, 1);
+		lst->content = str_to_chr(lst->content, str[i]
+				+ (str[i] == str[i + 1]) - 70);
 }
 
 void	replace_file_in(t_list *lst)
@@ -63,14 +61,18 @@ void	replace_file_in(t_list *lst)
 		i = -1;
 		while (((char *)tmp->content)[++i])
 		{
-			if ((((char *)tmp->content)[i] == '<')
+			if (((((char *)tmp->content)[i] == '<')
+				|| (((char *)tmp->content)[i] == '>'))
 				&& !in_quote(tmp->content, i))
 			{
 				if (((char *)tmp->content)[i + 1])
-					update_string_fi(tmp, i, &((char *)tmp->content)[i + 1]);
+					update_string_fi(tmp, i, &((char *)tmp->content)[i + 1
+						+ (((char *)tmp->content)[i] == ((char *)tmp->content)[i
+							+ 1])], tmp->content);
 				else
-					update_string_fi(tmp, i, NULL);
-				break;
+					update_string_fi(tmp, i, &((char *)tmp->content)[i + 1],
+						tmp->content);
+				break ;
 			}
 		}
 		tmp = tmp->next;

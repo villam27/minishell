@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/23 14:16:42 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:45:19 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ t_list	*create_heredocs(char *str)
 		j = 0;
 		if (str[i] == '<' && str[i - 1] == '<')
 		{
-			if (!in_quote(str, i))
+			if (!in_quote(str, i) && !in_quote(str, i - 1))
 			{
 				i++;
 				while (str[i] && is_in(str[i], " \f\n\t\v\r"))
 					i++;
 				j = while_out(str, i);
 				ft_lstadd_back(&lst, ft_lstnew(to_gd_hd(ft_substr(str, i, j))));
-				ft_printf("%s\n", to_gd_hd(ft_substr(str, i, j)));
+				// ft_printf("%s\n", to_gd_hd(ft_substr(str, i, j)));
 				i += j - 1;
 			}
 		}

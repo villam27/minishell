@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 09:25:46 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/23 14:23:08 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/23 16:03:52 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	rm_heredoc(t_list *lst)
 					ft_lstdelone(tmp2, free);
 				}
 				update_string_hd(tmp, i);
-				break;
+				break ;
 			}
 		}
 		tmp = tmp->next;
@@ -80,8 +80,7 @@ void	update_string_hd(t_list *lst, int i)
 	end = NULL;
 	start = NULL;
 	j = 0;
-
-	start = get_beggining(lst->content, i);
+	start = get_beggining(lst->content, i, '<');
 	end = get_end(lst->content, i);
 	if (end)
 	{
@@ -111,6 +110,8 @@ t_list	**aastr_to_at_list(char ***aastr)
 	while (aastr[i])
 	{
 		blocs[i] = astr_to_t_list(aastr[i]);
+		if (aastr[i])
+			free(aastr[i]);
 		if (!blocs[i])
 			return (free_alist(blocs), NULL);
 		i++;
