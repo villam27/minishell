@@ -6,14 +6,16 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/19 11:57:32 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/23 10:51:07 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "../libft/libft.h"
-# include <wait.h>
+# ifdef __linux__ 
+#  include <wait.h>
+# endif
 
 typedef struct s_env_var
 {
@@ -27,6 +29,7 @@ typedef struct s_command
 	int			fd_in;
 	int			fd_out;
 	int			fd_err;
+	char		*here;
 	char		*cmd;
 	char		**args;
 	t_env_var	*vars;
@@ -43,6 +46,7 @@ typedef struct s_commands
 */
 t_command	*init_command(char *cmd, char **args, t_env_var *vars);
 void		set_fd(t_command **cmd, int fd_in, int fd_out, int fd_err);
+void		set_heredoc(t_command **cmd, char *heredoc);
 void		destroy_command(t_command *cmd);
 
 t_commands	*init_commands(void);

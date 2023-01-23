@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/22 15:56:53 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/23 11:06:37 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char **argv, char **envp)
 		args = ft_split(argv[i], ' ');
 		t_command *cmd;
 		cmd = init_command(ft_strdup(args[0]), args, NULL);
+		set_heredoc(&cmd, ft_strdup("Le prout"));
 		add_command(&cmds, &cmd);
 		i++;	
 	}
@@ -44,7 +45,7 @@ int	main(int argc, char **argv, char **envp)
 	run_everything(&cmds, &vars);	
 	ft_printf("---");
 	//ft_env(vars);
-	ft_export(NULL, &vars);
+	//ft_export(NULL, &vars);
 	while (vars)
 	{
 		ft_unset(vars->name, &vars);

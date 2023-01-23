@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 10:05:31 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/14 12:53:53 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/23 11:01:38 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_command	*init_command(char *cmd, char **args, t_env_var *vars)
 	command->fd_err = 2;
 	command->fd_in = 0;
 	command->fd_out = 1;
+	command->here = NULL;
 	return (command);
 }
 
@@ -33,6 +34,11 @@ void	set_fd(t_command **cmd, int fd_in, int fd_out, int fd_err)
 	(*cmd)->fd_err = fd_err;
 	(*cmd)->fd_in = fd_in;
 	(*cmd)->fd_out = fd_out;
+}
+
+void	set_heredoc(t_command **cmd, char *heredoc)
+{
+	(*cmd)->here = heredoc;	
 }
 
 void	destroy_command(t_command *cmd)
@@ -45,5 +51,7 @@ void	destroy_command(t_command *cmd)
 		close(cmd->fd_out);
 	if (cmd->fd_err > 2)
 		close(cmd->fd_err);
+	if (cmd->here)
+		free(cmd->here);
 	free(cmd);
 }

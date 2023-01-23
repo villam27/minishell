@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/21 20:00:33 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/23 10:54:47 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ static pid_t	new_process(t_command *cmd, int pipes[2][2],
 			dup2(pipes[1][STDOUT_FILENO], cmd->fd_out);
 		else
 			dup2(STDOUT_FILENO, cmd->fd_out);
+		if (cmd->here)
+			ft_putstr_fd(cmd->here, pipes[0][STDIN_FILENO]);
 		multi_close(pipes[0], pipes[1]);
 		if (cmd->fd_out > 2)
 			close(cmd->fd_out);
