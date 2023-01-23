@@ -1,36 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_utils.c                                        :+:      :+:    :+:   */
+/*   to_good_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/23 11:44:21 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/23 17:11:17 by tibernot         ###   ########.fr       */
+/*   Created: 2023/01/23 17:20:55 by tibernot          #+#    #+#             */
+/*   Updated: 2023/01/23 17:21:20 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	put_lst(t_list	*lst)
+void	to_good_cmds(t_list **cmds)
 {
-	while (lst)
-	{
-		ft_printf("-%s- ", lst->content);
-		// ft_printf("-%d- ", ((char *)lst->content)[0]);
-		lst = lst->next;
-	}
-	ft_printf("\n");
-}
-
-void	put_alst(t_list **alst)
-{
-	int	i;
-
-	i = 0;
-	while (alst && *alst && alst[i])
-	{
-		put_lst(alst[i]);
-		i++;
-	}
+	
 }
