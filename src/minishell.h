@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 16:36:28 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/23 17:38:29 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void		destroy_vars(t_env_var **vars);
 	Parsing
 */
 int			parsing_errors(char *str);
+void		to_good_cmds(t_list **cmds);
 /*
 	Heredocs
 */
