@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:37:57 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 14:05:38 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:34:19 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,27 @@ int	is_builtins(t_command *cmd)
 
 int	run_builtin(t_commands **cmds, t_env_var **vars)
 {
+	int	temp;
+	int	result;
+	
+	temp = dup(1);
+	dup2((*cmds)->cmd->fd_out, STDOUT_FILENO);
 	if (!ft_strcmp((*cmds)->cmd->cmd, "pwd"))
-		return (ft_pwd());
+		result = ft_pwd();
 	if (!ft_strcmp((*cmds)->cmd->cmd, "cd"))
-		return (ft_cd((*cmds)->cmd->args + 1
-				, arg_size((*cmds)->cmd->args + 1), *vars));
+		result = ft_cd((*cmds)->cmd->args + 1
+				, arg_size((*cmds)->cmd->args + 1), *vars);
 	if (!ft_strcmp((*cmds)->cmd->cmd, "echo"))
-		return (ft_echo((*cmds)->cmd->args + 1
-				, arg_size((*cmds)->cmd->args + 1)));
+		result = ft_echo((*cmds)->cmd->args + 1
+				, arg_size((*cmds)->cmd->args + 1));
 	if (!ft_strcmp((*cmds)->cmd->cmd, "export"))
-	{
-		return (ft_export((*cmds)->cmd->args[1], vars));
-	}
+		result = ft_export((*cmds)->cmd->args[1], vars);
 	if (!ft_strcmp((*cmds)->cmd->cmd, "unset"))
-		return (ft_unset((*cmds)->cmd->args[1], vars));
+		result = ft_unset((*cmds)->cmd->args[1], vars);
 	if (!ft_strcmp((*cmds)->cmd->cmd, "env"))
-		return (ft_env(*vars));
-	return (0);
+		result = ft_env(*vars);
+	dup2(temp, STDOUT_FILENO);
+	return (result);
 }
 
 void	run_everything(t_commands **cmds, t_env_var **vars, int *ret)

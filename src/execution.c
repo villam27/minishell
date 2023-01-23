@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 14:06:29 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:36:56 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ static int	new_process(t_command *cmd, int pipes[2][2],
 		if (cmd->fd_in > 2)
 			close(cmd->fd_in);
 		if (!run_builtins(cmd, vars))
-			execve(cmd->cmd, cmd->args, NULL);
+			if (execve(cmd->cmd, cmd->args, NULL) < 0)
+				return (exit(0), -1);
 	}
 	return (pid);
 }
