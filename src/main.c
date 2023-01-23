@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 11:06:37 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:07:13 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	t_commands 	*cmds;
 	t_env_var	*vars = NULL;
 	char		**args;
+	int			ret_code = 0;
 
 	cmds = NULL;
 	i = 0;
@@ -37,12 +38,12 @@ int	main(int argc, char **argv, char **envp)
 		args = ft_split(argv[i], ' ');
 		t_command *cmd;
 		cmd = init_command(ft_strdup(args[0]), args, NULL);
-		set_heredoc(&cmd, ft_strdup("Le prout"));
+		set_heredoc(&cmd, ft_strdup("Le prout\0"));
 		add_command(&cmds, &cmd);
 		i++;	
 	}
 	//ft_env(vars);
-	run_everything(&cmds, &vars);	
+	run_everything(&cmds, &vars, &ret_code);	
 	ft_printf("---");
 	//ft_env(vars);
 	//ft_export(NULL, &vars);
@@ -50,5 +51,6 @@ int	main(int argc, char **argv, char **envp)
 	{
 		ft_unset(vars->name, &vars);
 	}
+	ft_printf("ret_code: %d\n", ret_code);
 	return (0);
 }

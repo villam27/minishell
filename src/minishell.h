@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 10:51:07 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:02:27 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_command
 	int			fd_in;
 	int			fd_out;
 	int			fd_err;
+	int			ret_value;
 	char		*here;
 	char		*cmd;
 	char		**args;

@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 10:05:31 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 11:01:38 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/23 13:16:35 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_command	*init_command(char *cmd, char **args, t_env_var *vars)
 	command->fd_err = 2;
 	command->fd_in = 0;
 	command->fd_out = 1;
+	command->ret_value = 0;
 	command->here = NULL;
 	return (command);
 }

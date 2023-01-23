@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:37:57 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/22 15:56:36 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:05:38 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,16 @@ int	run_builtin(t_commands **cmds, t_env_var **vars)
 	return (0);
 }
 
-void	run_everything(t_commands **cmds, t_env_var **vars)
+void	run_everything(t_commands **cmds, t_env_var **vars, int *ret)
 {
+	int	r;
+
 	if (size_commands(*cmds) == 1 && is_builtins((*cmds)->cmd))
-		run_builtin(cmds, vars);
+		r = run_builtin(cmds, vars);
 	else if (size_commands(*cmds))
-		run_cmds(cmds, vars);
+		r = run_cmds(cmds, vars);
+	if (!*ret)
+		*ret = r;
 }
 
 int	arg_size(char **args)
