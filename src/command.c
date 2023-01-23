@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 10:05:31 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 13:16:35 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:47:04 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	set_fd(t_command **cmd, int fd_in, int fd_out, int fd_err)
 
 void	set_heredoc(t_command **cmd, char *heredoc)
 {
-	(*cmd)->here = heredoc;	
+	(*cmd)->here = heredoc;
 }
 
 void	destroy_command(t_command *cmd)

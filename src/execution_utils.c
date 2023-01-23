@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:37:57 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 15:34:19 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:58:59 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,17 @@ int	run_builtin(t_commands **cmds, t_env_var **vars)
 {
 	int	temp;
 	int	result;
-	
+
 	temp = dup(1);
 	dup2((*cmds)->cmd->fd_out, STDOUT_FILENO);
 	if (!ft_strcmp((*cmds)->cmd->cmd, "pwd"))
 		result = ft_pwd();
 	if (!ft_strcmp((*cmds)->cmd->cmd, "cd"))
-		result = ft_cd((*cmds)->cmd->args + 1
-				, arg_size((*cmds)->cmd->args + 1), *vars);
+		result = ft_cd((*cmds)->cmd->args + 1,
+				arg_size((*cmds)->cmd->args + 1), *vars);
 	if (!ft_strcmp((*cmds)->cmd->cmd, "echo"))
-		result = ft_echo((*cmds)->cmd->args + 1
-				, arg_size((*cmds)->cmd->args + 1));
+		result = ft_echo((*cmds)->cmd->args + 1,
+				arg_size((*cmds)->cmd->args + 1));
 	if (!ft_strcmp((*cmds)->cmd->cmd, "export"))
 		result = ft_export((*cmds)->cmd->args[1], vars);
 	if (!ft_strcmp((*cmds)->cmd->cmd, "unset"))
@@ -52,6 +52,7 @@ int	run_builtin(t_commands **cmds, t_env_var **vars)
 	if (!ft_strcmp((*cmds)->cmd->cmd, "env"))
 		result = ft_env(*vars);
 	dup2(temp, STDOUT_FILENO);
+	rm_command(cmds);
 	return (result);
 }
 

@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:43:05 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/22 16:17:39 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:54:11 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,11 @@ void	ft_print_env(t_env_var *var)
 int	is_valid(char *name)
 {
 	int	i;
-	
+
 	i = 0;
 	while (name[i])
 	{
-		if(ft_isalnum(name[i]) || name[i] == '_')
+		if (ft_isalnum(name[i]) || name[i] == '_')
 			i++;
 		else
 		{
@@ -126,9 +126,9 @@ int	is_valid(char *name)
 	return (0);
 }
 
-char **get_result(char *value)
+char	**get_result(char *value)
 {
-	char **sp;
+	char	**sp;
 
 	sp = ft_split(value, '=');
 	if (!sp)
@@ -146,7 +146,7 @@ char **get_result(char *value)
 	return (sp);
 }
 
-char **split_args(char *value)
+char	**split_args(char *value)
 {
 	int		i;
 	char	**result;
@@ -176,7 +176,6 @@ int	ft_export(char *value, t_env_var **vars)
 	char		**variable;
 	int			p_env;
 
-	//ft_putstr_fd(value, 2);
 	if (!value)
 	{
 		ft_print_env(*vars);
