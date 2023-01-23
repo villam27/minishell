@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 16:32:31 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/23 16:36:28 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ typedef struct s_command
 	int			fd_in;
 	int			fd_out;
 	int			fd_err;
+	int			ret_value;
+	char		*here;
 	char		*cmd;
 	char		**args;
 	t_env_var	*vars;
-	char		*heredoc;
 }	t_command;
 
 typedef struct s_commands

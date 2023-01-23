@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/19 15:25:19 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 16:43:33 by tibernot         ###   ########.fr       */
+/*   Created: 2023/01/19 12:04:33 by alboudje          #+#    #+#             */
+/*   Updated: 2023/01/21 16:02:53 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../builtins.h"
+#include "libft.h"
 
-int	ft_exit(char **args, int argc, t_env_var **vars)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	(void) args;
-	(void) argc;
-	(void) vars;
-	return (0);
+	int	i;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i])
+		i++;
+	return (s1[i] - s2[i]);
 }

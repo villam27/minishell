@@ -6,7 +6,7 @@
 #    By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/23 16:13:24 by tibernot         ###   ########.fr        #
+#    Updated: 2023/01/23 16:42:03 by tibernot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,37 +19,45 @@ LIBFT_FILES		= 	libft/*.c libft/*.h libft/Makefile
 SRC_FOLDER		= 	src/
 OBJS_FOLDER		=	objs/
 SRC_FILES		= 	command.c \
-				command_list.c \
-				env_var_list.c \
-				env_var_list2.c \
-				execution.c \
-				ft_split_not_in_quotes.c \
-				heredoc.c \
-				heredoc_utils.c \
-				main.c \
-				minishell_utils.c \
-				parse_and_split.c \
-				parse_and_split_utils.c \
-				parse_and_split_utils2.c \
-				parse_and_split_utils3.c \
-				parsing_errors.c \
-				lst_utils.c
-
+	command_list.c \
+	env_var_list.c \
+	env_var_list2.c \
+	execution.c \
+	execution_utils.c \
+	ft_split_not_in_quotes.c \
+	heredoc.c \
+	heredoc_utils.c \
+	lst_utils.c \
+	main.c \
+	minishell_utils.c \
+	parse_and_split.c \
+	parse_and_split_utils.c \
+	parse_and_split_utils2.c \
+	parse_and_split_utils3.c \
+	parsing_errors.c \
+	builtins/ft_cd.c \
+	builtins/ft_echo.c \
+	builtins/ft_env.c \
+	builtins/ft_exit.c \
+	builtins/ft_export.c \
+	builtins/ft_export_utils.c \
+	builtins/ft_pwd.c \
+	builtins/ft_unset.c
 
 RD_LIB_H=~/.brew/opt/readline/include
 RD_LIB_A=-L ~/.brew/opt/readline/lib -lreadline
 
 SRC 			= 	$(addprefix $(SRC_FOLDER), $(SRC_FILES))
 
-INCLUDES_FILES 	= 	minishell.h
+INCLUDES_FILES 	= 	minishell.h \
+					execution.h\
+					builtins.h
 
 INCLUDES 		= 	$(addprefix $(SRC_FOLDER), $(INCLUDES_FILES))
 
 OBJ 			= 	${SRC_FILES:.c=.o}
 CFLAGS 			= 	-Wall -Wextra -Werror -g3 -fsanitize=address
 OBJS			= 	$(addprefix $(OBJS_FOLDER), $(OBJ))
-
-
 
 all : title $(NAME)
 
@@ -68,6 +76,7 @@ $(OBJS_FOLDER)%.o : $(SRC_FOLDER)%.c $(INCLUDES) Makefile $(LIBFT_FILES)
 
 $(OBJS_FOLDER):
 	mkdir $(OBJS_FOLDER)
+	mkdir $(OBJS_FOLDER)/builtins
 
 clean :
 	-rm -rf $(OBJS_FOLDER)

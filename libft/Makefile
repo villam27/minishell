@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 23:55:26 by alboudje          #+#    #+#              #
-#    Updated: 2022/12/30 15:54:22 by alboudje         ###   ########.fr        #
+#    Updated: 2023/01/23 16:37:49 by tibernot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,8 @@ SRC			=	ft_atoi.c \
 				ft_lstclear.c \
 				ft_lstmap.c \
 				get_next_line.c \
-				get_next_line_utils.c
+				get_next_line_utils.c \
+				ft_strcmp.c
 
 HEADERS		=	libft.h
 AR			=	ar
