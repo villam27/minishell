@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 15:59:37 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/23 16:32:31 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,13 @@ typedef struct s_commands
 */
 t_command	*init_command(char *cmd, char **args, t_env_var *vars);
 void		set_fd(t_command **cmd, int fd_in, int fd_out, int fd_err);
+void		set_heredoc(t_command **cmd, char *heredoc);
 void		destroy_command(t_command *cmd);
 
-void		add_command(t_commands **cmds_list, t_command *cmd);
+t_commands	*init_commands(void);
+void		add_command(t_commands **cmds_list, t_command **cmd);
 void		rm_command(t_commands **cmds_list);
-
+int			size_commands(t_commands *cmds_list);
 /*
 	env variables functions
 */
