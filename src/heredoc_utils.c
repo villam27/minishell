@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:58:38 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/21 17:14:22 by ratinax          ###   ########.fr       */
+/*   Updated: 2023/01/23 11:54:38 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	while_out(char *str, int i)
 	k = 0;
 	while (str[i + j] && str[i + j] != ' ')
 	{
-		if (str[i + j] == '<' && str[i + j - 1] == '<' && !in_quote(str, i))
-			return (j - 1);
+		if ((str[i + j] == '<' || str[i + j] == '>') && !in_quote(str, i) && j != 0)
+			return (j);
 		if (is_in(str[i + j], "\'\""))
 		{
 			k = 1;

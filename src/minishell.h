@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/21 15:02:06 by ratinax          ###   ########.fr       */
+/*   Updated: 2023/01/23 12:37:04 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_command
 
 typedef struct s_commands
 {
-	t_command	*cmd;
+	t_command			*cmd;
 	struct s_commands	*next;
 }	t_commands;
 /*
@@ -73,7 +73,7 @@ char		**do_heredocs(char *str);
 int			is_in(char c, char *str);
 void		put_astring(char **str);
 char		**ft_split_not_in_quotes(char *s, char c);
-char		***get_all(char	*line);
+char		***get_all(char	*line, int	*fds);
 /*heredoc utils*/
 int			in_quote(char *str, int index);
 int			while_out(char *str, int i);
@@ -84,4 +84,18 @@ void		put_aastring(char ***str);
 size_t		ft_astrlen(char **str);
 size_t		ft_aastrlen(char ***astr);
 void		free_alist(t_list **alst);
+char		*str_to_chr(char *str, char c);
+void		rm_heredoc(t_list *lst);
+void		rm_heredocs(t_list **lst);
+void		update_string_hd(t_list *lst, int i);
+t_list		**aastr_to_at_list(char ***aastr);
+t_list		*get_beggining(char	*str, int i);
+t_list		*get_end(char *str, int i);
+t_list		*get_end_hd(char *str, int i);
+t_list		*astr_to_t_list(char **str);
+void		replace_file_in_file_outs(t_list **lst);
+void		invert(t_list *lst, t_list *lst2);
+/*lst utils*/
+void		put_lst(t_list	*lst);
+void		put_alst(t_list **alst);
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+         #
+#    By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/21 18:02:49 by ratinax          ###   ########.fr        #
+#    Updated: 2023/01/23 13:08:34 by tibernot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,23 @@ LIBFT_FILES		= 	libft/*.c libft/*.h libft/Makefile
 
 SRC_FOLDER		= 	src/
 OBJS_FOLDER		=	objs/
-SRC_FILES		= 	main.c \
-					parsing_errors.c \
-					heredoc.c \
-					minishell_utils.c \
-					heredoc_utils.c
+SRC_FILES		= 	command.c \
+				command_list.c \
+				env_var_list.c \
+				env_var_list2.c \
+				execution.c \
+				ft_split_not_in_quotes.c \
+				heredoc.c \
+				heredoc_utils.c \
+				main.c \
+				minishell_utils.c \
+				parse_and_split.c \
+				parse_and_split_utils.c \
+				parse_and_split_utils2.c \
+				parse_and_split_utils3.c \
+				parsing_errors.c \
+				lst_utils.c
+
 
 RD_LIB_H=~/.brew/opt/readline/include
 RD_LIB_A=-L ~/.brew/opt/readline/lib -lreadline
@@ -34,13 +46,15 @@ INCLUDES_FILES 	= 	minishell.h
 INCLUDES 		= 	$(addprefix $(SRC_FOLDER), $(INCLUDES_FILES))
 
 OBJ 			= 	${SRC_FILES:.c=.o}
-CFLAGS 			= 	-Wall -Wextra -Werror # -g3 -fsanitize=address
+CFLAGS 			= 	-Wall -Wextra -Werror -g3 -fsanitize=address
 OBJS			= 	$(addprefix $(OBJS_FOLDER), $(OBJ))
 
 
 
-all : title
-		gcc -g3 -fsanitize=address src/*.c libft/*.c -L/usr/local/lib -I/usr/local/include -lreadline
+all : title $(NAME)
+
+# linux
+# gcc -g3 -fsanitize=address src/*.c libft/*.c -L/usr/local/lib -I/usr/local/include -lreadline
 
 
 $(NAME) : $(OBJS_FOLDER) $(OBJS)
