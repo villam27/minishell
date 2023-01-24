@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 11:30:37 by ratinax           #+#    #+#             */
-/*   Updated: 2023/01/23 16:04:21 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:23:46 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,5 @@ t_list	**get_all(char	*line)
 	free(res);
 	rm_heredocs(alst);
 	replace_file_in_file_outs(alst);
-	if (alst)
-		put_alst(alst);
-	if (!alst)
-		return (free_all(blocs), NULL);
 	return (free_all(blocs), alst);
 }

@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 11:44:21 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/23 17:11:17 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:20:47 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	put_lst(t_list	*lst)
 {
 	while (lst)
 	{
-		ft_printf("-%s- ", lst->content);
-		// ft_printf("-%d- ", ((char *)lst->content)[0]);
+		// ft_printf("-%s- ", lst->content);
+		ft_printf("-%d- ", ((char *)(lst->content))[0]);
 		lst = lst->next;
 	}
 	ft_printf("\n");

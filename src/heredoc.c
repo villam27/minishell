@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/23 17:19:15 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:30:29 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ t_list	*create_heredocs(char *str)
 					i++;
 				j = while_out(str, i);
 				ft_lstadd_back(&lst, ft_lstnew(to_gd_hd(ft_substr(str, i, j))));
-				// ft_printf("%s\n", to_gd_hd(ft_substr(str, i, j)));
 				i += j - 1;
 			}
 		}
@@ -101,13 +100,17 @@ char	*do_heredoc(char *hd_out)
 
 	res = NULL;
 	line = readline("> ");
-	if (ft_strncmp(hd_out, line, ft_strlen(hd_out) + ft_strlen(line)) != 0)
+	if (ft_strcmp(hd_out, line) != 0)
 		res = str_append(res, line, "\n");
-	while (ft_strncmp(hd_out, line, ft_strlen(hd_out) + ft_strlen(line)) != 0)
+	if (!line)
+		return (res);
+	while (ft_strcmp(hd_out, line) != 0)
 	{
 		free(line);
 		line = readline("> ");
-		if (ft_strncmp(hd_out, line, ft_strlen(hd_out) + ft_strlen(line)) != 0)
+		if (!line)
+			return (res);
+		if (ft_strcmp(hd_out, line) != 0)
 			res = str_append(res, line, "\n");
 	}
 	free(line);

@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:41:22 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/23 17:39:34 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:38:22 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ void	ft_change_var(t_env_var **vars, char *name, char *new_content)
 	tmp->content = new_content;
 }
 
+/*
+
+return :
+*/
 char	*ft_get_var_content(t_env_var **vars, char *name)
 {
 	t_env_var	*tmp;

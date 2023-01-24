@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 17:38:29 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:15:11 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
 
 typedef struct s_env_var
 {
@@ -61,11 +62,14 @@ t_env_var	*new_var(char *name, char *content);
 void		free_var(t_env_var *var);
 void		add_var(t_env_var *vars, t_env_var *new_var);
 void		destroy_vars(t_env_var **vars);
+char		*ft_get_var_content(t_env_var **vars, char *name);
 /*
 	Parsing
 */
 int			parsing_errors(char *str);
-void		to_good_cmds(t_list **cmds);
+void		to_good_cmds(t_list **cmds, t_env_var **vars);
+/*Create comamnds*/
+t_commands	*create_commands(t_list **lst, t_env_var *vars);
 /*
 	Heredocs
 */
@@ -89,7 +93,7 @@ size_t		ft_astrlen(char **str);
 size_t		ft_aastrlen(char ***astr);
 void		free_alist(t_list **alst);
 char		*str_to_chr(char *str, char c);
-void		rm_heredoc(t_list *lst);
+void		rm_heredoc(t_list *lst, int i);
 void		rm_heredocs(t_list **lst);
 void		update_string_hd(t_list *lst, int i);
 t_list		**aastr_to_at_list(char ***aastr);
@@ -102,4 +106,8 @@ void		invert(t_list *lst, t_list *lst2);
 /*lst utils*/
 void		put_lst(t_list	*lst);
 void		put_alst(t_list **alst);
+/*to good commands utils*/
+int			in_squote(char *str, int index);
+void		to_good_tildes(t_list **cmds, t_env_var **vars);
+void		rm_external_quotes(t_list **cmds);
 #endif
