@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 10:05:31 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 15:47:04 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/24 10:33:27 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	destroy_command(t_command *cmd)
 		close(cmd->fd_out);
 	if (cmd->fd_err > 2)
 		close(cmd->fd_err);
-	if (cmd->here)
-		free(cmd->here);
+	free(cmd->here);
 	free(cmd);
 }

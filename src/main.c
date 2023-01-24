@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 15:59:12 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/24 12:20:05 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "execution.h"
 #include "builtins.h"
 #include <fcntl.h>
+#include<stdio.h>
 
 void	ft_print_env(t_env_var *var);
 
@@ -24,9 +25,9 @@ int	main(int argc, char **argv, char **envp)
 	t_env_var	*vars = NULL;
 	char		**args;
 	int			ret_code = 0;
-	//int			fd_out;
+//	int			fd_in;
 
-	//fd_out = open("out", O_CREAT | O_WRONLY, 0664);
+	//fd_in = open("/dev/urandom", O_RDONLY);
 	cmds = NULL;
 	i = 0;
 	while (envp[i])
@@ -40,16 +41,13 @@ int	main(int argc, char **argv, char **envp)
 		args = ft_split(argv[i], ' ');
 		t_command *cmd;
 		cmd = init_command(ft_strdup(args[0]), args, NULL);
-	//	set_fd(&cmd, 0, fd_out, 2);
-		set_heredoc(&cmd, ft_strdup("Le prout\0"));
+		set_fd(&cmd, 0, 1, 2);
+		set_heredoc(&cmd, ft_strdup("Le prout"));
 		add_command(&cmds, &cmd);
 		i++;
 	}
-	//ft_env(vars);
 	run_everything(&cmds, &vars, &ret_code);
 	ft_printf("---");
-	//ft_env(vars);
-	//ft_export(NULL, &vars);
 	while (vars)
 	{
 		ft_unset(vars->name, &vars);

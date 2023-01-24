@@ -6,12 +6,13 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 15:50:41 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:29:47 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "builtins.h"
+#include <fcntl.h>
 
 static int	run_builtins(t_command *cmd, t_env_var **vars)
 {
@@ -45,8 +46,19 @@ static int	get_process_return(int pid)
 	int	ret;
 
 	waitpid(pid, &ret, 0);
+	//ft_printf("here\n");
 	ret = WEXITSTATUS(ret);
 	return (ret);
+}
+
+static int	get_heredoc_fd(char *here)
+{
+	int	fd[2];
+	
+	pipe(fd);
+	ft_putstr_fd(here, fd[1]);
+	close(fd[1]);
+	return (fd[0]);
 }
 
 static int	new_process(t_command *cmd, int pipes[2][2],
@@ -56,9 +68,14 @@ static int	new_process(t_command *cmd, int pipes[2][2],
 
 	pid = fork();
 	if (pid < 0)
+	{
+		ft_putstr_fd("minishell: fork: Resource temporarily unavailable\n", 2);
 		return (-1);
+	}
 	if (pid == 0)
 	{
+		if (cmd->here)
+			cmd->fd_in = get_heredoc_fd(cmd->here);
 		dup2(cmd->fd_in, STDIN_FILENO);
 		dup2(cmd->fd_out, STDOUT_FILENO);
 		dup2(pipes[0][STDIN_FILENO], cmd->fd_in);
@@ -111,6 +128,8 @@ int	run_cmds(t_commands **cmds_list, t_env_var **vars)
 	{
 		pids[i] = new_process((*cmds_list)->cmd,
 				pipe_fd, (*cmds_list)->next, vars);
+		if (pids[i] < 0)
+			break ;
 		close(pipe_fd[0][0]);
 		close(pipe_fd[0][1]);
 		pipe_fd[0][0] = pipe_fd[1][0];
@@ -118,6 +137,8 @@ int	run_cmds(t_commands **cmds_list, t_env_var **vars)
 		pipe(pipe_fd[1]);
 		rm_command(cmds_list);
 	}
+	while (*cmds_list)
+		rm_command(cmds_list);
 	multi_close(pipe_fd[0], pipe_fd[1]);
 	return (wait_cmds(cmds_size, pids));
 }
