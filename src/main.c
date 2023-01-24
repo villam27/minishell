@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/24 17:24:18 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:33:01 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,7 @@ int	main(int argc, char **argv, char **envp)
 				// put_alst(all_cmds);
 				// (void) all_cmds;
 				// (void) vars;
-				create_commands(all_cmds, vars);
-				// open files etc..
+				create_commands(all_cmds, vars, hds);
 				// create cmds
 				// exec
 				free_alist(all_cmds);

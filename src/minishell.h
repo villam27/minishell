@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/24 17:15:11 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:33:12 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char		*ft_get_var_content(t_env_var **vars, char *name);
 int			parsing_errors(char *str);
 void		to_good_cmds(t_list **cmds, t_env_var **vars);
 /*Create comamnds*/
-t_commands	*create_commands(t_list **lst, t_env_var *vars);
+t_commands	*create_commands(t_list **lst, t_env_var *vars, char **hds);
 /*
 	Heredocs
 */

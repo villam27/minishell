@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:45:16 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/24 17:25:46 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:41:33 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,15 +94,61 @@ int	*open_fds(t_list **lst)
 	return (fds);
 }
 
-t_commands	*create_commands(t_list **lst, t_env_var *vars)
+
+int	amount_fd_in_bloc(t_list *lst)
+{
+	t_list	*tmp;
+	int		res;
+
+	res = 0;
+	tmp = lst;
+	while (tmp)
+	{
+		if (is_in_in(((char *)tmp->content)[0]), -7, -8, -10)
+			res++;
+		tmp = tmp->next;
+	}
+	return (res);
+}
+
+int	amount_hd_in_bloc(t_list *lst)
+{
+	t_list	*tmp;
+	int		res;
+
+	res = 0;
+	tmp = lst;
+	while (tmp)
+	{
+		if (((char *)tmp->content)[0] == 2)
+			res++;
+		tmp = tmp->next;
+	}
+	return (res);
+}
+
+t_commands	create_command(t_list *lst, char **hds, int *fds)
+{
+
+}
+
+t_commands	*create_commands(t_list **lst, t_env_var *vars, char **hds)
 {
 	t_commands	*cmds;
 	int			*fds;
+	int			fds_size;
+	t_list		**tmp;
 
+	tmp = lst;
+	fds_size = amount_fd(lst);
 	(void) vars;
 	cmds = NULL;
 	if (lst)
 		fds = open_fds(lst);
+	while (tmp)
+	{
+
+		tmp = tmp->next;
+	}
 	return (cmds);
-	return (NULL);
 }
