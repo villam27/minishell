@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/24 13:29:47 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:23:24 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,51 +14,27 @@
 #include "builtins.h"
 #include <fcntl.h>
 
-static int	run_builtins(t_command *cmd, t_env_var **vars)
+static int	child_process(t_command *cmd, int pipes[2][2],
+	t_commands *last, t_env_var **vars)
 {
-	if (!ft_strcmp(cmd->cmd, "pwd"))
-		return (exit(ft_pwd()), 1);
-	if (!ft_strcmp(cmd->cmd, "cd"))
-		return (exit(ft_cd(cmd->args + 1,
-					arg_size(cmd->args + 1), *vars)), 1);
-	if (!ft_strcmp(cmd->cmd, "echo"))
-		return (exit(ft_echo(cmd->args + 1,
-					arg_size(cmd->args + 1))), 1);
-	if (!ft_strcmp(cmd->cmd, "export"))
-		return (exit(ft_export(NULL, vars)), 1);
-	if (!ft_strcmp(cmd->cmd, "unset"))
-		return (exit(ft_unset(cmd->args[1], vars)), 1);
-	if (!ft_strcmp(cmd->cmd, "env"))
-		return (exit(ft_env(*vars)), 1);
-	return (0);
-}
-
-static void	multi_close(int p1[2], int p2[2])
-{
-	close(p1[0]);
-	close(p1[1]);
-	close(p2[0]);
-	close(p2[1]);
-}
-
-static int	get_process_return(int pid)
-{
-	int	ret;
-
-	waitpid(pid, &ret, 0);
-	//ft_printf("here\n");
-	ret = WEXITSTATUS(ret);
-	return (ret);
-}
-
-static int	get_heredoc_fd(char *here)
-{
-	int	fd[2];
-	
-	pipe(fd);
-	ft_putstr_fd(here, fd[1]);
-	close(fd[1]);
-	return (fd[0]);
+	if (cmd->here)
+		cmd->fd_in = get_heredoc_fd(cmd->here);
+	dup2(cmd->fd_in, STDIN_FILENO);
+	dup2(cmd->fd_out, STDOUT_FILENO);
+	dup2(pipes[0][STDIN_FILENO], cmd->fd_in);
+	if (last)
+		dup2(pipes[1][STDOUT_FILENO], cmd->fd_out);
+	else
+		dup2(STDOUT_FILENO, cmd->fd_out);
+	multi_close(pipes[0], pipes[1]);
+	if (cmd->fd_out > 2)
+		close(cmd->fd_out);
+	if (cmd->fd_in > 2)
+		close(cmd->fd_in);
+	if (!run_builtins(cmd, vars))
+		if (execve(cmd->cmd, cmd->args, NULL) < 0)
+			return (exit(0), -1);
+	return (-1);
 }
 
 static int	new_process(t_command *cmd, int pipes[2][2],
@@ -68,29 +44,12 @@ static int	new_process(t_command *cmd, int pipes[2][2],
 
 	pid = fork();
 	if (pid < 0)
-	{
-		ft_putstr_fd("minishell: fork: Resource temporarily unavailable\n", 2);
-		return (-1);
-	}
+		return ((void)ft_putstr_fd("minishell: fork: Resource \
+			 temporarily unavailable\n", 2), -1);
 	if (pid == 0)
 	{
-		if (cmd->here)
-			cmd->fd_in = get_heredoc_fd(cmd->here);
-		dup2(cmd->fd_in, STDIN_FILENO);
-		dup2(cmd->fd_out, STDOUT_FILENO);
-		dup2(pipes[0][STDIN_FILENO], cmd->fd_in);
-		if (last)
-			dup2(pipes[1][STDOUT_FILENO], cmd->fd_out);
-		else
-			dup2(STDOUT_FILENO, cmd->fd_out);
-		multi_close(pipes[0], pipes[1]);
-		if (cmd->fd_out > 2)
-			close(cmd->fd_out);
-		if (cmd->fd_in > 2)
-			close(cmd->fd_in);
-		if (!run_builtins(cmd, vars))
-			if (execve(cmd->cmd, cmd->args, NULL) < 0)
-				return (exit(0), -1);
+		if (child_process(cmd, pipes, last, vars) < 0)
+			return (-1);
 	}
 	return (pid);
 }
@@ -108,6 +67,15 @@ static int	wait_cmds(int cmds_size, int *pids)
 	}
 	free(pids);
 	return (ret);
+}
+
+void	modify_pipe(int pipe_fd[2][2])
+{
+	close(pipe_fd[0][0]);
+	close(pipe_fd[0][1]);
+	pipe_fd[0][0] = pipe_fd[1][0];
+	pipe_fd[0][1] = pipe_fd[1][1];
+	pipe(pipe_fd[1]);
 }
 
 int	run_cmds(t_commands **cmds_list, t_env_var **vars)
@@ -129,12 +97,8 @@ int	run_cmds(t_commands **cmds_list, t_env_var **vars)
 		pids[i] = new_process((*cmds_list)->cmd,
 				pipe_fd, (*cmds_list)->next, vars);
 		if (pids[i] < 0)
-			break ;
-		close(pipe_fd[0][0]);
-		close(pipe_fd[0][1]);
-		pipe_fd[0][0] = pipe_fd[1][0];
-		pipe_fd[0][1] = pipe_fd[1][1];
-		pipe(pipe_fd[1]);
+			return (1);
+		modify_pipe(pipe_fd);
 		rm_command(cmds_list);
 	}
 	while (*cmds_list)

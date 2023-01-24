@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/24 12:20:05 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:17:09 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,7 @@ int	main(int argc, char **argv, char **envp)
 	//fd_in = open("/dev/urandom", O_RDONLY);
 	cmds = NULL;
 	i = 0;
-	while (envp[i])
-	{
-		ft_export(envp[i], &vars);
-		i++;
-	}
+	ft_export(envp, &vars);
 	i = 1;
 	while (i < argc)
 	{
@@ -42,7 +38,7 @@ int	main(int argc, char **argv, char **envp)
 		t_command *cmd;
 		cmd = init_command(ft_strdup(args[0]), args, NULL);
 		set_fd(&cmd, 0, 1, 2);
-		set_heredoc(&cmd, ft_strdup("Le prout"));
+		//set_heredoc(&cmd, ft_strdup("Le prout"));
 		add_command(&cmds, &cmd);
 		i++;
 	}

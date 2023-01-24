@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 15:00:12 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 14:04:50 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:22:21 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,10 @@ int		arg_size(char **args);
 
 int		is_builtins(t_command *cmd);
 int		run_builtin(t_commands **cmds, t_env_var **vars);
+
+int		run_builtins(t_command *cmd, t_env_var **vars);
+void	multi_close(int p1[2], int p2[2]);
+int		get_process_return(int pid);
+int		get_heredoc_fd(char *here);
 
 #endif

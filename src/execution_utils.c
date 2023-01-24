@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:37:57 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 15:58:59 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:01:11 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	run_builtin(t_commands **cmds, t_env_var **vars)
 		result = ft_echo((*cmds)->cmd->args + 1,
 				arg_size((*cmds)->cmd->args + 1));
 	if (!ft_strcmp((*cmds)->cmd->cmd, "export"))
-		result = ft_export((*cmds)->cmd->args[1], vars);
+		result = ft_export((*cmds)->cmd->args + 1, vars);
 	if (!ft_strcmp((*cmds)->cmd->cmd, "unset"))
 		result = ft_unset((*cmds)->cmd->args[1], vars);
 	if (!ft_strcmp((*cmds)->cmd->cmd, "env"))
