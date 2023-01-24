@@ -2,6 +2,8 @@
 .vscode
 *.dSYM
 vgcore.*
+out*
+errors.txt
 
 # Object files
 *.o
