@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:25:46 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/24 15:11:19 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:34:43 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ void	ft_print_env(t_env_var *var)
 	}
 	while (temp)
 	{
-		ft_unset(temp->name, &temp);
+		ft_unset(&temp->name, &temp);
 	}
 }
