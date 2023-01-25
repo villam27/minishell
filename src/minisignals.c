@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   minisignals.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/19 12:04:33 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/24 14:44:37 by tibernot         ###   ########.fr       */
+/*   Created: 2023/01/25 11:26:31 by alboudje          #+#    #+#             */
+/*   Updated: 2023/01/25 11:35:52 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+void	sigint(int sig)
 {
-	int	i;
+	(void)sig;
+	ft_printf("exit C\n");
+}
 
-	i = 0;
-	if (!s1 || !s2)
-		return (1);
-	while (s1[i] == s2[i] && s1[i])
-		i++;
-	return (s1[i] - s2[i]);
+void	sigquit_process(int sig)
+{
+	(void)sig;
+	ft_putstr_fd("Quit: 3\n", 2);
+	exit(131);
+}
+
+void	sigquit(int sig)
+{
+	(void)sig;
+	ft_putstr_fd("\n", 2);
 }

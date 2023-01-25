@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 10:05:31 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 15:47:04 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 10:40:12 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_command	*init_command(char *cmd, char **args, t_env_var *vars)
 	command->fd_out = 1;
 	command->ret_value = 0;
 	command->here = NULL;
+	command->next = NULL;
 	return (command);
 }
 

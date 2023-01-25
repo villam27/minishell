@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 09:25:46 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/23 16:03:52 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:22:05 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@ char	*str_to_chr(char *str, char c)
 	return (res);
 }
 
-void	rm_heredoc(t_list *lst)
+void	rm_heredoc(t_list *lst, int i)
 {
 	t_list	*tmp;
 	t_list	*tmp2;
-	int		i;
 
 	tmp = lst;
 	while (tmp)
@@ -66,7 +65,7 @@ void	rm_heredocs(t_list **lst)
 		return ;
 	while (lst[i])
 	{
-		rm_heredoc(lst[i]);
+		rm_heredoc(lst[i], 0);
 		i++;
 	}
 }

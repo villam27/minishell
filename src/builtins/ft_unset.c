@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:12:06 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/19 16:17:29 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:05:00 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_delone(t_env_var *var)
 	return (1);
 }
 
-int	ft_unset(char *arg, t_env_var **vars)
+int	ft_unset_single(char *arg, t_env_var **vars)
 {
 	t_env_var	*temp;
 	t_env_var	*prev;
@@ -46,6 +46,22 @@ int	ft_unset(char *arg, t_env_var **vars)
 		}
 		prev = temp;
 		temp = temp->next;
+	}
+	return (0);
+}
+
+int	ft_unset(char **args, t_env_var **vars)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+	{
+		if (is_valid(args[i]))
+			ft_unset_single(args[i], vars);
+		else
+			print_var_error("export", args[i]);
+		i++;
 	}
 	return (0);
 }

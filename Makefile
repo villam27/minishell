@@ -6,7 +6,7 @@
 #    By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/23 16:42:03 by tibernot         ###   ########.fr        #
+#    Updated: 2023/01/25 16:16:01 by tibernot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC_FILES		= 	command.c \
 	env_var_list2.c \
 	execution.c \
 	execution_utils.c \
+	execution_utils2.c \
 	ft_split_not_in_quotes.c \
 	heredoc.c \
 	heredoc_utils.c \
@@ -34,13 +35,21 @@ SRC_FILES		= 	command.c \
 	parse_and_split_utils.c \
 	parse_and_split_utils2.c \
 	parse_and_split_utils3.c \
+	to_good_cmds.c \
+	to_good_cmds_utils.c \
 	parsing_errors.c \
+	create_commands.c \
+	create_commands_utils.c \
+	create_commands_utils2.c \
+	envp.c \
+	minisignals.c \
 	builtins/ft_cd.c \
 	builtins/ft_echo.c \
 	builtins/ft_env.c \
 	builtins/ft_exit.c \
 	builtins/ft_export.c \
 	builtins/ft_export_utils.c \
+	builtins/ft_export_utils2.c \
 	builtins/ft_pwd.c \
 	builtins/ft_unset.c
 
@@ -56,7 +65,7 @@ INCLUDES_FILES 	= 	minishell.h \
 INCLUDES 		= 	$(addprefix $(SRC_FOLDER), $(INCLUDES_FILES))
 
 OBJ 			= 	${SRC_FILES:.c=.o}
-CFLAGS 			= 	-Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS 			= -Wall -Wextra -Werror #-g3 -fsanitize=address
 OBJS			= 	$(addprefix $(OBJS_FOLDER), $(OBJ))
 
 all : title $(NAME)

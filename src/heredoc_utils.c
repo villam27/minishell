@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:58:38 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/23 15:10:09 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 10:50:42 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	while_out(char *str, int i)
 	k = 0;
 	while (str[i + j] && str[i + j] != ' ')
 	{
-		if ((str[i + j] == '<' || str[i + j] == '>')
+		if ((str[i + j] == '<' || str[i + j] == '>' || str[i + j] == '|')
 			&& !in_quote(str, i) && j != 0)
 			return (j);
 		if (is_in(str[i + j], "\'\""))
