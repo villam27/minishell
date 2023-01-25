@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:12:06 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/24 15:51:18 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 13:13:02 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_unset(char **args, t_env_var **vars)
 		if (is_valid(args[i]))
 			ft_unset_single(args[i], vars);
 		else
-			ft_putstr_fd("Error\n", 2);
+			print_var_error("export", args[i]);
 		i++;
 	}
 	return (0);

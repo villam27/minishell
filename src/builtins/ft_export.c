@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:43:05 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/24 15:11:22 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 13:12:42 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	is_valid(char *name)
 			i++;
 		else
 		{
-			ft_putstr_fd("Error\n", 2);
+			print_var_error("export", name);
 			return (1);
 		}
 	}

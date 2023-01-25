@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:25:46 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/24 15:34:43 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 13:12:04 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,13 @@ void	ft_print_env(t_env_var *var)
 	{
 		ft_unset(&temp->name, &temp);
 	}
+}
+
+void	print_var_error(char *func, char *var_name)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(func, 2);
+	ft_putstr_fd(": `", 2);
+	ft_putstr_fd(var_name, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
 }
