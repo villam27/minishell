@@ -6,7 +6,7 @@
 #    By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/24 16:32:43 by alboudje         ###   ########.fr        #
+#    Updated: 2023/01/25 11:28:34 by alboudje         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC_FILES		= 	main.c \
 					execution.c \
 					execution_utils.c \
 					execution_utils2.c \
+					minisignals.c \
 					builtins/ft_pwd.c \
 					builtins/ft_export.c \
 					builtins/ft_export_utils.c \

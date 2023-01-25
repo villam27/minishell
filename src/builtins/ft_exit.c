@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:25:19 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/24 16:32:25 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 09:53:15 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static int	put_exit_error(char *str)
 
 u_int8_t	ft_atoc(char *str)
 {
-	size_t	i;
-	u_int8_t result;
+	size_t		i;
+	u_int8_t	result;
 
 	i = 0;
 	result = 0;
@@ -39,8 +39,6 @@ u_int8_t	ft_atoc(char *str)
 
 int	ft_exit(char **args, int argc, t_env_var **vars)
 {
-	(void)vars;
-
 	while (*vars)
 		ft_unset_single((*vars)->name, vars);
 	if (!args[0])

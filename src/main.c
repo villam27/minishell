@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/24 16:16:00 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 11:37:22 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include "execution.h"
 #include "builtins.h"
 #include <fcntl.h>
-#include<stdio.h>
+#include <stdio.h>
+#include <signal.h>
 
 void	ft_print_env(t_env_var *var);
 
@@ -25,9 +26,9 @@ int	main(int argc, char **argv, char **envp)
 	t_env_var	*vars = NULL;
 	char		**args;
 	int			ret_code = 0;
-//	int			fd_in;
 
-	//fd_in = open("/dev/urandom", O_RDONLY);
+	signal(SIGINT, sigint);
+	signal(SIGQUIT, sigquit);
 	cmds = NULL;
 	i = 0;
 	ft_export(envp, &vars);
