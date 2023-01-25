@@ -6,13 +6,13 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 17:20:55 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/24 15:19:32 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 11:39:05 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*add_str(char *str, char *str2)
+static char	*add_str(char *str, char *str2)
 {
 	char	*res;
 

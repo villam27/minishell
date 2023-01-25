@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:45:16 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/25 10:51:08 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 12:08:48 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	amount_fd(t_list **lst)
 		tmp2 = tmp[i];
 		while (tmp2)
 		{
-			res += ((((char *)(tmp2->content))[0] == 7)
-					|| (((char *)(tmp2->content))[0] == 10)
-					|| (((char *)(tmp2->content))[0] == 8));
+			res += ((((char *)(tmp2->content))[0] == -7)
+					|| (((char *)(tmp2->content))[0] == -10)
+					|| (((char *)(tmp2->content))[0] == -8));
 			tmp2 = tmp2->next;
 		}
 		i++;
@@ -70,7 +70,7 @@ int	*open_fds(t_list **lst)
 	int		i;
 	int		j;
 
-	fds = malloc(sizeof(int) * amount_fd(lst));
+	fds = malloc(sizeof(int) * (amount_fd(lst) + 1));
 	if (!fds)
 		return (NULL);
 	tmp = lst;
@@ -127,60 +127,88 @@ int	amount_hd_in_bloc(t_list *lst)
 	return (res);
 }
 
-t_command	*create_command(t_list *lst, char **hds, int *fds, t_env_var *vars)
+void	set_create_command_data(t_create_command *d, t_list *lst)
 {
-	t_command	*res;
-	char		*cmd;
-	char		**args;
-	t_list		*tmp;
-	int			fd_in;
-	int			ind_args;
-	int			fd_out;
-	char		*heredoc;
-
-	cmd = NULL;
-	heredoc = NULL;
-	fd_in = 0;
-	fd_out = 1;
-	tmp = lst;
-	ind_args = 0;
-	args = malloc(sizeof(char *) * (ft_lstsize(lst) + 1));
-	if (!args)
-		return (NULL);
-	while (tmp)
-	{
-		if ((((char *)(tmp->content))[0]) == 2)
-		{
-			heredoc = hds[0];
-			hds++;
-		}
-		else if (is_in_int((((char *)(tmp->content))[0]), -7, -8, -10))
-		{
-			if ((((char *)(tmp->content))[0]) == -10)
-				fd_in = fds[0];
-			else
-				fd_out = fds[0];
-			fds++;
-		}
-		else
-		{
-			if (!cmd)
-				cmd = ft_strdup(tmp->content);
-			else
-				args[ind_args++] = ft_strdup(tmp->content);
-		}
-		tmp = tmp->next;
-	}
-	args[ind_args] = NULL;
-	res = init_command(cmd, args, vars);
-	set_fd(&res, fd_in, fd_out, 2);
-	set_heredoc(&res, heredoc);
-	return (res);
+	d->pre_is_fd_o_hd = 0;
+	d->cmd = NULL;
+	d->heredoc = NULL;
+	d->fd_in = 0;
+	d->fd_out = 1;
+	d->tmp = lst;
+	d->ind_args = 0;
+	d->args = malloc(sizeof(char *) * (ft_lstsize(lst) + 1));
 }
 
-t_command	**create_commands(t_list **lst, t_env_var *vars, char **hds)
+int	is_builtin(char *str)
 {
-	t_command	**cmds;
+	if (!ft_strcmp(str, "pwd"))
+		return (1);
+	if (!ft_strcmp(str, "cd"))
+		return (1);
+	if (!ft_strcmp(str, "echo"))
+		return (1);
+	if (!ft_strcmp(str, "export"))
+		return (1);
+	if (!ft_strcmp(str, "unset"))
+		return (1);
+	if (!ft_strcmp(str, "env"))
+		return (1);
+	return (0);
+}
+
+t_command	*create_command(t_list *lst, char **hds, int *fds, t_env_var *vars)
+{
+	t_create_command	d;
+
+	set_create_command_data(&d, lst);
+	if (!d.args)
+		return (NULL);
+	while (d.tmp)
+	{
+		if ((((char *)(d.tmp->content))[0]) == 2)
+		{
+			d.pre_is_fd_o_hd = 1;
+			d.heredoc = hds[0];
+			hds++;
+		}
+		else if (is_in_int((((char *)(d.tmp->content))[0]), -7, -8, -10))
+		{
+			if ((((char *)(d.tmp->content))[0]) == -10)
+				d.fd_in = fds[0];
+			else
+				d.fd_out = fds[0];
+			if (d.fd_in == -1 || d.fd_out == -1)
+				return (init_command(NULL, NULL, vars));
+			d.pre_is_fd_o_hd = 1;
+			fds++;
+		}
+		else if (!d.pre_is_fd_o_hd)
+		{
+			if (!d.cmd)
+			{
+				if (is_builtin(d.tmp->content))
+					d.cmd = ft_strdup(d.tmp->content);
+				else
+				{
+					if (!good_cmd(d.tmp->content, ft_get_var_content(&vars, "PATH")))
+						return (init_command(NULL, NULL, vars));
+					d.cmd = to_executable_cmd(d.tmp->content, ft_get_var_content(&vars, "PATH"));
+				}
+			}
+			d.args[d.ind_args++] = ft_strdup(d.tmp->content);
+			d.pre_is_fd_o_hd = 0;
+		}
+		d.tmp = d.tmp->next;
+	}
+	d.args[d.ind_args] = NULL;
+	d.res = init_command(d.cmd, d.args, vars);
+	return (set_fd(&(d.res), d.fd_in, d.fd_out, 2),
+		set_heredoc(&(d.res), d.heredoc), d.res);
+}
+
+t_command	*create_commands(t_list **lst, t_env_var *vars, char **hds)
+{
+	t_command	*cmds;
 	int			*fds;
 	int			fds_size;
 	t_list		**tmp;
@@ -199,7 +227,8 @@ t_command	**create_commands(t_list **lst, t_env_var *vars, char **hds)
 		fds = open_fds(lst);
 	while (tmp[i])
 	{
-		add_command(cmds, create_command(tmp[i], hds + hd_ind, fds + fd_ind, vars));
+		add_command(&cmds, create_command(tmp[i], hds + hd_ind, fds + fd_ind, vars));
+
 		hd_ind += amount_hd_in_bloc(tmp[i]);
 		fd_ind += amount_fd_in_bloc(tmp[i]);
 		i++;

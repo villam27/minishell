@@ -10,3 +10,12 @@ mettre -2 en out quand un heredoce dans un pipe et -2 en in quand heredoce dans 
 7 : >>
 10 : <
 8 : >
+
+
+a faire:
+
+faire exec avec path
+verif path
+norm
+
+faire echo de quand pas variable

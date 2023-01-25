@@ -6,7 +6,7 @@
 #    By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/25 10:47:13 by tibernot         ###   ########.fr        #
+#    Updated: 2023/01/25 11:20:09 by tibernot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC_FILES		= 	command.c \
 	to_good_cmds_utils.c \
 	parsing_errors.c \
 	create_commands.c \
+	create_commands_utils.c \
 	builtins/ft_cd.c \
 	builtins/ft_echo.c \
 	builtins/ft_env.c \

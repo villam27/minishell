@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 10:46:18 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 11:46:26 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,20 @@ typedef struct s_command
 	struct s_command	*next;
 }	t_command;
 
+typedef struct s_create_command_data
+{
+	t_command	*res;
+	char		*cmd;
+	char		**args;
+	t_list		*tmp;
+	int			fd_in;
+	int			ind_args;
+	int			fd_out;
+	char		*heredoc;
+	int			pre_is_fd_o_hd;
+
+}	t_create_command;
+
 /*
 	command init and destruction
 */
@@ -64,7 +78,9 @@ char		*ft_get_var_content(t_env_var **vars, char *name);
 int			parsing_errors(char *str);
 void		to_good_cmds(t_list **cmds, t_env_var **vars);
 /*Create comamnds*/
-t_command	**create_commands(t_list **lst, t_env_var *vars, char **hds);
+t_command	*create_commands(t_list **lst, t_env_var *vars, char **hds);
+int			good_cmd(char *str, char *path);
+char		*to_executable_cmd(char *str, char *path);
 /*
 	Heredocs
 */
