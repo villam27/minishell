@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/24 17:33:12 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 10:46:18 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,17 @@ typedef struct s_env_var
 
 typedef struct s_command
 {
-	int			fd_in;
-	int			fd_out;
-	int			fd_err;
-	int			ret_value;
-	char		*here;
-	char		*cmd;
-	char		**args;
-	t_env_var	*vars;
+	int					fd_in;
+	int					fd_out;
+	int					fd_err;
+	int					ret_value;
+	char				*here;
+	char				*cmd;
+	char				**args;
+	t_env_var			*vars;
+	struct s_command	*next;
 }	t_command;
 
-typedef struct s_commands
-{
-	t_command			*cmd;
-	struct s_commands	*next;
-}	t_commands;
 /*
 	command init and destruction
 */
@@ -51,10 +47,9 @@ void		set_fd(t_command **cmd, int fd_in, int fd_out, int fd_err);
 void		set_heredoc(t_command **cmd, char *heredoc);
 void		destroy_command(t_command *cmd);
 
-t_commands	*init_commands(void);
-void		add_command(t_commands **cmds_list, t_command **cmd);
-void		rm_command(t_commands **cmds_list);
-int			size_commands(t_commands *cmds_list);
+void		add_command(t_command **cmds_list, t_command *cmd);
+void		rm_command(t_command **cmds_list);
+int			size_commands(t_command *cmds_list);
 /*
 	env variables functions
 */
@@ -69,7 +64,7 @@ char		*ft_get_var_content(t_env_var **vars, char *name);
 int			parsing_errors(char *str);
 void		to_good_cmds(t_list **cmds, t_env_var **vars);
 /*Create comamnds*/
-t_commands	*create_commands(t_list **lst, t_env_var *vars, char **hds);
+t_command	**create_commands(t_list **lst, t_env_var *vars, char **hds);
 /*
 	Heredocs
 */

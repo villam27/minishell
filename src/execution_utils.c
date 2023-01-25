@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:37:57 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 15:58:59 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 10:05:37 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,37 +30,37 @@ int	is_builtins(t_command *cmd)
 	return (0);
 }
 
-int	run_builtin(t_commands **cmds, t_env_var **vars)
+int	run_builtin(t_command **cmds, t_env_var **vars)
 {
 	int	temp;
 	int	result;
 
 	temp = dup(1);
-	dup2((*cmds)->cmd->fd_out, STDOUT_FILENO);
-	if (!ft_strcmp((*cmds)->cmd->cmd, "pwd"))
+	dup2((*cmds)->fd_out, STDOUT_FILENO);
+	if (!ft_strcmp((*cmds)->cmd, "pwd"))
 		result = ft_pwd();
-	if (!ft_strcmp((*cmds)->cmd->cmd, "cd"))
-		result = ft_cd((*cmds)->cmd->args + 1,
-				arg_size((*cmds)->cmd->args + 1), *vars);
-	if (!ft_strcmp((*cmds)->cmd->cmd, "echo"))
-		result = ft_echo((*cmds)->cmd->args + 1,
-				arg_size((*cmds)->cmd->args + 1));
-	if (!ft_strcmp((*cmds)->cmd->cmd, "export"))
-		result = ft_export((*cmds)->cmd->args[1], vars);
-	if (!ft_strcmp((*cmds)->cmd->cmd, "unset"))
-		result = ft_unset((*cmds)->cmd->args[1], vars);
-	if (!ft_strcmp((*cmds)->cmd->cmd, "env"))
+	if (!ft_strcmp((*cmds)->cmd, "cd"))
+		result = ft_cd((*cmds)->args + 1,
+				arg_size((*cmds)->args + 1), *vars);
+	if (!ft_strcmp((*cmds)->cmd, "echo"))
+		result = ft_echo((*cmds)->args + 1,
+				arg_size((*cmds)->args + 1));
+	if (!ft_strcmp((*cmds)->cmd, "export"))
+		result = ft_export((*cmds)->args[1], vars);
+	if (!ft_strcmp((*cmds)->cmd, "unset"))
+		result = ft_unset((*cmds)->args[1], vars);
+	if (!ft_strcmp((*cmds)->cmd, "env"))
 		result = ft_env(*vars);
 	dup2(temp, STDOUT_FILENO);
 	rm_command(cmds);
 	return (result);
 }
 
-void	run_everything(t_commands **cmds, t_env_var **vars, int *ret)
+void	run_everything(t_command **cmds, t_env_var **vars, int *ret)
 {
 	int	r;
 
-	if (size_commands(*cmds) == 1 && is_builtins((*cmds)->cmd))
+	if (size_commands(*cmds) == 1 && is_builtins(*cmds))
 		r = run_builtin(cmds, vars);
 	else if (size_commands(*cmds))
 		r = run_cmds(cmds, vars);

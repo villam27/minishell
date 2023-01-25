@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 15:50:41 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 10:18:52 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	get_process_return(int pid)
 }
 
 static int	new_process(t_command *cmd, int pipes[2][2],
-	t_commands *last, t_env_var **vars)
+	t_command *last, t_env_var **vars)
 {
 	pid_t	pid;
 
@@ -93,7 +93,7 @@ static int	wait_cmds(int cmds_size, int *pids)
 	return (ret);
 }
 
-int	run_cmds(t_commands **cmds_list, t_env_var **vars)
+int	run_cmds(t_command **cmds_list, t_env_var **vars)
 {
 	int	cmds_size;
 	int	pipe_fd[2][2];
@@ -109,7 +109,7 @@ int	run_cmds(t_commands **cmds_list, t_env_var **vars)
 	pipe_fd[0][1] = dup(1);
 	while (++i < cmds_size)
 	{
-		pids[i] = new_process((*cmds_list)->cmd,
+		pids[i] = new_process(*cmds_list,
 				pipe_fd, (*cmds_list)->next, vars);
 		close(pipe_fd[0][0]);
 		close(pipe_fd[0][1]);
