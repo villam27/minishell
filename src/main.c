@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 11:48:04 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 13:01:39 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int argc, char **argv, char **envp)
 	char		**args;
 	int			ret_code = 0;
 
+	ft_printf("%s\n", envp[0]);
 	signal(SIGINT, sigint);
 	signal(SIGQUIT, sigquit);
 	cmds = NULL;
@@ -45,7 +46,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	run_everything(&cmds, &vars, &ret_code);
 	ft_printf("---");
-	ft_env(vars);
 	while (vars)
 	{
 		ft_unset_single(vars->name, &vars);

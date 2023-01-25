@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 11:36:46 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 13:07:29 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,7 @@ void		destroy_vars(t_env_var **vars);
 void		sigint(int sig);
 void		sigquit_process(int sig);
 void		sigquit(int sig);
+
+char		**get_envp(t_env_var *vars);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:28:46 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 11:47:58 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 13:07:19 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	*get_home_path(t_env_var *vars)
 	return (NULL);
 }
 
-static int	change_pwd(t_env_var *vars,char *path)
+static int	change_pwd(t_env_var *vars, char *path)
 {
 	while (vars)
 	{
