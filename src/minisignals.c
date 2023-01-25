@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   minisignals.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 15:31:29 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 16:04:56 by tibernot         ###   ########.fr       */
+/*   Created: 2023/01/25 11:26:31 by alboudje          #+#    #+#             */
+/*   Updated: 2023/01/25 11:35:52 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../builtins.h"
-#include <limits.h>
+#include "minishell.h"
 
-int	ft_pwd(void)
+void	sigint(int sig)
 {
-	char	pwd[PATH_MAX];
+	(void)sig;
+	ft_printf("exit C\n");
+}
 
-	if (getcwd(pwd, PATH_MAX))
-	{
-		ft_printf("%s\n", pwd);
-		return (0);
-	}
-	return (1);
+void	sigquit_process(int sig)
+{
+	(void)sig;
+	ft_putstr_fd("Quit: 3\n", 2);
+	exit(131);
+}
+
+void	sigquit(int sig)
+{
+	(void)sig;
+	ft_putstr_fd("\n", 2);
 }

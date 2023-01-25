@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:28:46 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 13:55:07 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:03:40 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ static int	print_errors(char *str)
 
 static int	print_error(char *path)
 {
-	int	i;
-
-	i = -1;
 	ft_putstr_fd("minishell: cd: ", 2);
 	ft_putstr_fd(path, 2);
 	ft_putstr_fd(": ", 2);
@@ -44,6 +41,23 @@ static char	*get_home_path(t_env_var *vars)
 		vars = vars->next;
 	}
 	return (NULL);
+}
+
+static int	change_pwd(t_env_var *vars, char *path)
+{
+	while (vars)
+	{
+		if (!ft_strcmp("PWD", vars->name))
+		{
+			free(vars->content);
+			vars->content = ft_strdup(path);
+			if (!vars->content)
+				return (1);
+			return (0);
+		}
+		vars = vars->next;
+	}
+	return (1);
 }
 
 int	ft_cd(char **args, int argc, t_env_var *vars)
@@ -64,6 +78,7 @@ int	ft_cd(char **args, int argc, t_env_var *vars)
 		free(path);
 		return (1);
 	}
+	change_pwd(vars, path);
 	free(path);
 	return (0);
 }

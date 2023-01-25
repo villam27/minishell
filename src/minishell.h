@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 15:53:34 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:13:01 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,4 +157,10 @@ void		put_alst(t_list **alst);
 int			in_squote(char *str, int index);
 void		to_good_tildes(t_list **cmds, t_env_var **vars);
 void		rm_external_quotes(t_list **cmds);
+/*signal*/
+void		sigint(int sig);
+void		sigquit_process(int sig);
+void		sigquit(int sig);
+
+char		**get_envp(t_env_var *vars);
 #endif

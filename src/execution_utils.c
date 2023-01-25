@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:37:57 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 13:03:11 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:14:12 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	is_builtins(t_command *cmd)
 		return (1);
 	if (!ft_strcmp(cmd->cmd, "env"))
 		return (1);
+	if (!ft_strcmp(cmd->cmd, "exit"))
+		return (1);
 	return (0);
 }
 
@@ -46,11 +48,14 @@ int	run_builtin(t_command **cmds, t_env_var **vars)
 		result = ft_echo((*cmds)->args + 1,
 				arg_size((*cmds)->args + 1));
 	if (!ft_strcmp((*cmds)->cmd, "export"))
-		result = ft_export((*cmds)->args[1], vars);
+		result = ft_export((*cmds)->args, vars);
 	if (!ft_strcmp((*cmds)->cmd, "unset"))
-		result = ft_unset((*cmds)->args[1], vars);
+		result = ft_unset((*cmds)->args, vars);
 	if (!ft_strcmp((*cmds)->cmd, "env"))
 		result = ft_env(*vars);
+	if (!ft_strcmp((*cmds)->cmd, "exit"))
+		result = ft_exit((*cmds)->args + 1,
+				arg_size((*cmds)->args) - 1, vars);
 	dup2(temp, STDOUT_FILENO);
 	rm_command(cmds);
 	return (result);

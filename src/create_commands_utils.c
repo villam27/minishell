@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:19:20 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/25 14:38:20 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:07:36 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	is_builtin_str(char *str)
 	if (!ft_strcmp(str, "unset"))
 		return (1);
 	if (!ft_strcmp(str, "env"))
+		return (1);
+	if (!ft_strcmp(str, "exit"))
 		return (1);
 	return (0);
 }
