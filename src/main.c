@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 16:21:38 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:03:23 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,12 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGQUIT, sigquit);
 	while (line)
 	{
-		// tcsetattr();
 		line = readline("Minishell$ ");
 		if (!line)
 		{
 			while (vars)
-				ft_unset(&(vars->name), &vars);
-			return (clear_history(), free(line), 0);
+				ft_unset_single(vars->name, &vars);
+			return (clear_history(), free(line), ft_printf("exit\n"), 0);
 		}
 		if (line[0])
 		{
@@ -62,7 +61,7 @@ int	main(int argc, char **argv, char **envp)
 				ft_putendl_fd("Parsing error", 2);
 			else
 			{
-				hds = do_heredocs(line); // do in a fork()
+				hds = do_heredocs(line);
 				all_cmds = get_all(line);
 				to_good_cmds(all_cmds, &vars);
 				cmds = create_commands(all_cmds, vars, hds);

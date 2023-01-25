@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:19:20 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/25 16:07:36 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:31:51 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	good_cmd(char *str, char *path)
 
 	test = NULL;
 	i = -1;
+	if (is_builtin_str(str))
+		return (1);
 	if (access(str, X_OK) == 0)
 		return (1);
 	paths = ft_split(ft_strnstr(path, "/", ft_strlen(path)), ':');
