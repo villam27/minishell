@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:28:46 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/21 15:41:59 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 11:47:58 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,23 @@ static char	*get_home_path(t_env_var *vars)
 	return (NULL);
 }
 
+static int	change_pwd(t_env_var *vars,char *path)
+{
+	while (vars)
+	{
+		if (!ft_strcmp("PWD", vars->name))
+		{
+			free(vars->content);
+			vars->content = ft_strdup(path);
+			if (!vars->content)
+				return (1);
+			return (0);
+		}
+		vars = vars->next;
+	}
+	return (1);
+}
+
 int	ft_cd(char **args, int argc, t_env_var *vars)
 {
 	char	*path;
@@ -61,6 +78,7 @@ int	ft_cd(char **args, int argc, t_env_var *vars)
 		free(path);
 		return (1);
 	}
+	change_pwd(vars, path);
 	free(path);
 	return (0);
 }

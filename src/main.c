@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 11:37:22 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 11:48:04 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	run_everything(&cmds, &vars, &ret_code);
 	ft_printf("---");
-	//ft_env(vars);
+	ft_env(vars);
 	while (vars)
 	{
 		ft_unset_single(vars->name, &vars);
