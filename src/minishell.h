@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 11:46:26 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 15:53:34 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,36 @@ typedef struct s_create_command_data
 	char		*heredoc;
 	int			pre_is_fd_o_hd;
 
-}	t_create_command;
+}	t_create_command_data;
+
+typedef struct s_open_fds_data
+{
+	int		*fds;
+	t_list	**tmp;
+	t_list	*tmp2;
+	int		i;
+	int		j;
+
+}	t_open_fds_data;
+
+typedef struct s_create_commands_data
+{
+	t_command	*cmds;
+	int			*fds;
+	int			fds_size;
+	t_list		**tmp;
+	int			hd_ind;
+	int			fd_ind;
+	int			i;
+
+}	t_create_commands_data;
+
+typedef struct s_fd_and_hd
+{
+	int		*fds;
+	char	**hds;
+
+}	t_fd_and_hd;
 
 /*
 	command init and destruction
@@ -77,10 +106,17 @@ char		*ft_get_var_content(t_env_var **vars, char *name);
 */
 int			parsing_errors(char *str);
 void		to_good_cmds(t_list **cmds, t_env_var **vars);
-/*Create comamnds*/
+/*Create commands*/
 t_command	*create_commands(t_list **lst, t_env_var *vars, char **hds);
 int			good_cmd(char *str, char *path);
 char		*to_executable_cmd(char *str, char *path);
+/*Create commands utils*/
+int			amount_fd(t_list **lst);
+void		set_create_command_data(t_create_command_data *d, t_list *lst);
+int			amount_hd_in_bloc(t_list *lst);
+int			amount_fd_in_bloc(t_list *lst);
+int			is_in_int(int lst, int a, int b, int c);
+int			is_builtin_str(char *str);
 /*
 	Heredocs
 */

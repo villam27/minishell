@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 12:18:11 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 15:11:05 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@ int	main(int argc, char **argv, char **envp)
 	int			pt;
 
 	pt = 0;
+	cmds = NULL;
 	(void) argc;
 	(void) argv;
 	vars = init_cmds(envp);
 	line = "l";
+	hds = NULL;
 	while (line)
 	{
 		line = readline("Minishell$ ");
@@ -74,4 +76,3 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (0);
 }
-

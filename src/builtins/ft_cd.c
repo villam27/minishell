@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:28:46 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/21 15:41:59 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 13:55:07 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ static int	print_errors(char *str)
 
 static int	print_error(char *path)
 {
+	int	i;
+
+	i = -1;
 	ft_putstr_fd("minishell: cd: ", 2);
 	ft_putstr_fd(path, 2);
 	ft_putstr_fd(": ", 2);

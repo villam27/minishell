@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:19:20 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/25 12:11:20 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 14:38:20 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,21 @@ int	good_cmd(char *str, char *path)
 	char	*test;
 
 	test = NULL;
-	i = 0;
+	i = -1;
 	if (access(str, X_OK) == 0)
 		return (1);
 	paths = ft_split(ft_strnstr(path, "/", ft_strlen(path)), ':');
-	while (paths[i])
+	while (paths[++i])
 	{
 		test = add_str_path(paths[i], str);
 		if (access(test, X_OK) == 0)
 			return (free(test), free_all(paths), 1);
 		free(test);
-		test = NULL;
-		i++;
 	}
 	free_all(paths);
 	ft_putstr_fd("Minishell: ", 2);
 	ft_putstr_fd(str, 2);
-	ft_putendl_fd(": command not found", 2);
-	return (0);
+	return (ft_putendl_fd(": command not found", 2), 0);
 }
 
 char	*to_executable_cmd(char *str, char *path)
@@ -61,6 +58,8 @@ char	*to_executable_cmd(char *str, char *path)
 
 	test = NULL;
 	i = 0;
+	if (is_builtin_str(str))
+		return (ft_strdup(str));
 	if (access(str, X_OK) == 0)
 		return (ft_strdup(str));
 	paths = ft_split(ft_strnstr(path, "/", ft_strlen(path)), ':');
@@ -74,4 +73,21 @@ char	*to_executable_cmd(char *str, char *path)
 		i++;
 	}
 	return (free_all(paths), NULL);
+}
+
+int	is_builtin_str(char *str)
+{
+	if (!ft_strcmp(str, "pwd"))
+		return (1);
+	if (!ft_strcmp(str, "cd"))
+		return (1);
+	if (!ft_strcmp(str, "echo"))
+		return (1);
+	if (!ft_strcmp(str, "export"))
+		return (1);
+	if (!ft_strcmp(str, "unset"))
+		return (1);
+	if (!ft_strcmp(str, "env"))
+		return (1);
+	return (0);
 }

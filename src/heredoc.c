@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/24 15:30:29 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 14:54:03 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ char	**do_heredocs(char *str)
 
 	i = 0;
 	heredocs = create_heredocs(str);
+	if (ft_lstsize(heredocs) == 0)
+		return (NULL);
 	if (!good_heredocs(str, heredocs))
 		ft_lstclear(&heredocs, free);
 	res = malloc(sizeof(char *) * (ft_lstsize(heredocs) + 1));

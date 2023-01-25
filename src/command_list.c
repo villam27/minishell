@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:37:03 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 11:01:09 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 12:53:06 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	add_command(t_command **cmds_list, t_command *cmd)
 	if (!cmds_list)
 	{
 		cmds_list = &cmd;
-		ft_printf("%p\n", cmds_list);
-		//ft_printf("%p\n", cmd);
 		return ;
 	}
 	temp = (*cmds_list);
@@ -44,7 +42,6 @@ void	rm_command(t_command **cmds_list)
 	(*cmds_list) = (*cmds_list)->next;
 	cmd->next = NULL;
 	destroy_command(cmd);
-	// free(cmd);
 }
 
 int	size_commands(t_command *cmds_list)
