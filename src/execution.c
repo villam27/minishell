@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 12:53:15 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 14:02:25 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	run_cmds(t_commands **cmds_list, t_env_var **vars)
 	i = -1;
 	cmds_size = size_commands(*cmds_list);
 	pids = malloc(sizeof(int) * cmds_size);
-	if (pipe(pipe_fd[0]) < 0 || pipe(pipe_fd[1]) < 0)
+	if (!pids || pipe(pipe_fd[0]) < 0 || pipe(pipe_fd[1]) < 0)
 		return (1);
 	pipe_fd[0][0] = dup(0);
 	pipe_fd[0][1] = dup(1);

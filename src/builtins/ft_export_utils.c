@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 12:20:16 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/24 15:11:49 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 14:07:19 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	mod_env(char *content, t_env_var **var, int p_env)
 		else
 			(*var)->content = ft_strdup("");
 	}
+	if (!(*var)->content)
+		return (1);
 	return (0);
 }
 

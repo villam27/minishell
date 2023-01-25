@@ -6,15 +6,12 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:25:46 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 13:12:04 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 14:02:41 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtins.h"
 
-/*
-	TODO: clear list if malloc broke while looping
-*/
 t_env_var	*ft_env_dup(t_env_var *var)
 {
 	t_env_var	*dup_env;
@@ -28,6 +25,12 @@ t_env_var	*ft_env_dup(t_env_var *var)
 	{
 		var = var->next;
 		temp->next = ft_env_new(var->name, var->content, 1);
+		if (!temp->next)
+		{	
+			while (dup_env)
+				ft_unset_single(dup_env->name, &dup_env);
+			return (NULL);
+		}
 		temp = temp->next;
 	}
 	return (dup_env);

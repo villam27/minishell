@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:43:05 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 13:12:42 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 14:27:38 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ char	**get_result(char *value)
 		{
 			free(sp[1]);
 			sp[1] = ft_strdup(ft_strrchr(value, '=') + 1);
+			if (!sp[1])
+				return (free_all(sp), NULL);
 		}
 	}
 	else
@@ -63,7 +65,11 @@ char	**split_args(char *value)
 		if (!is_valid(value))
 		{
 			result = malloc(sizeof(char *) * 3);
+			if (!result)
+				return (NULL);
 			result[0] = ft_strdup(value);
+			if (!result[0])
+				return (free(result), NULL);
 			result[1] = NULL;
 		}
 		else
@@ -85,7 +91,7 @@ int	single_export(char *value, t_env_var **vars)
 		p_env = 1;
 	variable = split_args(value);
 	if (!variable)
-		return (0);
+		return (1);
 	var = get_var_addr(variable[0], vars);
 	if (var)
 		mod_env(variable[1], &var, p_env);
@@ -103,11 +109,12 @@ int	ft_export(char **value, t_env_var **vars)
 	if (!value[0])
 	{
 		ft_print_env(*vars);
-		return (1);
+		return (0);
 	}
 	while (value[i])
 	{
-		single_export(value[i], vars);
+		if (single_export(value[i], vars))
+			return (1);
 		i++;
 	}
 	return (0);
