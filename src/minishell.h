@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 16:13:01 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:55:09 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_command
 
 typedef struct s_create_command_data
 {
-	t_command	*res;
+	t_command	*r;
 	char		*cmd;
 	char		**args;
 	t_list		*tmp;
@@ -49,7 +49,7 @@ typedef struct s_create_command_data
 	int			ind_args;
 	int			fd_out;
 	char		*heredoc;
-	int			pre_is_fd_o_hd;
+	int			pre_is_fd;
 
 }	t_create_command_data;
 

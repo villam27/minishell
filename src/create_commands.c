@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:45:16 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/25 15:53:00 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:10:04 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	good_fds(t_create_command_data *d, char **hds, int *fds)
 	{
 		if (d_tmp.tmp->content && (((char *)(d_tmp.tmp->content))[0]) == 2)
 		{
-			d_tmp.heredoc = hds[0];
+			d->heredoc = hds[0];
 			hds++;
 		}
 		else if (d_tmp.tmp->content
@@ -100,30 +100,24 @@ t_command	*create_command(t_list *lst, char **hds, int *fds, t_env_var *vars)
 		return (free(d.args), init_command(NULL, NULL, vars));
 	while (d.tmp)
 	{
-		if (d.tmp->content && (((((char *)(d.tmp->content))[0]) == 2)
-			|| is_in_int((((char *)(d.tmp->content))[0]), -7, -8, -10)))
-			d.pre_is_fd_o_hd = 1;
-		else if (!d.pre_is_fd_o_hd)
+		if (d.tmp->content && is_in_int((((char *)(d.tmp->content))[0]), -7, -8, -10))
+			d.pre_is_fd = 1;
+		else if (!d.pre_is_fd && (((char *)(d.tmp->content))[0]) != 2)
 		{
-			if (!d.cmd)
-			{
-				if (is_builtin_str(d.tmp->content))
-					d.cmd = ft_strdup(d.tmp->content);
-				else if (good_cmd(d.tmp->content,
-						ft_get_var_content(&vars, "PATH")))
-					d.cmd = to_executable_cmd(d.tmp->content,
-							ft_get_var_content(&vars, "PATH"));
-			}
+			if (!d.cmd && good_cmd(d.tmp->content,
+					ft_get_var_content(&vars, "PATH")))
+				d.cmd = to_executable_cmd(d.tmp->content,
+						ft_get_var_content(&vars, "PATH"));
 			d.args[d.ind_args++] = ft_strdup(d.tmp->content);
 		}
 		else
-			d.pre_is_fd_o_hd = 0;
+			d.pre_is_fd = 0;
 		d.tmp = d.tmp->next;
 	}
-	d.args[d.ind_args] = NULL;
-	d.res = init_command(d.cmd, d.args, vars);
-	return (set_fd(&(d.res), d.fd_in, d.fd_out, 2),
-		set_heredoc(&(d.res), d.heredoc), d.res);
+	// ft_printf("%s", d.heredoc);
+	return (d.args[d.ind_args] = NULL, d.r = init_command(d.cmd, d.args, vars),
+		set_fd(&(d.r), d.fd_in, d.fd_out, 2),
+		set_heredoc(&(d.r), d.heredoc), d.r);
 }
 
 t_command	*create_commands(t_list **lst, t_env_var *vars, char **hds)
@@ -136,8 +130,6 @@ t_command	*create_commands(t_list **lst, t_env_var *vars, char **hds)
 	d.tmp = lst;
 	d.fds_size = amount_fd(lst);
 	d.cmds = NULL;
-	(void)vars;
-	(void)hds;
 	if (lst)
 		d.fds = open_fds(lst);
 	while (d.tmp[d.i])

@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/25 14:54:03 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:55:53 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,23 +97,39 @@ char	*do_heredoc(char *hd_out)
 {
 	char	*line;
 	char	*res;
+	pid_t	pid;
+	int		pipes[2];
 
 	res = NULL;
-	line = readline("> ");
-	if (ft_strcmp(hd_out, line) != 0)
-		res = str_append(res, line, "\n");
-	if (!line)
-		return (res);
-	while (ft_strcmp(hd_out, line) != 0)
+	pid = fork();
+	pipe(pipes);
+	if (pid < 0)
+		return ((void)ft_putstr_fd("minishell: fork: Resource \
+			 temporarily unavailable\n", 2), NULL);
+	if (pid == 0)
 	{
-		free(line);
 		line = readline("> ");
-		if (!line)
-			return (res);
 		if (ft_strcmp(hd_out, line) != 0)
 			res = str_append(res, line, "\n");
+		if (!line)
+			return (res);
+		while (ft_strcmp(hd_out, line) != 0)
+		{
+			free(line);
+			line = readline("> ");
+			if (!line)
+				exit(0);
+			if (ft_strcmp(hd_out, line) != 0)
+				res = str_append(res, line, "\n");
+		}
+		ft_putstr_fd(res, pipes[1]);
+		exit(0);
 	}
-	free(line);
+	wait(NULL);
+	read(pipes[0], res, 10);
+	ft_printf("%s\n", res);
+	close(pipes[0]);
+	close(pipes[1]);
 	return (res);
 }
 
