@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/26 12:26:58 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/26 14:35:18 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ t_env_var	*init_cmds(char **envp)
 	return (vars);
 }
 
+void	handle_input(struct termios *term)
+{
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, term);
+	signal(SIGINT, sigint);
+	signal(SIGQUIT, sigquit);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
@@ -34,7 +41,12 @@ int	main(int argc, char **argv, char **envp)
 	t_env_var	*vars;
 	t_command	*cmds;
 	int			pt;
+	struct termios	save;
+	struct termios	term;
 
+	tcgetattr(STDIN_FILENO, &save);
+	tcgetattr(STDIN_FILENO, &term);
+term.c_lflag &= ECHO;
 	pt = 0;
 	cmds = NULL;
 	(void) argc;
@@ -42,15 +54,15 @@ int	main(int argc, char **argv, char **envp)
 	vars = init_cmds(envp);
 	line = "l";
 	hds = NULL;
-	signal(SIGINT, sigint);
-	signal(SIGQUIT, sigquit);
 	while (line)
 	{
+		handle_input(&term);
 		line = readline("Minishell$ ");
 		if (!line)
 		{
 			while (vars)
 				ft_unset_single(vars->name, &vars);
+			tcsetattr(STDIN_FILENO, TCSANOW, &save);
 			return (clear_history(), free(line), ft_printf("exit\n"), exit(0), 0);
 		}
 		if (line[0])
@@ -64,6 +76,7 @@ int	main(int argc, char **argv, char **envp)
 				all_cmds = get_all(line);
 				to_good_cmds(all_cmds, &vars);
 				cmds = create_commands(all_cmds, vars, hds);;
+				tcsetattr(STDIN_FILENO, TCSANOW, &save);
 				run_everything(&cmds, &vars, &pt);
 				free_alist(all_cmds);
 				free(line);
