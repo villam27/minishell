@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/26 14:23:15 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 15:04:40 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,12 @@ char	*do_heredoc(char *hd_out)
 	{
 		if (!while_hd(hd_out, &d))
 			return (ft_putendl_fd("0", d.pipes[1]), exit(0), NULL);
-		return (d.str_nb_lines = ft_itoa(d.nb_lines),
-			ft_putendl_fd(d.str_nb_lines, d.pipes[1]), free(d.str_nb_lines),
-			ft_putstr_fd(d.res, d.pipes[1]), exit(0), NULL);
+		return (ft_putstr_fd(d.res, d.pipes[1]), exit(0), NULL);
 	}
 	waitpid(d.pid, (int *)signal(SIGINT, sigquit), 0);
-	write(d.pipes[1], "0\n", 2);
+	close(d.pipes[1]);
 	return (d.res = get_lines(d.pipes[0]),
-		close(d.pipes[0]), close(d.pipes[1]), d.res);
+		close(d.pipes[0]), d.res);
 }
 
 char	**do_heredocs(char *str)

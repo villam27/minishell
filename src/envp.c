@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:51:37 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/26 11:29:31 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 14:41:20 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**get_envp(t_env_var *vars)
 	{
 		envp[i] = get_str_env(temp);
 		if (!envp[i])
-			free(envp);
+			free_all(envp);
 		temp = temp->next;
 		i++;
 	}

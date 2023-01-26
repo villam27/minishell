@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:58:38 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/26 14:23:28 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 15:04:31 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ char	*str_append(char *origin, char *str2, char *str3)
 int	set_do_heredoc_data(t_do_heredoc_data *d)
 {
 	d->res = NULL;
-	d->nb_lines = 0;
 	d->line = NULL;
 	if (pipe(d->pipes) < 0)
 		return (0);

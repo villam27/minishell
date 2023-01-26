@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 12:20:16 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 16:04:10 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 13:45:09 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ void	ft_sort_env_var(t_env_var **var)
 	char		*cont;
 
 	temp1 = *var;
-	while (temp1->next)
+	while (temp1)
 	{
 		temp2 = temp1->next;
-		while (temp2->next)
+		while (temp2)
 		{
 			if (ft_strcmp(temp1->name, temp2->name) > 0)
 			{
