@@ -6,12 +6,14 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:38:52 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/26 16:09:14 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:54:13 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "builtins.h"
+
+int	err = 0;
 
 t_env_var	*init_cmds(char **envp)
 {
@@ -57,6 +59,7 @@ int	main(int argc, char **argv, char **envp)
 	hds = NULL;
 	while (line)
 	{
+		err = 0;
 		handle_input(&term);
 		line = readline("Minishell$ ");
 		if (!line)
@@ -78,7 +81,7 @@ int	main(int argc, char **argv, char **envp)
 				to_good_cmds(all_cmds, &vars);
 				tcsetattr(STDIN_FILENO, TCSANOW, &save);
 				cmds = create_commands(all_cmds, vars, hds);;
-				run_everything(&cmds, &vars, &pt);
+				run_everything(&cmds, &vars);
 				free_alist(all_cmds);
 				free(line);
 				free_all(hds);

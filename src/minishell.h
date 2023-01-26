@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/26 16:10:57 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:49:19 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <readline/history.h>
 # include <fcntl.h>
 # include <signal.h>
+
+int	err;
 
 typedef struct s_env_var
 {
