@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 14:28:30 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/26 12:28:03 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/26 15:45:24 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ void		ft_print_env(t_env_var *var);
 int			ft_unset_single(char *arg, t_env_var **vars);
 int			is_valid(char *name, char *comm);
 void		print_var_error(char *func, char *var_name);
+int			single_export(char *value, t_env_var **vars);
 
 #endif

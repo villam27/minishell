@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:38:52 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/26 15:11:58 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:09:14 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_env_var	*init_cmds(char **envp)
 	if (!envp)
 		return (NULL);
 	ft_export(envp, &vars);
+	check_shlvl(&vars);
 	return (vars);
 }
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+         #
+#    By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/26 14:51:52 by tibernot         ###   ########.fr        #
+#    Updated: 2023/01/26 16:11:12 by alboudje         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC_FILES		= 	command.c \
 	envp.c \
 	minisignals.c \
 	get_next_line_no_endl.c \
+	shlvl.c \
 	builtins/ft_cd.c \
 	builtins/ft_echo.c \
 	builtins/ft_env.c \
