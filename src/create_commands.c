@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:45:16 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/25 17:10:04 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:15:56 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,17 @@ int	good_fds(t_create_command_data *d, char **hds, int *fds)
 		else if (d_tmp.tmp->content
 			&& is_in_int((((char *)(d_tmp.tmp->content))[0]), -7, -8, -10))
 		{
-			if ((((char *)(d_tmp.tmp->content))[0]) == -10)
-				d->fd_in = fds[0];
-			else
-				d->fd_out = fds[0];
-			if (d->fd_in == -1 || d->fd_out == -1)
+			if (!change_fds(&(d->fd_in), &(d->fd_out),
+					(((char *)(d_tmp.tmp->content))[0]), fds))
 				return (0);
 			fds++;
 		}
 		d_tmp.tmp = d_tmp.tmp->next;
 	}
+	if (d->fd_out == -2)
+		d->fd_out = 1;
+	if (d->fd_in == -2)
+		d->fd_in = 0;
 	return (1);
 }
 
@@ -100,7 +101,8 @@ t_command	*create_command(t_list *lst, char **hds, int *fds, t_env_var *vars)
 		return (free(d.args), init_command(NULL, NULL, vars));
 	while (d.tmp)
 	{
-		if (d.tmp->content && is_in_int((((char *)(d.tmp->content))[0]), -7, -8, -10))
+		if (d.tmp->content
+			&& is_in_int((((char *)(d.tmp->content))[0]), -7, -8, -10))
 			d.pre_is_fd = 1;
 		else if (!d.pre_is_fd && (((char *)(d.tmp->content))[0]) != 2)
 		{
@@ -114,7 +116,6 @@ t_command	*create_command(t_list *lst, char **hds, int *fds, t_env_var *vars)
 			d.pre_is_fd = 0;
 		d.tmp = d.tmp->next;
 	}
-	// ft_printf("%s", d.heredoc);
 	return (d.args[d.ind_args] = NULL, d.r = init_command(d.cmd, d.args, vars),
 		set_fd(&(d.r), d.fd_in, d.fd_out, 2),
 		set_heredoc(&(d.r), d.heredoc), d.r);
