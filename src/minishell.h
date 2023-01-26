@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/26 12:26:10 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 14:23:51 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
+# include <signal.h>
 
 typedef struct s_env_var
 {
@@ -134,6 +135,11 @@ int			change_fds(int *fd_in, int *fd_out, int way, int *fds);
 */
 t_list		*create_heredocs(char *str);
 char		**do_heredocs(char *str);
+/*heredoc utils*/
+int			while_out(char *str, int i);
+char		*str_append(char *origin, char *str2, char *str3);
+int			set_do_heredoc_data(t_do_heredoc_data *d);
+int			while_hd(char *hd_out, t_do_heredoc_data *d);
 /*
 	Utils
 */
@@ -145,10 +151,6 @@ char		*add_str(char *str, char *str2);
 char		*get_lines(int fd);
 char		*new_readline(char *prev_line, char *str);
 int			in_quote(char *str, int index);
-/*heredoc utils*/
-int			while_out(char *str, int i);
-char		*str_append(char *origin, char *str2, char *str3);
-int			set_do_heredoc_data(t_do_heredoc_data *d);
 /*Parse and split utils*/
 void		free_aastring(char ***str);
 void		put_aastring(char ***str);

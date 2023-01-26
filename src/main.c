@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:36:36 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/26 09:50:40 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 12:28:55 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,19 @@ int	main(int argc, char **argv, char **envp)
 				ft_unset_single(vars->name, &vars);
 			return (clear_history(), free(line), ft_printf("exit\n"), exit(0), 0);
 		}
-		if (line[0])
+		add_history(line);
+		if (parsing_errors(line))
+			ft_putendl_fd("Parsing error", 2);
+		else
 		{
-			add_history(line);
-			if (parsing_errors(line))
-				ft_putendl_fd("Parsing error", 2);
-			else
-			{
-				hds = do_heredocs(line);
-				all_cmds = get_all(line);
-				to_good_cmds(all_cmds, &vars);
-				cmds = create_commands(all_cmds, vars, hds);;
-				run_everything(&cmds, &vars, &pt);
-				free_alist(all_cmds);
-				free(line);
-				free_all(hds);
-			}
+			hds = do_heredocs(line);
+			all_cmds = get_all(line);
+			to_good_cmds(all_cmds, &vars);
+			cmds = create_commands(all_cmds, vars, hds);;
+			run_everything(&cmds, &vars, &pt);
+			free_alist(all_cmds);
+			free(line);
+			free_all(hds);
 		}
 	}
 	return (0);

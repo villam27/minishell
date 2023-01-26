@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 10:06:23 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/26 11:13:32 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 14:22:41 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,20 @@ char	*get_lines(int fd)
 	nb_lines = ft_atoi(tmp);
 	free(tmp);
 	tmp = NULL;
-	while (nb_lines > 1)
+	if (nb_lines > 1)
 	{
-		tmp = get_next_line(fd);
-		if (tmp)
-			res = add_str(res, tmp);
-		tmp = NULL;
-		nb_lines--;
+		while (nb_lines > 1)
+		{
+			tmp = get_next_line(fd);
+			if (tmp)
+				res = add_str(res, tmp);
+			tmp = NULL;
+			nb_lines--;
+		}
+		free(tmp);
 	}
-	free(tmp);
-	return (res);
+	else
+		res = ft_strdup("");
+	tmp = ft_calloc(2, sizeof(char));
+	return (read(fd, tmp, 2), free(tmp), res);
 }

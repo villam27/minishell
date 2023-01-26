@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/26 12:25:23 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 14:23:15 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,23 +103,19 @@ char	*do_heredoc(char *hd_out)
 	if (d.pid < 0)
 		return (close(d.pipes[0]), ft_putstr_fd("minishell: fork: Resource \
 			 temporarily unavailable\n", 2), close(d.pipes[1]), NULL);
+	signal(SIGINT, NULL);
 	if (d.pid == 0)
 	{
-		while (ft_strcmp(hd_out, d.line) != 0)
-		{
-			d.line = new_readline(d.line, "> ");
-			if (!d.line)
-				return (ft_putendl_fd("0", d.pipes[1]), exit(0), NULL);
-			else if (ft_strcmp(hd_out, d.line) != 0)
-				d.res = str_append(d.res, d.line, "\n");
-			d.nb_lines++;
-		}
+		if (!while_hd(hd_out, &d))
+			return (ft_putendl_fd("0", d.pipes[1]), exit(0), NULL);
 		return (d.str_nb_lines = ft_itoa(d.nb_lines),
 			ft_putendl_fd(d.str_nb_lines, d.pipes[1]), free(d.str_nb_lines),
 			ft_putstr_fd(d.res, d.pipes[1]), exit(0), NULL);
 	}
-	return (wait(NULL), d.res = get_lines(d.pipes[0]), close(d.pipes[0]),
-		close(d.pipes[1]), d.res);
+	waitpid(d.pid, (int *)signal(SIGINT, sigquit), 0);
+	write(d.pipes[1], "0\n", 2);
+	return (d.res = get_lines(d.pipes[0]),
+		close(d.pipes[0]), close(d.pipes[1]), d.res);
 }
 
 char	**do_heredocs(char *str)
