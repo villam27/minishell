@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:07:46 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/25 15:53:10 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:06:56 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ int	amount_hd_in_bloc(t_list *lst)
 
 void	set_create_command_data(t_create_command_data *d, t_list *lst)
 {
-	d->pre_is_fd_o_hd = 0;
+	d->pre_is_fd = 0;
 	d->cmd = NULL;
 	d->heredoc = NULL;
-	d->fd_in = 0;
-	d->fd_out = 1;
+	d->fd_in = -2;
+	d->fd_out = -2;
 	d->tmp = lst;
 	d->ind_args = 0;
 	d->args = malloc(sizeof(char *) * (ft_lstsize(lst) + 1));

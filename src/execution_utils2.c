@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:13:25 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 11:51:49 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/26 14:45:17 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	run_builtins(t_command *cmd, t_env_var **vars)
 		return (exit(ft_echo(cmd->args + 1,
 					arg_size(cmd->args + 1))), 1);
 	if (!ft_strcmp(cmd->cmd, "export"))
-		return (exit(ft_export(NULL, vars)), 1);
+		return (exit(ft_export(cmd->args, vars)), 1);
 	if (!ft_strcmp(cmd->cmd, "unset"))
-		return (exit(ft_unset(NULL, vars)), 1);
+		return (exit(ft_unset(cmd->args, vars)), 1);
 	if (!ft_strcmp(cmd->cmd, "env"))
 		return (exit(ft_env(*vars)), 1);
 	return (0);

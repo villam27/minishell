@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 12:12:06 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 16:05:00 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 14:43:26 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,11 @@ int	ft_unset(char **args, t_env_var **vars)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (args[i])
 	{
-		if (is_valid(args[i]))
+		if (strcmp(args[i], "unset") || is_valid(args[i], "unset"))
 			ft_unset_single(args[i], vars);
-		else
-			print_var_error("export", args[i]);
 		i++;
 	}
 	return (0);

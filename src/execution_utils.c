@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:37:57 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 16:14:12 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 13:00:49 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	run_builtin(t_command **cmds, t_env_var **vars)
 				arg_size((*cmds)->args) - 1, vars);
 	dup2(temp, STDOUT_FILENO);
 	rm_command(cmds);
-	return (result);
+	return (close(temp), result);
 }
 
 void	run_everything(t_command **cmds, t_env_var **vars, int *ret)

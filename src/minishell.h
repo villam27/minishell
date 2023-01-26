@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 16:13:01 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 14:23:51 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
+# include <signal.h>
 
 typedef struct s_env_var
 {
@@ -38,10 +39,10 @@ typedef struct s_command
 	t_env_var			*vars;
 	struct s_command	*next;
 }	t_command;
-
+/*data structures*/
 typedef struct s_create_command_data
 {
-	t_command	*res;
+	t_command	*r;
 	char		*cmd;
 	char		**args;
 	t_list		*tmp;
@@ -49,7 +50,7 @@ typedef struct s_create_command_data
 	int			ind_args;
 	int			fd_out;
 	char		*heredoc;
-	int			pre_is_fd_o_hd;
+	int			pre_is_fd;
 
 }	t_create_command_data;
 
@@ -74,6 +75,17 @@ typedef struct s_create_commands_data
 	int			i;
 
 }	t_create_commands_data;
+
+typedef struct s_do_heredoc_data
+{
+	char	*line;
+	char	*res;
+	pid_t	pid;
+	int		pipes[2];
+	int		nb_lines;
+	char	*str_nb_lines;
+
+}	t_do_heredoc_data;
 
 typedef struct s_fd_and_hd
 {
@@ -117,11 +129,17 @@ int			amount_hd_in_bloc(t_list *lst);
 int			amount_fd_in_bloc(t_list *lst);
 int			is_in_int(int lst, int a, int b, int c);
 int			is_builtin_str(char *str);
+int			change_fds(int *fd_in, int *fd_out, int way, int *fds);
 /*
 	Heredocs
 */
 t_list		*create_heredocs(char *str);
 char		**do_heredocs(char *str);
+/*heredoc utils*/
+int			while_out(char *str, int i);
+char		*str_append(char *origin, char *str2, char *str3);
+int			set_do_heredoc_data(t_do_heredoc_data *d);
+int			while_hd(char *hd_out, t_do_heredoc_data *d);
 /*
 	Utils
 */
@@ -129,10 +147,10 @@ int			is_in(char c, char *str);
 void		put_astring(char **str);
 char		**ft_split_not_in_quotes(char *s, char c);
 t_list		**get_all(char	*line);
-/*heredoc utils*/
+char		*add_str(char *str, char *str2);
+char		*get_lines(int fd);
+char		*new_readline(char *prev_line, char *str);
 int			in_quote(char *str, int index);
-int			while_out(char *str, int i);
-char		*str_append(char *origin, char *str2, char *str3);
 /*Parse and split utils*/
 void		free_aastring(char ***str);
 void		put_aastring(char ***str);

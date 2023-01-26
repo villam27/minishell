@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:43:05 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 16:04:50 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 13:09:50 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtins.h"
 
-int	is_valid(char *name)
+int	is_valid(char *name, char *command)
 {
 	int	i;
 
@@ -23,7 +23,7 @@ int	is_valid(char *name)
 			i++;
 		else
 		{
-			print_var_error("export", name);
+			print_var_error(command, name);
 			return (1);
 		}
 	}
@@ -37,7 +37,7 @@ char	**get_result(char *value)
 	sp = ft_split(value, '=');
 	if (!sp)
 		return (NULL);
-	if (!is_valid(sp[0]))
+	if (!is_valid(sp[0], "export"))
 	{
 		if (sp[1])
 		{
@@ -62,7 +62,7 @@ char	**split_args(char *value)
 		i++;
 	if (!value[i])
 	{
-		if (!is_valid(value))
+		if (!is_valid(value, "export"))
 		{
 			result = malloc(sizeof(char *) * 3);
 			if (!result)
@@ -105,17 +105,18 @@ int	ft_export(char **value, t_env_var **vars)
 {
 	int	i;
 
-	i = 0;
-	if (!value[0])
+	i = 1;
+	if (!value[1])
 	{
+		ft_printf("here\n");
 		ft_print_env(*vars);
 		return (0);
 	}
 	while (value[i])
 	{
 		if (single_export(value[i], vars))
-			return (1);
+			return (0);
 		i++;
 	}
-	return (0);
+	return (1);
 }

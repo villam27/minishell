@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 16:13:42 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 14:41:37 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	new_process(t_command *cmd, int pipes[2][2],
 	if (pid < 0)
 	{
 		return ((void)ft_putstr_fd("minishell: fork: Resource \
-			 temporarily unavailable\n", 2), -1);
+temporarily unavailable\n", 2), -1);
 	}
 	if (pid == 0)
 	{
@@ -81,7 +81,17 @@ void	modify_pipe(int pipe_fd[2][2])
 	close(pipe_fd[0][1]);
 	pipe_fd[0][0] = pipe_fd[1][0];
 	pipe_fd[0][1] = pipe_fd[1][1];
-	pipe(pipe_fd[1]);
+	if (pipe(pipe_fd[1]) < 0)
+		ft_printf("broken ?\n");
+}
+
+int	exit_all_fork_broken(int pipe_fd[2][2], int size, int *pids, t_command **cmds_list)
+{
+	multi_close(pipe_fd[0], pipe_fd[1]);
+	while (*cmds_list)
+		rm_command(cmds_list);
+	wait_cmds(size, pids);
+	return (1);
 }
 
 int	run_cmds(t_command **cmds_list, t_env_var **vars)
@@ -91,11 +101,12 @@ int	run_cmds(t_command **cmds_list, t_env_var **vars)
 	int	*pids;
 	int	i;
 
+	(void) vars;
 	i = -1;
 	cmds_size = size_commands(*cmds_list);
 	pids = malloc(sizeof(int) * cmds_size);
-	if (!pids || pipe(pipe_fd[0]) < 0 || pipe(pipe_fd[1]) < 0)
-		return (1);
+	if (!pids || pipe(pipe_fd[1]) < 0)
+		return (free(pids), 1);
 	pipe_fd[0][0] = dup(0);
 	pipe_fd[0][1] = dup(1);
 	while (++i < cmds_size)
@@ -103,12 +114,11 @@ int	run_cmds(t_command **cmds_list, t_env_var **vars)
 		pids[i] = new_process(*cmds_list,
 				pipe_fd, (*cmds_list)->next, vars);
 		if (pids[i] < 0)
-			return (1);
+			return (exit_all_fork_broken(pipe_fd, i, pids, cmds_list));
 		modify_pipe(pipe_fd);
 		rm_command(cmds_list);
 	}
 	while (*cmds_list)
 		rm_command(cmds_list);
-	multi_close(pipe_fd[0], pipe_fd[1]);
-	return (wait_cmds(cmds_size, pids));
+	return (multi_close(pipe_fd[0], pipe_fd[1]), wait_cmds(cmds_size, pids));
 }

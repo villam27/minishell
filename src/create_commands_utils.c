@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:19:20 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/25 16:07:36 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:15:59 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	good_cmd(char *str, char *path)
 
 	test = NULL;
 	i = -1;
+	if (is_builtin_str(str))
+		return (1);
 	if (access(str, X_OK) == 0)
 		return (1);
 	paths = ft_split(ft_strnstr(path, "/", ft_strlen(path)), ':');
@@ -92,4 +94,19 @@ int	is_builtin_str(char *str)
 	if (!ft_strcmp(str, "exit"))
 		return (1);
 	return (0);
+}
+
+int	change_fds(int *fd_in, int *fd_out, int way, int *fds)
+{
+	if ((way == -10) && *fd_in != -2 && *fd_in != fds[0])
+		close(fds[-1]);
+	if (way == -10)
+		*fd_in = fds[0];
+	else if (*fd_out != -2 && *fd_out != fds[0])
+		close(fds[-1]);
+	if (way != -10)
+		*fd_out = fds[0];
+	if (*fd_in == -1 || *fd_out == -1)
+		return (close(*fd_in), close(*fd_out), 0);
+	return (1);
 }

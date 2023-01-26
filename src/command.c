@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 10:05:31 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 10:40:12 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:28:47 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,5 @@ void	destroy_command(t_command *cmd)
 		close(cmd->fd_out);
 	if (cmd->fd_err > 2)
 		close(cmd->fd_err);
-	if (cmd->here)
-		free(cmd->here);
 	free(cmd);
 }
