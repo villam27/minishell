@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 17:20:55 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/26 10:38:27 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:55:10 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,13 @@ char	*transform_vars(char *str, t_env_var **vars)
 	return (str);
 }
 
+
 void	to_good_args(t_list **cmds, t_env_var **vars)
 {
 	t_list	**tmp;
 	t_list	*tmp2;
 	int		i;
 
-	(void) vars;
 	i = 0;
 	tmp = cmds;
 	while (tmp[i])
@@ -96,6 +96,64 @@ void	to_good_args(t_list **cmds, t_env_var **vars)
 			tmp2->content = transform_vars(tmp2->content, vars);
 			tmp2 = tmp2->next;
 		}
+
+		i++;
+	}
+	i = 0;
+
+}
+
+t_list	*split_lst_on_space(t_list **lst, t_list **pre_lst)
+{
+	char	**res;
+	int		i;
+	t_list	*tmp;
+
+	res = ft_split_not_in_quotes((*lst)->content, ' ');
+	if (!res)
+		return (NULL);
+	i = ft_astrlen(res) - 1;
+	while (i > 0)
+	{
+
+		tmp = ft_lstnew(ft_strdup(res[i]));
+		tmp->next = (*lst)->next;
+		(*lst)->next = tmp;
+		i--;
+	}
+	tmp = ft_lstnew(ft_strdup(res[0]));
+	free_all(res);
+	if (pre_lst && (*pre_lst))
+		(*pre_lst)->next = tmp;
+	tmp->next = (*lst)->next;
+	return (tmp);
+}
+
+void	split_alst_on_space(t_list **cmds)
+{
+	int		i;
+	t_list	*tmp;
+	t_list	*tmp2;
+	t_list	*pre_tmp;
+
+	i = 0;
+	pre_tmp = NULL;
+	while (cmds[i])
+	{
+		tmp = cmds[i];
+		while (tmp)
+		{
+			if (count_words_not_in_quote(tmp->content, ' ') > 1)
+			{
+				tmp2 = split_lst_on_space(&tmp, &pre_tmp);
+				ft_lstdelone(tmp, free);
+				if (!pre_tmp)
+					cmds[i] = tmp2;
+				tmp = tmp2;
+			}
+			pre_tmp = tmp;
+			tmp = tmp->next;
+		}
 		i++;
 	}
 }
@@ -103,6 +161,7 @@ void	to_good_args(t_list **cmds, t_env_var **vars)
 void	to_good_cmds(t_list **cmds, t_env_var **vars)
 {
 	to_good_args(cmds, vars);
+	split_alst_on_space(cmds);
 	to_good_tildes(cmds, vars);
 	rm_external_quotes(cmds);
 }

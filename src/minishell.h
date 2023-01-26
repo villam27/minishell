@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/26 14:23:51 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:20:23 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <fcntl.h>
 # include <signal.h>
 
+
+/*global variable*/
+int	err;
 typedef struct s_env_var
 {
 	char				*name;
@@ -151,6 +154,7 @@ char		*add_str(char *str, char *str2);
 char		*get_lines(int fd);
 char		*new_readline(char *prev_line, char *str);
 int			in_quote(char *str, int index);
+int			count_words_not_in_quote(char *s, char c);
 /*Parse and split utils*/
 void		free_aastring(char ***str);
 void		put_aastring(char ***str);

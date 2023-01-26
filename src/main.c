@@ -6,12 +6,14 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:38:52 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/26 14:40:48 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:56:06 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "builtins.h"
+
+int	err = 0;
 
 t_env_var	*init_cmds(char **envp)
 {
@@ -75,12 +77,12 @@ int	main(int argc, char **argv, char **envp)
 				hds = do_heredocs(line);
 				all_cmds = get_all(line);
 				to_good_cmds(all_cmds, &vars);
-				cmds = create_commands(all_cmds, vars, hds);;
+				tcsetattr(STDIN_FILENO, TCSANOW, &save);
+				cmds = create_commands(all_cmds, vars, hds);
 				run_everything(&cmds, &vars, &pt);
 				free_alist(all_cmds);
 				free(line);
 				free_all(hds);
-				tcsetattr(STDIN_FILENO, TCSANOW, &save);
 			}
 		}
 	}
