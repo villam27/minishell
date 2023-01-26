@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:51:37 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 13:07:48 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/26 11:26:45 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ char	**get_envp(t_env_var *vars)
 		temp = temp->next;
 		i++;
 	}
+	envp[i] = NULL;
 	return (envp);
 }

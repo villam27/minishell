@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/25 17:55:53 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 10:30:02 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,9 @@ char	*do_heredoc(char *hd_out)
 	int		pipes[2];
 
 	res = NULL;
-	pid = fork();
 	pipe(pipes);
+	pid = fork();
+	signal(SIGINT, NULL);
 	if (pid < 0)
 		return ((void)ft_putstr_fd("minishell: fork: Resource \
 			 temporarily unavailable\n", 2), NULL);
@@ -125,9 +126,10 @@ char	*do_heredoc(char *hd_out)
 		ft_putstr_fd(res, pipes[1]);
 		exit(0);
 	}
+	signal(SIGINT, sigint);
 	wait(NULL);
-	read(pipes[0], res, 10);
-	ft_printf("%s\n", res);
+	res = get_next_line(pipes[0]);
+	//ft_printf("%s\n", res);
 	close(pipes[0]);
 	close(pipes[1]);
 	return (res);
