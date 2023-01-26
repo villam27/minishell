@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:26:31 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 11:35:52 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:52:42 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void	sigint(int sig)
 {
 	(void)sig;
-	ft_printf("exit C\n");
+	rl_replace_line("", 0);
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
 void	sigquit_process(int sig)
@@ -28,5 +31,5 @@ void	sigquit_process(int sig)
 void	sigquit(int sig)
 {
 	(void)sig;
-	ft_putstr_fd("\n", 2);
+	//ft_putstr_fd("\n", 2);
 }
