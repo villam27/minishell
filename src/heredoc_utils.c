@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:58:38 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/25 10:50:42 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 12:25:38 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,6 @@ int	while_out(char *str, int i)
 	return (j);
 }
 
-int	in_quote(char *str, int index)
-{
-	int	i;
-	int	is_quote;
-	int	is_dquote;
-
-	i = 0;
-	is_quote = 0;
-	is_dquote = 0;
-	while (i < index)
-	{
-		is_quote = is_quote ^ ((str[i] == '\'') * !is_dquote);
-		is_dquote = is_dquote ^ ((str[i] == '\"') * !is_quote);
-		i++;
-	}
-	return (is_quote || is_dquote);
-}
-
 char	*str_append(char *origin, char *str2, char *str3)
 {
 	char	*res;
@@ -70,4 +52,14 @@ char	*str_append(char *origin, char *str2, char *str3)
 	if (origin)
 		free(origin);
 	return (res);
+}
+
+int	set_do_heredoc_data(t_do_heredoc_data *d)
+{
+	d->res = NULL;
+	d->nb_lines = 0;
+	d->line = NULL;
+	if (pipe(d->pipes) < 0)
+		return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:28:30 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/26 09:30:51 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 12:26:22 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,30 @@ void	put_astring(char **str)
 		ft_printf("%s\n", str[i]);
 		i++;
 	}
+}
+
+char	*new_readline(char *prev_line, char *str)
+{
+	char	*res;
+	free(prev_line);
+	res = readline(str);
+	return (res);
+}
+
+int	in_quote(char *str, int index)
+{
+	int	i;
+	int	is_quote;
+	int	is_dquote;
+
+	i = 0;
+	is_quote = 0;
+	is_dquote = 0;
+	while (i < index)
+	{
+		is_quote = is_quote ^ ((str[i] == '\'') * !is_dquote);
+		is_dquote = is_dquote ^ ((str[i] == '\"') * !is_quote);
+		i++;
+	}
+	return (is_quote || is_dquote);
 }

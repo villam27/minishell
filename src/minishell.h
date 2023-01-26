@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/26 10:16:15 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 12:26:10 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_command
 	t_env_var			*vars;
 	struct s_command	*next;
 }	t_command;
-
+/*data structures*/
 typedef struct s_create_command_data
 {
 	t_command	*r;
@@ -74,6 +74,17 @@ typedef struct s_create_commands_data
 	int			i;
 
 }	t_create_commands_data;
+
+typedef struct s_do_heredoc_data
+{
+	char	*line;
+	char	*res;
+	pid_t	pid;
+	int		pipes[2];
+	int		nb_lines;
+	char	*str_nb_lines;
+
+}	t_do_heredoc_data;
 
 typedef struct s_fd_and_hd
 {
@@ -130,10 +141,14 @@ int			is_in(char c, char *str);
 void		put_astring(char **str);
 char		**ft_split_not_in_quotes(char *s, char c);
 t_list		**get_all(char	*line);
-/*heredoc utils*/
+char		*add_str(char *str, char *str2);
+char		*get_lines(int fd);
+char		*new_readline(char *prev_line, char *str);
 int			in_quote(char *str, int index);
+/*heredoc utils*/
 int			while_out(char *str, int i);
 char		*str_append(char *origin, char *str2, char *str3);
+int			set_do_heredoc_data(t_do_heredoc_data *d);
 /*Parse and split utils*/
 void		free_aastring(char ***str);
 void		put_aastring(char ***str);

@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/26 10:22:10 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 12:25:23 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,42 +95,31 @@ int	good_heredocs(char	*str, t_list *hd)
 
 char	*do_heredoc(char *hd_out)
 {
-	char	*line;
-	char	*res;
-	pid_t	pid;
-	int		pipes[2];
+	t_do_heredoc_data	d;
 
-	res = NULL;
-	pipe(pipes);
-	pid = fork();
-	if (pid < 0)
-		return ((void)ft_putstr_fd("minishell: fork: Resource \
-			 temporarily unavailable\n", 2), NULL);
-	if (pid == 0)
+	if (!set_do_heredoc_data(&d))
+		return (NULL);
+	d.pid = fork();
+	if (d.pid < 0)
+		return (close(d.pipes[0]), ft_putstr_fd("minishell: fork: Resource \
+			 temporarily unavailable\n", 2), close(d.pipes[1]), NULL);
+	if (d.pid == 0)
 	{
-		line = readline("> ");
-		if (ft_strcmp(hd_out, line) != 0)
-			res = str_append(res, line, "\n");
-		if (!line)
-			return (res);
-		while (ft_strcmp(hd_out, line) != 0)
+		while (ft_strcmp(hd_out, d.line) != 0)
 		{
-			free(line);
-			line = readline("> ");
-			if (!line)
-				exit(0);
-			if (ft_strcmp(hd_out, line) != 0)
-				res = str_append(res, line, "\n");
+			d.line = new_readline(d.line, "> ");
+			if (!d.line)
+				return (ft_putendl_fd("0", d.pipes[1]), exit(0), NULL);
+			else if (ft_strcmp(hd_out, d.line) != 0)
+				d.res = str_append(d.res, d.line, "\n");
+			d.nb_lines++;
 		}
-		ft_putstr_fd(res, pipes[1]);
-		exit(0);
+		return (d.str_nb_lines = ft_itoa(d.nb_lines),
+			ft_putendl_fd(d.str_nb_lines, d.pipes[1]), free(d.str_nb_lines),
+			ft_putstr_fd(d.res, d.pipes[1]), exit(0), NULL);
 	}
-	wait(NULL);
-	res = get_next_line(pipes[0]);
-	ft_printf("%s\n", res);
-	close(pipes[0]);
-	close(pipes[1]);
-	return (res);
+	return (wait(NULL), d.res = get_lines(d.pipes[0]), close(d.pipes[0]),
+		close(d.pipes[1]), d.res);
 }
 
 char	**do_heredocs(char *str)
