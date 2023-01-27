@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:19:20 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/26 17:58:28 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 11:41:45 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ static char	*add_str_path(char *str, char *str2)
 {
 	char	*res;
 
-	res = ft_calloc(sizeof(char) * (ft_strlen(str)
-				+ ft_strlen(str2) + 1), sizeof(char));
+	res = ft_calloc((ft_strlen(str)
+				+ ft_strlen(str2) + 2), sizeof(char));
 	if (!res)
 		return (NULL);
-	ft_strlcat(res, str, ft_strlen(str) + 2);
-	ft_strlcat(res, "/", ft_strlen(str) + 3);
-	ft_strlcat(res, str2, ft_strlen(str) + ft_strlen(str2) + 2);
+	ft_strlcat(res, str, ft_strlen(str) + 1);
+	ft_strlcat(res, "/", ft_strlen(str) + 2);
+	ft_strlcat(res, str2, ft_strlen(str) + ft_strlen(str2) + 3);
 	return (res);
 }
 

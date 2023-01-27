@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 15:00:12 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 11:04:34 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 11:41:58 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	multi_close(int p1[2], int p2[2]);
 int		get_process_return(int pid);
 int		get_heredoc_fd(char *here);
 
-int	exit_all_fork_broken(int pipe_fd[2][2],
-	int size, int *pids, t_command **cmds_list);
+int		exit_all_fork_broken(int pipe_fd[2][2],
+			int size, int *pids, t_command **cmds_list);
 
-int	wait_cmds(int cmds_size, int *pids);
+int		wait_cmds(int cmds_size, int *pids);
 #endif
