@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:38:52 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 14:00:36 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:31:58 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,53 +36,56 @@ void	handle_input(struct termios *term)
 	signal(SIGQUIT, sigquit);
 }
 
-int	main(int argc, char **argv, char **envp)
+void	parse_exec(t_main_data *d)
 {
-	char		*line;
-	char		**hds;
-	t_list		**all_cmds;
-	t_env_var	*vars;
-	t_command	*cmds;
-	struct termios	save;
-	struct termios	term;
+	d->hds = do_heredocs(d->line);
+	d->all_cmds = get_all(d->line);
+	to_good_cmds(d->all_cmds, &(d->vars));
+	tcsetattr(STDIN_FILENO, TCSANOW, &(d->save));
+	d->cmds = create_commands(d->all_cmds, d->vars, d->hds);
+	run_everything(&(d->cmds), &(d->vars));
+	free_alist(d->all_cmds);
+	free(d->line);
+	free_all(d->hds);
+}
 
-	tcgetattr(STDIN_FILENO, &save);
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag &= ECHO;
-	cmds = NULL;
+void	set_main_data(t_main_data *d, int argc, char **argv, char **envp)
+{
+	tcgetattr(STDIN_FILENO, &(d->save));
+	tcgetattr(STDIN_FILENO, &(d->term));
+	d->term.c_lflag &= ECHO;
+	d->cmds = NULL;
 	(void) argc;
 	(void) argv;
-	vars = init_cmds(envp);
-	line = "l";
-	hds = NULL;
-	while (line)
+	d->vars = init_cmds(envp);
+	d->line = "l";
+	d->hds = NULL;
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_main_data	d;
+
+	set_main_data(&d, argc, argv, envp);
+	while (d.line)
 	{
-		handle_input(&term);
-		line = readline("Minishell$ ");
-		if (!line)
+		handle_input(&(d.term));
+		d.line = readline("Minishell$ ");
+		if (!d.line)
 		{
-			while (vars)
-				ft_unset_single(vars->name, &vars);
-			tcsetattr(STDIN_FILENO, TCSANOW, &save);
-			return (clear_history(), free(line), ft_printf("exit\n"), exit(0), 0);
+			while (d.vars)
+				ft_unset_single(d.vars->name, &(d.vars));
+			tcsetattr(STDIN_FILENO, TCSANOW, &(d.save));
+			return (clear_history(), free(d.line), printf("exit\n"), exit(0), 0);
 		}
 		else
 		{
-			add_history(line);
-			if (parsing_errors(line))
+			g_err = (g_err && (d.line[0] == '\0'));
+			add_history(d.line);
+			if (parsing_errors(d.line))
 				ft_putendl_fd("Parsing error", 2);
 			else
-			{
-				hds = do_heredocs(line);
-				all_cmds = get_all(line);
-				to_good_cmds(all_cmds, &vars);
-				tcsetattr(STDIN_FILENO, TCSANOW, &save);
-				cmds = create_commands(all_cmds, vars, hds);
-				run_everything(&cmds, &vars);
-				free_alist(all_cmds);
-				free(line);
-				free_all(hds);
-			}
+				parse_exec(&d);
 		}
 	}
 	return (0);

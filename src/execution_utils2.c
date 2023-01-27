@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:13:25 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 14:20:49 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:30:48 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,15 @@ int	get_process_return(int pid)
 {
 	int	ret;
 
+	ret = 0;
 	waitpid(pid, &ret, 0);
 	ret = WEXITSTATUS(ret);
-	g_err = ret;
-	ft_printf("%d\n", ret);
+	if (g_err != 130 || g_err != 131)
+		return (ret);
+	if (ret)
+		g_err = ret;
+	else
+		g_err = 127;
 	return (ret);
 }
 
@@ -63,10 +68,8 @@ int	get_heredoc_fd(char *here)
 
 void	good_error_message(char *str)
 {
-	/*if (!str)
-		return ;*/
 	ft_putstr_fd("Minishell: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putendl_fd(": command not found", 2);
-	//g_err = 127;
+	g_err = 127;
 }

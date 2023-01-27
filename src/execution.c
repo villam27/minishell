@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 14:05:19 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:14:35 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	modify_pipe(int pipe_fd[2][2])
 	pipe_fd[0][0] = pipe_fd[1][0];
 	pipe_fd[0][1] = pipe_fd[1][1];
 	if (pipe(pipe_fd[1]) < 0)
-		ft_printf("broken ?\n");
+		return ;
 }
 
 int	run_cmds(t_command **cmds_list, t_env_var **vars)

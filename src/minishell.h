@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 14:15:28 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:32:33 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ typedef struct s_command
 	t_env_var			*vars;
 	struct s_command	*next;
 }	t_command;
+
 /*data structures*/
+
 typedef struct s_create_command_data
 {
 	t_command	*r;
@@ -105,6 +107,18 @@ typedef struct s_var_to_content_data
 	char		*start;
 	t_env_var	**vars;
 }	t_var_to_content_data;
+
+typedef struct s_main_data
+{
+	char			*line;
+	char			**hds;
+	t_list			**all_cmds;
+	t_env_var		*vars;
+	t_command		*cmds;
+	struct termios	save;
+	struct termios	term;
+}	t_main_data;
+
 /*
 	command init and destruction
 */

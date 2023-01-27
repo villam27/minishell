@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:07:48 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 16:03:49 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:33:39 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ int	ft_echo(char **argv, int argc)
 		ft_printf("%s", argv[i]);
 	if (new_line)
 		ft_printf("\n");
+	g_err = 0;
 	return (1);
 }
