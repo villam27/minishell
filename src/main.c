@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:38:52 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 13:20:40 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:00:36 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	main(int argc, char **argv, char **envp)
 	hds = NULL;
 	while (line)
 	{
-		g_err = 0;
 		handle_input(&term);
 		line = readline("Minishell$ ");
 		if (!line)

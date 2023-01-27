@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 13:24:46 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:15:28 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ int			parsing_errors(char *str);
 void		to_good_cmds(t_list **cmds, t_env_var **vars);
 /*Create commands*/
 t_command	*create_commands(t_list **lst, t_env_var *vars, char **hds);
-int			good_cmd(char *str, char *path);
 char		*to_executable_cmd(char *str, char *path);
 /*Create commands utils*/
 int			amount_fd(t_list **lst);

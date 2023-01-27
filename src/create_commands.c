@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:45:16 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 11:53:34 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:14:39 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,7 @@ t_command	*create_command(t_list *lst, char **hds, int *fds, t_env_var *vars)
 			&& (((char *)(d.tmp->content))[0]) != 2
 			&& !is_in_int((((char *)(d.tmp->content))[0]), -7, -8, -10))
 		{
-			if (!d.cmd && good_cmd(d.tmp->content,
-					ft_get_var_content(&vars, "PATH")))
+			if (!d.cmd)
 				d.cmd = to_executable_cmd(d.tmp->content,
 						ft_get_var_content(&vars, "PATH"));
 			else if (!d.cmd)
