@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 17:20:55 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 12:29:22 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:56:50 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*transform_vars(char *str, t_env_var **vars)
 			{
 				str = var_to_content(str, i, vars);
 				if (!str || !str[0])
-					return (NULL);
+					return (free(str), str = NULL, NULL);
 			}
 		}
 		else
