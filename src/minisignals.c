@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:26:31 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 10:47:23 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/27 12:28:33 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	sigint(int sig)
 void	sigquit_process(int sig)
 {
 	(void)sig;
-	ft_putstr_fd("Quit: 3\n", 1);
+	ft_putstr_fd("Quit: 3\n", 2);
+	err = 131;
 	exit(131);
 }
 
@@ -32,4 +33,10 @@ void	sigquit(int sig)
 {
 	(void)sig;
 	rl_redisplay();
+}
+
+void	intquit(int sig)
+{
+	(void)sig;
+	ft_putchar_fd('\n', 2);
 }

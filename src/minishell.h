@@ -6,7 +6,7 @@
 /*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/26 16:49:19 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/27 12:25:56 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,9 @@ void		rm_external_quotes(t_list **cmds);
 /*signal*/
 void		sigint(int sig);
 void		sigquit_process(int sig);
+void		sigquit_process2(int sig);
 void		sigquit(int sig);
+void		intquit(int sig);
 
 char		**get_envp(t_env_var *vars);
 void		check_shlvl(t_env_var **v);

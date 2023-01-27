@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/26 14:41:37 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 12:28:17 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ static int	new_process(t_command *cmd, int pipes[2][2],
 {
 	pid_t	pid;
 
-	pid = fork();
+	signal(SIGINT, &intquit);
 	signal(SIGQUIT, &sigquit_process);
-	signal(SIGINT, NULL);
+	pid = fork();
 	if (pid < 0)
 	{
 		return ((void)ft_putstr_fd("minishell: fork: Resource \
@@ -55,8 +55,6 @@ temporarily unavailable\n", 2), -1);
 		if (child_process(cmd, pipes, last, vars) < 0)
 			return (-1);
 	}
-	signal(SIGINT, sigint);
-	signal(SIGQUIT, sigquit);
 	return (pid);
 }
 
