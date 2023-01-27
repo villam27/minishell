@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:19:20 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 11:41:45 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 12:41:53 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ int	good_cmd(char *str, char *path)
 
 	test = NULL;
 	i = -1;
+	if (str && str[0] == '.' && access(str, X_OK) != 0)
+	{
+		ft_putstr_fd("Minishell: ", 2);
+		ft_putstr_fd(str, 2);
+		return (ft_putendl_fd(": command not found", 2), 0);
+	}
 	if (is_builtin_str(str))
 		return (1);
 	if (access(str, X_OK) == 0)
@@ -42,6 +48,7 @@ int	good_cmd(char *str, char *path)
 	while (paths[++i])
 	{
 		test = add_str_path(paths[i], str);
+		ft_printf("%s\n", test);
 		if (access(test, X_OK) == 0)
 			return (free(test), free_all(paths), 1);
 		free(test);
