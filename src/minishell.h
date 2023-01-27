@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 12:22:42 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 13:24:46 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,9 @@ void		split_alst_on_space(t_list **cmds);
 /*signal*/
 void		sigint(int sig);
 void		sigquit_process(int sig);
+void		sigquit_process2(int sig);
 void		sigquit(int sig);
+void		intquit(int sig);
 
 char		**get_envp(t_env_var *vars);
 void		check_shlvl(t_env_var **v);

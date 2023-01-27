@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/26 15:04:40 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 13:35:15 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char	*do_heredoc(char *hd_out)
 	if (d.pid == 0)
 	{
 		if (!while_hd(hd_out, &d))
-			return (ft_putendl_fd("0", d.pipes[1]), exit(0), NULL);
+			return (exit(0), NULL);
 		return (ft_putstr_fd(d.res, d.pipes[1]), exit(0), NULL);
 	}
 	waitpid(d.pid, (int *)signal(SIGINT, sigquit), 0);

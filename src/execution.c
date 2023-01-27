@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 13:12:52 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 13:24:31 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,17 @@ static int	new_process(t_command *cmd, int pipes[2][2],
 {
 	pid_t	pid;
 
-	pid = fork();
+	signal(SIGINT, &intquit);
 	signal(SIGQUIT, &sigquit_process);
-	signal(SIGINT, NULL);
+	pid = fork();
 	if (pid < 0)
 		return ((void)ft_putstr_fd("minishell: fork: Resource \
 temporarily unavailable\n", 2), -1);
 	if (pid == 0)
+	{
 		if (child_process(cmd, pipes, last, vars) < 0)
 			return (-1);
-	signal(SIGINT, sigint);
-	signal(SIGQUIT, sigquit);
+	}
 	return (pid);
 }
 

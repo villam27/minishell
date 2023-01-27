@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:58:38 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/26 15:04:31 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 13:27:49 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	while_hd(char *hd_out, t_do_heredoc_data *d)
 		d->line = new_readline(d->line, "> ");
 		d->nb_lines++;
 		if (!d->line)
-			return (0);
+			return (1);
 		else if (ft_strcmp(hd_out, d->line) != 0)
 			d->res = str_append(d->res, d->line, "\n");
 	}
