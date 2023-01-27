@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:37:57 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/26 13:00:49 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/27 10:57:40 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,14 @@ int	arg_size(char **args)
 	while (args[i])
 		i++;
 	return (i);
+}
+
+int	exit_all_fork_broken(int pipe_fd[2][2],
+	int size, int *pids, t_command **cmds_list)
+{
+	multi_close(pipe_fd[0], pipe_fd[1]);
+	while (*cmds_list)
+		rm_command(cmds_list);
+	wait_cmds(size, pids);
+	return (1);
 }

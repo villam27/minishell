@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/26 14:41:37 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 10:57:29 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,6 @@ void	modify_pipe(int pipe_fd[2][2])
 	pipe_fd[0][1] = pipe_fd[1][1];
 	if (pipe(pipe_fd[1]) < 0)
 		ft_printf("broken ?\n");
-}
-
-int	exit_all_fork_broken(int pipe_fd[2][2], int size, int *pids, t_command **cmds_list)
-{
-	multi_close(pipe_fd[0], pipe_fd[1]);
-	while (*cmds_list)
-		rm_command(cmds_list);
-	wait_cmds(size, pids);
-	return (1);
 }
 
 int	run_cmds(t_command **cmds_list, t_env_var **vars)
