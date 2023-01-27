@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:13:25 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/26 14:45:17 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 13:12:16 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,11 @@ int	get_heredoc_fd(char *here)
 	ft_putstr_fd(here, fd[1]);
 	close(fd[1]);
 	return (fd[0]);
+}
+
+void	good_error_message(char *str)
+{
+	if (!str)
+		return ;
+	perror(str);
 }

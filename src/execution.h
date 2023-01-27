@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 15:00:12 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 11:41:58 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 13:12:30 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,5 @@ int		exit_all_fork_broken(int pipe_fd[2][2],
 			int size, int *pids, t_command **cmds_list);
 
 int		wait_cmds(int cmds_size, int *pids);
+void	good_error_message(char *str);
 #endif

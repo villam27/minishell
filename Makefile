@@ -6,7 +6,7 @@
 #    By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/27 11:56:48 by tibernot         ###   ########.fr        #
+#    Updated: 2023/01/27 13:20:30 by tibernot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 			= 	minishell
 CC 				= 	cc
 
 LIBFT 			= 	libft/libft.a
-LIBFT_FILES		= 	libft/*.c libft/*.h libft/Makefile
+LIBFT_FILES		= libft/*.h libft/Makefile
 
 SRC_FOLDER		= 	src/
 OBJS_FOLDER		=	objs/
@@ -72,24 +72,28 @@ OBJ 			= 	${SRC_FILES:.c=.o}
 CFLAGS 			= -Wall -Wextra -Werror -g3 -fsanitize=address
 OBJS			= 	$(addprefix $(OBJS_FOLDER), $(OBJ))
 
-all : title $(NAME)
+all : title makelibft $(NAME)
 
 # linux
 # gcc -g3 -fsanitize=address src/*.c libft/*.c -L/usr/local/lib -I/usr/local/include -lreadline
 
 
-$(NAME) : $(OBJS_FOLDER) $(OBJS)
-	@make -C libft
+$(NAME) : $(OBJS_FOLDER) $(OBJS) $(LIBFT)
 	$(CC) -o $(NAME) $(CFLAGS) $(RD_LIB_A) $(OBJS) $(LIBFT)
 	@printf "$(GREEN)Creating $(PURPLE)$(NAME)$(END): OK\n"
 
-$(OBJS_FOLDER)%.o : $(SRC_FOLDER)%.c $(INCLUDES) Makefile $(LIBFT_FILES)
+#@make -C libft
+
+$(OBJS_FOLDER)%.o : $(SRC_FOLDER)%.c $(INCLUDES) Makefile #$(LIBFT_FILES)
 	@$(CC) $(CFLAGS) -o $@ -c $< -I $(RD_LIB_H)
 	@printf "$(BLUE)Compiling $(NAME): $(CYAN)$<: $(GREEN)OK$(END)\n"
 
 $(OBJS_FOLDER):
 	mkdir $(OBJS_FOLDER)
 	mkdir $(OBJS_FOLDER)/builtins
+
+makelibft:
+	@make -C libft/
 
 clean :
 	-rm -rf $(OBJS_FOLDER)
