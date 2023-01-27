@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ratinax <ratinax@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:58:38 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/20 18:33:33 by ratinax          ###   ########.fr       */
+/*   Updated: 2023/01/27 13:27:49 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ int	while_out(char *str, int i)
 	k = 0;
 	while (str[i + j] && str[i + j] != ' ')
 	{
+		if ((str[i + j] == '<' || str[i + j] == '>' || str[i + j] == '|')
+			&& !in_quote(str, i) && j != 0)
+			return (j);
 		if (is_in(str[i + j], "\'\""))
 		{
 			k = 1;
@@ -28,44 +31,48 @@ int	while_out(char *str, int i)
 				k++;
 			j += k;
 		}
-		else
-			j++;
+		j++;
 	}
 	return (j);
 }
 
-int	in_quote(char *str, int index)
-{
-	int	i;
-	int	is_quote;
-	int	is_dquote;
-
-	i = 0;
-	is_quote = 0;
-	is_dquote = 0;
-	while (i < index)
-	{
-		is_quote = is_quote ^ ((str[i] == '\'') * !is_dquote);
-		is_dquote = is_dquote ^ ((str[i] == '\"') * !is_quote);
-		i++;
-	}
-	return (is_quote || is_dquote);
-}
-
-char	*str_append(char *origin, const char *str2, const char *str3)
+char	*str_append(char *origin, char *str2, char *str3)
 {
 	char	*res;
 
-	res = malloc(sizeof(char) * (ft_strlen(origin)
-			+ ft_strlen(str2) + ft_strlen(str3) + 1));
+	res = ft_calloc((ft_strlen(origin)
+				+ ft_strlen(str2) + ft_strlen(str3) + 1), sizeof(char));
 	if (!res)
 		return (NULL);
 	ft_strlcat(res, origin, ft_strlen(origin) + 1);
-	ft_strlcat(res, (char *)str2, ft_strlen(origin) + ft_strlen(str2) + 1);
+	if (str2)
+		ft_strlcat(res, (char *)str2, ft_strlen(origin) + ft_strlen(str2) + 1);
 	ft_strlcat(res, (char *)str3, ft_strlen(origin)
-			+ ft_strlen(str2) + ft_strlen(str3) + 1);
-	res[ft_strlen(origin) + ft_strlen(str2) + ft_strlen(str3) + 1] = '\0';
+		+ ft_strlen(str2) + ft_strlen(str3) + 1);
 	if (origin)
 		free(origin);
 	return (res);
+}
+
+int	set_do_heredoc_data(t_do_heredoc_data *d)
+{
+	d->res = NULL;
+	d->line = NULL;
+	if (pipe(d->pipes) < 0)
+		return (0);
+	return (1);
+}
+
+int	while_hd(char *hd_out, t_do_heredoc_data *d)
+{
+	while (ft_strcmp(hd_out, d->line) != 0)
+	{
+		d->line = new_readline(d->line, "> ");
+		d->nb_lines++;
+		if (!d->line)
+			return (1);
+		else if (ft_strcmp(hd_out, d->line) != 0)
+			d->res = str_append(d->res, d->line, "\n");
+	}
+	return (1);
 }

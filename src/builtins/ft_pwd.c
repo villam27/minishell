@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 09:09:48 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 10:36:21 by tibernot         ###   ########.fr       */
+/*   Created: 2023/01/14 15:31:29 by alboudje          #+#    #+#             */
+/*   Updated: 2023/01/27 14:24:40 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../builtins.h"
+#include <limits.h>
 
-int	ft_lstsize(t_list *lst)
+int	ft_pwd(void)
 {
-	t_list	*temp;
-	int		i;
+	char	pwd[PATH_MAX];
 
-	if (!lst)
-		return (0);
-	i = 0;
-	temp = lst;
-	while (temp != NULL)
+	if (getcwd(pwd, PATH_MAX))
 	{
-		i++;
-		temp = temp->next;
+		ft_printf("%s\n", pwd);
+		g_err = 0;
+		return (0);
 	}
-	return (i);
+	g_err = 1;
+	return (1);
 }

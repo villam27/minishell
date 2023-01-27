@@ -1,30 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   minisignals.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 09:09:48 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 10:36:21 by tibernot         ###   ########.fr       */
+/*   Created: 2023/01/25 11:26:31 by alboudje          #+#    #+#             */
+/*   Updated: 2023/01/27 14:45:20 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_lstsize(t_list *lst)
+void	sigint(int sig)
 {
-	t_list	*temp;
-	int		i;
+	(void)sig;
+	rl_replace_line("", 0);
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_redisplay();
+	g_err = 1;
+}
 
-	if (!lst)
-		return (0);
-	i = 0;
-	temp = lst;
-	while (temp != NULL)
-	{
-		i++;
-		temp = temp->next;
-	}
-	return (i);
+void	sigquit_process(int sig)
+{
+	(void)sig;
+	ft_putstr_fd("Quit: 3\n", 2);
+	g_err = 131;
+}
+
+void	sigquit(int sig)
+{
+	(void)sig;
+	rl_redisplay();
+}
+
+void	intquit(int sig)
+{
+	(void)sig;
+	ft_putchar_fd('\n', 2);
+	g_err = 130;
 }

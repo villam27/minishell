@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 10:05:31 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/10 14:47:42 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/26 09:28:47 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ t_command	*init_command(char *cmd, char **args, t_env_var *vars)
 	command->cmd = cmd;
 	command->args = args;
 	command->vars = vars;
-	command->fd_err = -1;
-	command->fd_in = -1;
-	command->fd_out = -1;
+	command->fd_err = 2;
+	command->fd_in = 0;
+	command->fd_out = 1;
+	command->ret_value = 0;
+	command->here = NULL;
+	command->next = NULL;
 	return (command);
 }
 
@@ -33,6 +36,11 @@ void	set_fd(t_command **cmd, int fd_in, int fd_out, int fd_err)
 	(*cmd)->fd_err = fd_err;
 	(*cmd)->fd_in = fd_in;
 	(*cmd)->fd_out = fd_out;
+}
+
+void	set_heredoc(t_command **cmd, char *heredoc)
+{
+	(*cmd)->here = heredoc;
 }
 
 void	destroy_command(t_command *cmd)

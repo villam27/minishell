@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   get_next_line_no_endl.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 09:09:48 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 10:36:21 by tibernot         ###   ########.fr       */
+/*   Created: 2022/11/16 10:06:23 by tibernot          #+#    #+#             */
+/*   Updated: 2023/01/27 13:31:59 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_lstsize(t_list *lst)
+char	*get_lines(int fd)
 {
-	t_list	*temp;
-	int		i;
+	char	*res;
+	char	*tmp;
 
-	if (!lst)
-		return (0);
-	i = 0;
-	temp = lst;
-	while (temp != NULL)
+	res = NULL;
+	tmp = get_next_line(fd);
+	while (tmp)
 	{
-		i++;
-		temp = temp->next;
+		if (tmp)
+			res = add_str(res, tmp);
+		tmp = get_next_line(fd);
 	}
-	return (i);
+	free(tmp);
+	if (!res)
+	{
+		ft_printf("> \n");
+		return (ft_strdup("\0"));
+	}
+	return (res);
 }

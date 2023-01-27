@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboudje <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:20:12 by alboudje          #+#    #+#             */
-/*   Updated: 2022/11/29 09:12:39 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:32:35 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,15 @@ void	free_all(char **str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return ;
 	while (str[i] != NULL)
 	{
 		free(str[i]);
 		i++;
 	}
 	free(str);
+	str = NULL;
 }
 
 char	**ft_split(char const *s, char c)

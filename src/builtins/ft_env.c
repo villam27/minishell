@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 09:09:48 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 10:36:21 by tibernot         ###   ########.fr       */
+/*   Created: 2023/01/19 13:10:22 by alboudje          #+#    #+#             */
+/*   Updated: 2023/01/27 14:32:58 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../builtins.h"
 
-int	ft_lstsize(t_list *lst)
+int	ft_env(t_env_var *vars)
 {
-	t_list	*temp;
-	int		i;
-
-	if (!lst)
-		return (0);
-	i = 0;
-	temp = lst;
-	while (temp != NULL)
+	while (vars)
 	{
-		i++;
-		temp = temp->next;
+		if (vars->content)
+			ft_printf("%s=%s\n", vars->name, vars->content);
+		vars = vars->next;
 	}
-	return (i);
+	g_err = 0;
+	return (1);
 }

@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 09:09:48 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/25 10:36:21 by tibernot         ###   ########.fr       */
+/*   Created: 2023/01/23 11:44:21 by tibernot          #+#    #+#             */
+/*   Updated: 2023/01/25 13:04:45 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_lstsize(t_list *lst)
+void	put_lst(t_list	*lst)
 {
-	t_list	*temp;
-	int		i;
-
-	if (!lst)
-		return (0);
-	i = 0;
-	temp = lst;
-	while (temp != NULL)
+	while (lst)
 	{
-		i++;
-		temp = temp->next;
+		ft_printf("-%s- ", lst->content);
+		lst = lst->next;
 	}
-	return (i);
+	ft_printf("\n");
+}
+
+void	put_alst(t_list **alst)
+{
+	int	i;
+
+	i = 0;
+	while (alst && *alst && alst[i])
+	{
+		put_lst(alst[i]);
+		i++;
+	}
 }

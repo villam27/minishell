@@ -6,7 +6,7 @@
 #    By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/23 09:20:51 by tibernot         ###   ########.fr        #
+#    Updated: 2023/01/27 15:35:55 by tibernot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,46 +14,80 @@ NAME 			= 	minishell
 CC 				= 	cc
 
 LIBFT 			= 	libft/libft.a
-LIBFT_FILES		= 	libft/*.c libft/*.h libft/Makefile
+LIBFT_FILES		= libft/*.h libft/Makefile
 
 SRC_FOLDER		= 	src/
 OBJS_FOLDER		=	objs/
-SRC_FILES		= 	main.c \
-					parsing_errors.c \
-					heredoc.c \
-					minishell_utils.c \
-					heredoc_utils.c
+SRC_FILES		= 	command.c \
+	command_list.c \
+	env_var_list.c \
+	env_var_list2.c \
+	execution.c \
+	execution_utils.c \
+	execution_utils2.c \
+	ft_split_not_in_quotes.c \
+	heredoc.c \
+	heredoc_utils.c \
+	lst_utils.c \
+	main.c \
+	minishell_utils.c \
+	parse_and_split.c \
+	parse_and_split_utils.c \
+	parse_and_split_utils2.c \
+	parse_and_split_utils3.c \
+	to_good_cmds.c \
+	to_good_cmds_utils.c \
+	to_good_cmds_utils2.c \
+	parsing_errors.c \
+	create_commands.c \
+	create_commands_utils.c \
+	create_commands_utils2.c \
+	create_commands_utils3.c \
+	envp.c \
+	minisignals.c \
+	get_next_line_no_endl.c \
+	shlvl.c \
+	builtins/ft_cd.c \
+	builtins/ft_echo.c \
+	builtins/ft_env.c \
+	builtins/ft_exit.c \
+	builtins/ft_export.c \
+	builtins/ft_export_utils.c \
+	builtins/ft_export_utils2.c \
+	builtins/ft_pwd.c \
+	builtins/ft_unset.c
 
 RD_LIB_H=~/.brew/opt/readline/include
 RD_LIB_A=-L ~/.brew/opt/readline/lib -lreadline
 
 SRC 			= 	$(addprefix $(SRC_FOLDER), $(SRC_FILES))
 
-INCLUDES_FILES 	= 	minishell.h
+INCLUDES_FILES 	= 	minishell.h \
+					execution.h\
+					builtins.h
 
 INCLUDES 		= 	$(addprefix $(SRC_FOLDER), $(INCLUDES_FILES))
 
 OBJ 			= 	${SRC_FILES:.c=.o}
-CFLAGS 			= 	-Wall -Wextra -Werror # -g3 -fsanitize=address
+CFLAGS 			= -Wall -Wextra -Werror -g3 -fsanitize=address
 OBJS			= 	$(addprefix $(OBJS_FOLDER), $(OBJ))
 
+all : title makelibft $(NAME)
 
-
-all : title
-		gcc src/*.c libft/*.c -L/usr/local/lib -I/usr/local/include -lreadline
-
-
-$(NAME) : $(OBJS_FOLDER) $(OBJS)
-	@make -C libft
+$(NAME) : $(OBJS_FOLDER) $(OBJS) $(LIBFT)
 	$(CC) -o $(NAME) $(CFLAGS) $(RD_LIB_A) $(OBJS) $(LIBFT)
 	@printf "$(GREEN)Creating $(PURPLE)$(NAME)$(END): OK\n"
 
-$(OBJS_FOLDER)%.o : $(SRC_FOLDER)%.c $(INCLUDES) Makefile $(LIBFT_FILES)
+$(OBJS_FOLDER)%.o : $(SRC_FOLDER)%.c $(INCLUDES) Makefile
 	@$(CC) $(CFLAGS) -o $@ -c $< -I $(RD_LIB_H)
 	@printf "$(BLUE)Compiling $(NAME): $(CYAN)$<: $(GREEN)OK$(END)\n"
 
 $(OBJS_FOLDER):
 	mkdir $(OBJS_FOLDER)
+	mkdir $(OBJS_FOLDER)/builtins
+
+makelibft:
+	@make -C libft/
 
 clean :
 	-rm -rf $(OBJS_FOLDER)
