@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 17:20:55 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 17:08:14 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:51:17 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,12 @@ static void	init_chars(t_var_to_content_data *d, char *str, int i, int is_gerr)
 	{
 		d->end = ft_strdup(&str[i + d->j]);
 		d->var_name = ft_substr(str, i + 1, d->j - 1);
-		d->start = add_str(d->res,
-				ft_strdup(ft_get_var_content(d->vars, d->var_name)));
+		if (ft_get_var_content(d->vars, d->var_name))
+			d->start = add_str(d->res,
+					ft_strdup(ft_get_var_content(d->vars, d->var_name)));
+		else
+			d->start = add_str(d->res,
+					ft_strdup("\0"));
 	}
 }
 
