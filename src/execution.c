@@ -6,12 +6,13 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 10:57:29 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 11:03:36 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "builtins.h"
+#include "minishell.h"
 #include <fcntl.h>
 
 static int	child_process(t_command *cmd, int pipes[2][2],
@@ -60,7 +61,7 @@ temporarily unavailable\n", 2), -1);
 	return (pid);
 }
 
-static int	wait_cmds(int cmds_size, int *pids)
+int	wait_cmds(int cmds_size, int *pids)
 {
 	int	i;
 	int	ret;

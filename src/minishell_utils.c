@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:28:30 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 10:50:01 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 11:13:35 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	put_astring(char **str)
 	i = 0;
 	while (str[i])
 	{
-		ft_printf("%s\n", str[i]);
+		ft_printf("-%s-\n", str[i]);
 		i++;
 	}
 }

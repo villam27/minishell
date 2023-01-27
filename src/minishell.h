@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 10:51:21 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 11:07:42 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@
 # include <fcntl.h>
 # include <signal.h>
 
+int	g_err;
 
-/*global variable*/
-int	err;
 typedef struct s_env_var
 {
 	char				*name;
@@ -186,4 +185,5 @@ void		sigquit_process(int sig);
 void		sigquit(int sig);
 
 char		**get_envp(t_env_var *vars);
+void		check_shlvl(t_env_var **v);
 #endif

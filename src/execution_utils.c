@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:37:57 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 10:57:40 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 11:08:11 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	run_builtin(t_command **cmds, t_env_var **vars)
 	return (close(temp), result);
 }
 
-void	run_everything(t_command **cmds, t_env_var **vars, int *ret)
+void	run_everything(t_command **cmds, t_env_var **vars)
 {
 	int	r;
 
@@ -71,8 +71,8 @@ void	run_everything(t_command **cmds, t_env_var **vars, int *ret)
 		r = run_builtin(cmds, vars);
 	else if (size_commands(*cmds))
 		r = run_cmds(cmds, vars);
-	if (!*ret)
-		*ret = r;
+	if (g_err == 0)
+		g_err = r;
 }
 
 int	arg_size(char **args)

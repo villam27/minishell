@@ -6,14 +6,14 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:38:52 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 10:37:23 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 11:18:41 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include "builtins.h"
 
-int	err = 0;
+int	g_err = 0;
 
 t_env_var	*init_cmds(char **envp)
 {
@@ -25,6 +25,7 @@ t_env_var	*init_cmds(char **envp)
 	if (!envp)
 		return (NULL);
 	ft_export(envp, &vars);
+	check_shlvl(&vars);
 	return (vars);
 }
 
@@ -42,14 +43,12 @@ int	main(int argc, char **argv, char **envp)
 	t_list		**all_cmds;
 	t_env_var	*vars;
 	t_command	*cmds;
-	int			pt;
 	struct termios	save;
 	struct termios	term;
 
 	tcgetattr(STDIN_FILENO, &save);
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag &= ECHO;
-	pt = 0;
 	cmds = NULL;
 	(void) argc;
 	(void) argv;
@@ -58,6 +57,7 @@ int	main(int argc, char **argv, char **envp)
 	hds = NULL;
 	while (line)
 	{
+		g_err = 0;
 		handle_input(&term);
 		line = readline("Minishell$ ");
 		if (!line)
@@ -79,8 +79,7 @@ int	main(int argc, char **argv, char **envp)
 				to_good_cmds(all_cmds, &vars);
 				tcsetattr(STDIN_FILENO, TCSANOW, &save);
 				cmds = create_commands(all_cmds, vars, hds);
-				// ft_printf("%s\n", cmds[1].args[0]);
-				run_everything(&cmds, &vars, &pt);
+				run_everything(&cmds, &vars);
 				free_alist(all_cmds);
 				free(line);
 				free_all(hds);

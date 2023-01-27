@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 17:20:55 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 10:50:17 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 11:18:54 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*var_to_content(char *str, int i, t_env_var **vars)
 		&& (!str[i + j] || (str[i + j] == '$') || str[i + j] == '\"'))
 		return (str);
 	while (i + j < (int)ft_strlen(str) && str[i + j] != '$'
-		&& str[i + j] != '\"' && str[i + j] != '\'')
+		&& str[i + j] != '\"' && str[i + j] != '\'' && str[i + j] != '=')
 		j++;
 	if (str[i + j])
 		end = ft_strdup(&str[i + j]);

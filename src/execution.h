@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 15:00:12 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 10:57:49 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 11:04:34 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define EXECUTION_H
 # include "minishell.h"
 
-void	run_everything(t_command **cmds_list, t_env_var **vars, int *ret);
+void	run_everything(t_command **cmds_list, t_env_var **vars);
 
 int		run_cmds(t_command **cmds_list, t_env_var **vars);
 void	print_cmd(t_command *cmd);
@@ -31,4 +31,5 @@ int		get_heredoc_fd(char *here);
 int	exit_all_fork_broken(int pipe_fd[2][2],
 	int size, int *pids, t_command **cmds_list);
 
+int	wait_cmds(int cmds_size, int *pids);
 #endif
