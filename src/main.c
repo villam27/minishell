@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:38:52 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 16:30:56 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:10:28 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	handle_input(struct termios *term)
 
 void	parse_exec(t_main_data *d)
 {
+	g_err = (g_err * (d->line[0] != '\0'));
 	d->hds = do_heredocs(d->line);
 	d->all_cmds = get_all(d->line);
 	to_good_cmds(d->all_cmds, &(d->vars));
@@ -83,7 +84,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 		else
 		{
-			g_err = (g_err * (d.line[0] != '\0'));
 			add_history(d.line);
 			if (parsing_errors(d.line))
 				ft_putendl_fd("Parsing error", 2);

@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:37:57 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 16:04:49 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:56:59 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	run_everything(t_command **cmds, t_env_var **vars)
 		r = run_builtin(cmds, vars);
 	else if (size_commands(*cmds))
 	{
-		// g_err = 0;
+		g_err = 0;
 		r = run_cmds(cmds, vars);
 	}
 }

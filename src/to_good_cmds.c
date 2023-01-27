@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 17:20:55 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 15:56:50 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:08:14 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ char	*transform_vars(char *str, t_env_var **vars)
 	{
 		if (str[i] == '$' && !in_squote(str, i))
 		{
-			if (str[i] == '$' && (!str[i + 1] || str[i + 1] == '$'))
+			if (str[i] == '$' && (!str[i + 1]
+					|| str[i + 1] == '$' || str[i + 1] == '\"'))
 				i++;
 			else
 			{
