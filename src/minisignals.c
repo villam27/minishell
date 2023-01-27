@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:26:31 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 14:45:20 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:02:37 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	sigquit(int sig)
 {
 	(void)sig;
 	rl_redisplay();
+	g_err = 1;
 }
 
 void	intquit(int sig)

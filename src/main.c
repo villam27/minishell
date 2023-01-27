@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:38:52 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 15:37:39 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:20:25 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	parse_exec(t_main_data *d)
 	d->cmds = create_commands(d->all_cmds, d->vars, d->hds);
 	run_everything(&(d->cmds), &(d->vars));
 	free_alist(d->all_cmds);
-	free(d->line);
 	free_all(d->hds);
 }
 
@@ -81,12 +80,13 @@ int	main(int argc, char **argv, char **envp)
 		}
 		else
 		{
-			g_err = (g_err && (d.line[0] == '\0'));
+			g_err = (g_err * (d.line[0] != '\0'));
 			add_history(d.line);
 			if (parsing_errors(d.line))
 				ft_putendl_fd("Parsing error", 2);
 			else
 				parse_exec(&d);
+			free(d.line);
 		}
 	}
 	return (0);
