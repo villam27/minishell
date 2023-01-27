@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:45:16 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 17:55:08 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:59:00 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ t_command	*create_commands(t_list **lst, t_env_var *vars, char **hds)
 		d.hd_ind += amount_hd_in_bloc(d.tmp[d.i]);
 		d.fd_ind += amount_fd_in_bloc(d.tmp[d.i]);
 		d.i++;
-		ft_printf("%d\n", d.i);
 	}
 	free(d.fds);
 	return (d.cmds);
