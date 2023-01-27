@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:45:16 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/26 10:15:56 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 10:55:25 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,9 @@ t_command	*create_command(t_list *lst, char **hds, int *fds, t_env_var *vars)
 		return (free(d.args), init_command(NULL, NULL, vars));
 	while (d.tmp)
 	{
-		if (d.tmp->content
-			&& is_in_int((((char *)(d.tmp->content))[0]), -7, -8, -10))
-			d.pre_is_fd = 1;
-		else if (!d.pre_is_fd && (((char *)(d.tmp->content))[0]) != 2)
+		if (d.tmp->content && !d.pre_is_fd
+			&& (((char *)(d.tmp->content))[0]) != 2
+			&& !is_in_int((((char *)(d.tmp->content))[0]), -7, -8, -10))
 		{
 			if (!d.cmd && good_cmd(d.tmp->content,
 					ft_get_var_content(&vars, "PATH")))
@@ -112,8 +111,8 @@ t_command	*create_command(t_list *lst, char **hds, int *fds, t_env_var *vars)
 						ft_get_var_content(&vars, "PATH"));
 			d.args[d.ind_args++] = ft_strdup(d.tmp->content);
 		}
-		else
-			d.pre_is_fd = 0;
+		d.pre_is_fd = (d.tmp->content
+				&& is_in_int((((char *)(d.tmp->content))[0]), -7, -8, -10));
 		d.tmp = d.tmp->next;
 	}
 	return (d.args[d.ind_args] = NULL, d.r = init_command(d.cmd, d.args, vars),

@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 15:28:30 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/26 14:29:36 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 10:50:01 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,23 @@ int	in_quote(char *str, int index)
 		i++;
 	}
 	return (is_quote || is_dquote);
+}
+
+char	*add_str(char *str, char *str2)
+{
+	char	*res;
+
+	if (!str && !str2)
+		return (NULL);
+	res = ft_calloc(sizeof(char) * (ft_strlen(str)
+				+ ft_strlen(str2) + 1), sizeof(char));
+	if (!res)
+		return (NULL);
+	ft_strlcat(res, str, ft_strlen(str) + 1);
+	ft_strlcat(res, str2, ft_strlen(str) + ft_strlen(str2) + 1);
+	if (str)
+		free(str);
+	if (str2)
+		free(str2);
+	return (res);
 }

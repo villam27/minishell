@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:26:31 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/26 14:43:10 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 10:51:32 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ void	sigquit_process(int sig)
 void	sigquit(int sig)
 {
 	(void)sig;
-	//ft_putstr_fd("\n", 2);
+	ft_putstr_fd("\n", 2);
 }

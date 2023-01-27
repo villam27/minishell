@@ -6,28 +6,11 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 17:20:55 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/26 17:55:10 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 10:50:17 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*add_str(char *str, char *str2)
-{
-	char	*res;
-
-	res = ft_calloc(sizeof(char) * (ft_strlen(str)
-				+ ft_strlen(str2) + 1), sizeof(char));
-	if (!res)
-		return (NULL);
-	ft_strlcat(res, str, ft_strlen(str) + 1);
-	ft_strlcat(res, str2, ft_strlen(str) + ft_strlen(str2) + 1);
-	if (str)
-		free(str);
-	if (str2)
-		free(str2);
-	return (res);
-}
 
 char	*var_to_content(char *str, int i, t_env_var **vars)
 {
@@ -51,8 +34,8 @@ char	*var_to_content(char *str, int i, t_env_var **vars)
 	var_name = ft_substr(str, i + 1, j - 1);
 	res = ft_substr(str, 0, i);
 	start = add_str(res, ft_strdup(ft_get_var_content(vars, var_name)));
-	free(var_name);
 	res = add_str(start, end);
+	free(var_name);
 	free(str);
 	str = NULL;
 	return (res);
@@ -62,6 +45,7 @@ char	*transform_vars(char *str, t_env_var **vars)
 {
 	int	i;
 
+	(void) vars;
 	i = 0;
 	if (!str)
 		return (NULL);
@@ -69,16 +53,20 @@ char	*transform_vars(char *str, t_env_var **vars)
 	{
 		if (str[i] == '$' && !in_squote(str, i))
 		{
-			str = var_to_content(str, i, vars);
-			if (!str || !str[0])
-				return (NULL);
+			if (str[i] == '$' && (!str[i + 1] || str[i + 1] == '$'))
+				i++;
+			else
+			{
+				str = var_to_content(str, i, vars);
+				if (!str || !str[0])
+					return (NULL);
+			}
 		}
 		else
 			i++;
 	}
 	return (str);
 }
-
 
 void	to_good_args(t_list **cmds, t_env_var **vars)
 {
@@ -96,37 +84,9 @@ void	to_good_args(t_list **cmds, t_env_var **vars)
 			tmp2->content = transform_vars(tmp2->content, vars);
 			tmp2 = tmp2->next;
 		}
-
 		i++;
 	}
 	i = 0;
-
-}
-
-t_list	*split_lst_on_space(t_list **lst, t_list **pre_lst)
-{
-	char	**res;
-	int		i;
-	t_list	*tmp;
-
-	res = ft_split_not_in_quotes((*lst)->content, ' ');
-	if (!res)
-		return (NULL);
-	i = ft_astrlen(res) - 1;
-	while (i > 0)
-	{
-
-		tmp = ft_lstnew(ft_strdup(res[i]));
-		tmp->next = (*lst)->next;
-		(*lst)->next = tmp;
-		i--;
-	}
-	tmp = ft_lstnew(ft_strdup(res[0]));
-	free_all(res);
-	if (pre_lst && (*pre_lst))
-		(*pre_lst)->next = tmp;
-	tmp->next = (*lst)->next;
-	return (tmp);
 }
 
 void	split_alst_on_space(t_list **cmds)

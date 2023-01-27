@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:38:52 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/26 17:56:06 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 10:37:23 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	main(int argc, char **argv, char **envp)
 				to_good_cmds(all_cmds, &vars);
 				tcsetattr(STDIN_FILENO, TCSANOW, &save);
 				cmds = create_commands(all_cmds, vars, hds);
+				// ft_printf("%s\n", cmds[1].args[0]);
 				run_everything(&cmds, &vars, &pt);
 				free_alist(all_cmds);
 				free(line);

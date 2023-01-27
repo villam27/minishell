@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/26 17:20:23 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 10:51:21 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ int			amount_fd_in_bloc(t_list *lst);
 int			is_in_int(int lst, int a, int b, int c);
 int			is_builtin_str(char *str);
 int			change_fds(int *fd_in, int *fd_out, int way, int *fds);
+t_list		*split_lst_on_space(t_list **lst, t_list **pre_lst);
 /*
 	Heredocs
 */
