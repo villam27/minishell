@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 11:54:01 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 12:22:42 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,15 @@ typedef struct s_fd_and_hd
 
 }	t_fd_and_hd;
 
+typedef struct s_var_to_content_data
+{
+	int			j;
+	char		*end;
+	char		*var_name;
+	char		*res;
+	char		*start;
+	t_env_var	**vars;
+}	t_var_to_content_data;
 /*
 	command init and destruction
 */
@@ -181,6 +190,7 @@ void		put_alst(t_list **alst);
 int			in_squote(char *str, int index);
 void		to_good_tildes(t_list **cmds, t_env_var **vars);
 void		rm_external_quotes(t_list **cmds);
+void		split_alst_on_space(t_list **cmds);
 /*signal*/
 void		sigint(int sig);
 void		sigquit_process(int sig);

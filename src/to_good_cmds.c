@@ -6,39 +6,51 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 17:20:55 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 11:55:51 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 12:29:22 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	init_chars(t_var_to_content_data *d, char *str, int i, int is_gerr)
+{
+	if (is_gerr)
+	{
+		d->end = ft_strdup(&str[i + d->j + 1]);
+		d->var_name = ft_strdup("?");
+		d->start = add_str(d->res, ft_itoa(g_err));
+	}
+	else
+	{
+		d->end = ft_strdup(&str[i + d->j]);
+		d->var_name = ft_substr(str, i + 1, d->j - 1);
+		d->start = add_str(d->res,
+				ft_strdup(ft_get_var_content(d->vars, d->var_name)));
+	}
+}
+
 char	*var_to_content(char *str, int i, t_env_var **vars)
 {
-	int		j;
-	char	*end;
-	char	*var_name;
-	char	*res;
-	char	*start;
+	t_var_to_content_data	d;
 
-	end = NULL;
-	start = NULL;
-	j = 1;
+	d.end = NULL;
+	d.start = NULL;
+	d.j = 1;
+	d.vars = vars;
 	if (str[i] == '$'
-		&& (!str[i + j] || (str[i + j] == '$') || str[i + j] == '\"'))
+		&& (!str[i + d.j] || (str[i + d.j] == '$') || str[i + d.j] == '\"'))
 		return (str);
-	while (i + j < (int)ft_strlen(str) && str[i + j] != '$' && str[i + j] != '?'
-		&& str[i + j] != '\"' && str[i + j] != '\'' && str[i + j] != '=')
-		j++;
-	if (str[i + j])
-		end = ft_strdup(&str[i + j]);
-	var_name = ft_substr(str, i + 1, j - 1);
-	res = ft_substr(str, 0, i);
-	start = add_str(res, ft_strdup(ft_get_var_content(vars, var_name)));
-	res = add_str(start, end);
-	free(var_name);
-	free(str);
-	str = NULL;
-	return (res);
+	while (i + d.j < (int)ft_strlen(str) && str[i + d. j] != '$'
+		&& str[i + d.j] != '?'
+		&& str[i + d.j] != '\"' && str[i + d.j] != '\'' && str[i + d.j] != '=')
+		d.j++;
+	d.res = ft_substr(str, 0, i);
+	if (str[i + d.j] && str[i + d.j] == '?')
+		init_chars(&d, str, i, 1);
+	else
+		init_chars(&d, str, i, 0);
+	d.res = add_str(d.start, d.end);
+	return (free(d.var_name), free(str), str = NULL, d.res);
 }
 
 char	*transform_vars(char *str, t_env_var **vars)
@@ -87,35 +99,6 @@ void	to_good_args(t_list **cmds, t_env_var **vars)
 		i++;
 	}
 	i = 0;
-}
-
-void	split_alst_on_space(t_list **cmds)
-{
-	int		i;
-	t_list	*tmp;
-	t_list	*tmp2;
-	t_list	*pre_tmp;
-
-	i = 0;
-	pre_tmp = NULL;
-	while (cmds[i])
-	{
-		tmp = cmds[i];
-		while (tmp)
-		{
-			if (count_words_not_in_quote(tmp->content, ' ') > 1)
-			{
-				tmp2 = split_lst_on_space(&tmp, &pre_tmp);
-				ft_lstdelone(tmp, free);
-				if (!pre_tmp)
-					cmds[i] = tmp2;
-				tmp = tmp2;
-			}
-			pre_tmp = tmp;
-			tmp = tmp->next;
-		}
-		i++;
-	}
 }
 
 void	to_good_cmds(t_list **cmds, t_env_var **vars)
