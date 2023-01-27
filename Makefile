@@ -6,7 +6,7 @@
 #    By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/27 11:02:41 by tibernot         ###   ########.fr        #
+#    Updated: 2023/01/27 11:53:07 by tibernot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC_FILES		= 	command.c \
 	create_commands.c \
 	create_commands_utils.c \
 	create_commands_utils2.c \
+	create_commands_utils3.c \
 	envp.c \
 	minisignals.c \
 	get_next_line_no_endl.c \
