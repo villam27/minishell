@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:45:16 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 17:59:00 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 18:08:33 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_command	*create_command(t_list *lst, char **hds, int *fds, t_env_var *vars)
 
 	set_create_command_data(&d, lst);
 	if (!d.args || !good_fds(&d, hds, fds))
-		return (free(d.args), init_command(ft_strdup("\0"), NULL, vars));
+		return (free(d.args), NULL);
 	while (d.tmp)
 	{
 		if (d.tmp->content && !d.pre_is_fd
