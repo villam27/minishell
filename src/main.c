@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:38:52 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 16:20:25 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:30:56 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ void	parse_exec(t_main_data *d)
 	to_good_cmds(d->all_cmds, &(d->vars));
 	tcsetattr(STDIN_FILENO, TCSANOW, &(d->save));
 	d->cmds = create_commands(d->all_cmds, d->vars, d->hds);
-	run_everything(&(d->cmds), &(d->vars));
+	if (d->cmds && d->cmds->cmd)
+		run_everything(&(d->cmds), &(d->vars));
+	else
+		rm_command(&(d->cmds));
 	free_alist(d->all_cmds);
 	free_all(d->hds);
 }
