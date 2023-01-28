@@ -6,7 +6,7 @@
 #    By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/28 10:42:30 by tibernot         ###   ########.fr        #
+#    Updated: 2023/01/28 14:21:16 by tibernot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC_FILES		= 	command.c \
 	lst_utils.c \
 	main.c \
 	minishell_utils.c \
+	minishell_utils2.c \
 	parse_and_split.c \
 	parse_and_split_utils.c \
 	parse_and_split_utils2.c \
@@ -72,7 +73,7 @@ OBJ 			= 	${SRC_FILES:.c=.o}
 CFLAGS 			= -Wall -Wextra -Werror #-g3 -fsanitize=address
 OBJS			= 	$(addprefix $(OBJS_FOLDER), $(OBJ))
 
-all : title $(NAME)
+all : title makelibft $(NAME)
 
 $(NAME) : $(OBJS_FOLDER) $(OBJS) $(LIBFT)
 	$(CC) -o $(NAME) $(CFLAGS) $(RD_LIB_A) $(OBJS) $(LIBFT)
@@ -87,6 +88,9 @@ $(OBJS_FOLDER):
 	mkdir $(OBJS_FOLDER)/builtins
 
 $(LIBFT):
+	@make -C libft/
+
+makelibft:
 	@make -C libft/
 
 clean :
@@ -107,7 +111,7 @@ title :
 	@printf "$(PURPLE)/_/  /_/___/_/ |_/___/    /____/_/ /_/\\___/_/_/   $(END)	\n"
 	@printf "___________________________$(RED)tibernot & alboudje$(END)_\n"
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re title makelibft
 
 END		=\x1b[0m
 BOLD	=\x1b[1m

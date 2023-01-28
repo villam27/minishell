@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 15:32:33 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/28 14:21:05 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ char		*get_lines(int fd);
 char		*new_readline(char *prev_line, char *str);
 int			in_quote(char *str, int index);
 int			count_words_not_in_quote(char *s, char c);
+int			is_only_space(char *str);
 /*Parse and split utils*/
 void		free_aastring(char ***str);
 void		put_aastring(char ***str);

@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:38:52 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 17:47:59 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/28 14:22:15 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	handle_input(struct termios *term)
 
 void	parse_exec(t_main_data *d)
 {
+	if (is_only_space(d->line))
+		return ;
 	g_err = (g_err * (d->line[0] != '\0'));
 	d->hds = do_heredocs(d->line);
 	d->all_cmds = get_all(d->line);
@@ -64,6 +66,7 @@ void	set_main_data(t_main_data *d, int argc, char **argv, char **envp)
 	d->vars = init_cmds(envp);
 	d->line = "l";
 	d->hds = NULL;
+	g_err = 0;
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -85,7 +88,7 @@ int	main(int argc, char **argv, char **envp)
 		else
 		{
 			add_history(d.line);
-			if (parsing_errors(d.line))
+			if (parsing_errors(d.line) && !is_only_space(d.line))
 				ft_putendl_fd("Parsing error", 2);
 			else
 				parse_exec(&d);

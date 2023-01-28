@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:25:19 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/28 10:38:28 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/28 11:19:33 by tibernot         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_exit(char **args, int argc, t_env_var **vars)
 	while (*vars)
 		ft_unset_single((*vars)->name, vars);
 	if (!args[0])
-		exit(0);
+		exit(g_err);
 	else if (argc > 1)
 		ft_putstr_fd("exit\nminishell: exit: too many arguments\n", 2);
 	exit ((int)ft_atoc(args[0]));

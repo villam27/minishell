@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/28 10:37:25 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/28 14:11:54 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,9 @@ static int	child_process(t_command *cmd, int pipes[2][2],
 	if (!run_builtins(cmd, vars))
 	{
 		if (execve(cmd->cmd, cmd->args, get_envp(*vars)) < 0)
-			return (good_error_message(cmd->cmd), g_err = 127, exit(127), -1);
-		else
-			g_err = 0;
+			return (good_error_message(cmd->cmd), exit(127), -1);
 	}
-	return (0);
+	return (g_err = 0, exit(0), 0);
 }
 
 static int	new_process(t_command *cmd, int pipes[2][2],

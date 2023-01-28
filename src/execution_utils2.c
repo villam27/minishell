@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:13:25 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/28 10:38:01 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/28 14:13:25 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ int	get_process_return(int pid)
 	ret = 0;
 	waitpid(pid, &ret, 0);
 	ret = WEXITSTATUS(ret);
-	if (g_err == 130 || g_err == 131)
-		return (ret);
 	if (ret)
 		g_err = ret;
+	else
+		g_err = 0;
 	return (ret);
 }
 

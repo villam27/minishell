@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 11:52:24 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 18:07:59 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/28 11:07:22 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ t_command	*well_set_command(t_create_command_data	*d,
 	t_env_var *vars, int is_wrong)
 {
 	if (d->heredoc && !d->cmd)
+		return (NULL);
+	if (!d->cmd)
 		return (NULL);
 	if (!d->cmd)
 		d->cmd = ft_strdup("\0");
