@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:19:20 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 17:52:50 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/28 10:53:41 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*to_executable_cmd(char *str, char *path)
 		return (ft_strdup("\0"));
 	test = NULL;
 	i = 0;
-	if (is_builtin_str(str) || (access(str, X_OK) == 0))
+	if (is_builtin_str(str) || (access(str, X_OK) == 0) || !path)
 		return (ft_strdup(str));
 	paths = ft_split(ft_strnstr(path, "/", ft_strlen(path)), ':');
 	while (paths[i])
