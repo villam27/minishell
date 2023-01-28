@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:25:19 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 14:54:20 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/28 10:38:28 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ u_int8_t	ft_atoc(char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		if (result != ((result * 10 + (s * (str[i] - '0'))) / 10))
-			put_exit_error(str);
+			return (put_exit_error(str));
 		result = result * 10 + s * (str[i] - '0');
 		i++;
 	}
 	if (str[i] != 0)
-		put_exit_error(str);
+		return (put_exit_error(str));
 	g_err = (int)(u_int8_t)result;
 	return ((u_int8_t)result);
 }

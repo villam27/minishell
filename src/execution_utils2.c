@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:13:25 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 16:56:32 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/28 10:38:01 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ int	get_process_return(int pid)
 		return (ret);
 	if (ret)
 		g_err = ret;
-	else
-		g_err = 127;
 	return (ret);
 }
 
