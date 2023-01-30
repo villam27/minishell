@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:50:53 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/30 16:58:17 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:19:55 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ t_list	*split_lst_on_space(t_list **lst, t_list **pre_lst)
 
 void	pass_equal(char *str, int *i, char *str2, int *j)
 {
-	if (strncmp(str, "export", 6) != 0)
-		return ;
 	if (!str[*i] || str[*i] != '=' || in_quote(str, *i))
 		return ;
 	(*i)++;
@@ -83,7 +81,7 @@ int	size_without_external_quote2(char *str)
 	return (res);
 }
 
-char	*str_without_external_quotes2(char *str)
+char	*str_without_external_quotes2(char *str, int is_an_export)
 {
 	char	*res;
 	int		i;
@@ -104,7 +102,8 @@ char	*str_without_external_quotes2(char *str)
 	{
 		if (!((str[i] == '\"' && !is_quote) || (str[i] == '\'' && !is_dquote)))
 			res[j++] = str[i];
-		pass_equal(str, &i, res, &j);
+		if (is_an_export)
+			pass_equal(str, &i, res, &j);
 		if (i >= (int)ft_strlen(str))
 			return (res);
 		is_quote = is_quote ^ ((str[i] == '\'') * !is_dquote);

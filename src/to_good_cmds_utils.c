@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:01:52 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/30 15:55:23 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:19:38 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,16 +111,20 @@ void	rm_external_quotes(t_list **cmds)
 {
 	t_list	**tmp;
 	t_list	*tmp2;
+	int		is_export;
 	int		i;
 
 	i = 0;
 	tmp = cmds;
 	while (tmp[i])
 	{
+		is_export = 0;
 		tmp2 = tmp[i];
 		while (tmp2)
 		{
-			tmp2->content = str_without_external_quotes2(tmp2->content);
+			if (ft_strncmp(tmp2->content, "export", 6) == 0)
+				is_export = 1;
+			tmp2->content = str_without_external_quotes2(tmp2->content, is_export);
 			tmp2 = tmp2->next;
 		}
 		i++;
