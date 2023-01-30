@@ -6,7 +6,7 @@
 #    By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/28 14:21:16 by tibernot         ###   ########.fr        #
+#    Updated: 2023/01/30 15:31:27 by tibernot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ INCLUDES_FILES 	= 	minishell.h \
 INCLUDES 		= 	$(addprefix $(SRC_FOLDER), $(INCLUDES_FILES))
 
 OBJ 			= 	${SRC_FILES:.c=.o}
-CFLAGS 			= -Wall -Wextra -Werror #-g3 -fsanitize=address
+CFLAGS 			= -Wall -Wextra -Werror -g3 -fsanitize=address
 OBJS			= 	$(addprefix $(OBJS_FOLDER), $(OBJ))
 
 all : title makelibft $(NAME)

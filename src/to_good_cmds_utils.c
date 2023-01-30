@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:01:52 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/24 15:21:12 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/30 15:55:23 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ int	in_squote(char *str, int index)
 {
 	int	i;
 	int	is_dquote;
+	int	is_squote;
 
 	i = 0;
 	is_dquote = 0;
 	while (i < index)
 	{
-		is_dquote = is_dquote ^ (str[i] == '\'');
+		is_squote = is_squote ^ ((str[i] == '\'') * !is_dquote);
+		is_dquote = is_dquote ^ ((str[i] == '\"') * !is_squote);
 		i++;
 	}
 	return (is_dquote);
@@ -118,7 +120,7 @@ void	rm_external_quotes(t_list **cmds)
 		tmp2 = tmp[i];
 		while (tmp2)
 		{
-			tmp2->content = str_without_external_quotes(tmp2->content);
+			tmp2->content = str_without_external_quotes2(tmp2->content);
 			tmp2 = tmp2->next;
 		}
 		i++;

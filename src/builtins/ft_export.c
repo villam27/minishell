@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:43:05 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 14:26:02 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:04:28 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ int	ft_export(char **value, t_env_var **vars)
 	i = 1;
 	if (!value[1])
 	{
-		ft_printf("here\n");
 		ft_print_env(*vars);
 		return (0);
 	}

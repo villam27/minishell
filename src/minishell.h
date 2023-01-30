@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/28 14:21:05 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:03:08 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,4 +214,9 @@ void		intquit(int sig);
 
 char		**get_envp(t_env_var *vars);
 void		check_shlvl(t_env_var **v);
+
+/*test*/
+int			size_without_external_quote2(char *str);
+char		*str_without_external_quotes2(char *str);
+char		*str_without_external_quotes(char *str);
 #endif

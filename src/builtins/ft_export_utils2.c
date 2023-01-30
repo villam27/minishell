@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:25:46 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/26 13:45:44 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:06:18 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtins.h"
+#include "../minishell.h"
 
 t_env_var	*ft_env_dup(t_env_var *var)
 {
@@ -43,7 +44,9 @@ void	ft_print_env(t_env_var *var)
 {
 	t_env_var	*var_dup;
 	t_env_var	*temp;
+	char		*str_tmp;
 
+	str_tmp = NULL;
 	var_dup = ft_env_dup(var);
 	if (!var_dup)
 		return ;
@@ -51,7 +54,10 @@ void	ft_print_env(t_env_var *var)
 	ft_sort_env_var(&var_dup);
 	while (var_dup != NULL)
 	{
-		ft_printf("declare -x %s=\"%s\"\n", var_dup->name, var_dup->content);
+		str_tmp = str_without_external_quotes(ft_strdup(var_dup->content));
+		ft_printf("declare -x %s=\"%s\"\n", var_dup->name, str_tmp);
+		free(str_tmp);
+		str_tmp = NULL;
 		var_dup = var_dup->next;
 	}
 	while (temp)
