@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:50:53 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/30 15:55:52 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:58:17 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ t_list	*split_lst_on_space(t_list **lst, t_list **pre_lst)
 
 void	pass_equal(char *str, int *i, char *str2, int *j)
 {
+	if (strncmp(str, "export", 6) != 0)
+		return ;
 	if (!str[*i] || str[*i] != '=' || in_quote(str, *i))
 		return ;
 	(*i)++;
