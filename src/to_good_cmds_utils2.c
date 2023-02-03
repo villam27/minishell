@@ -89,6 +89,11 @@ char	*str_without_external_quotes2(char *str, int is_an_export)
 	int		is_dquote;
 	int		j;
 
+	(void) is_an_export;
+	(void) i;
+	(void) j;
+	(void) is_quote;
+	(void) is_dquote;
 	i = 0;
 	j = 0;
 	is_quote = 0;
@@ -105,7 +110,7 @@ char	*str_without_external_quotes2(char *str, int is_an_export)
 		if (is_an_export)
 			pass_equal(str, &i, res, &j);
 		if (i >= (int)ft_strlen(str))
-			return (res);
+			return (free(str), res);
 		is_quote = is_quote ^ ((str[i] == '\'') * !is_dquote);
 		is_dquote = is_dquote ^ ((str[i] == '\"') * !is_quote);
 		i++;

@@ -16,9 +16,9 @@ t_command	*well_set_command(t_create_command_data	*d,
 	t_env_var *vars, int is_wrong)
 {
 	if (d->heredoc && !d->cmd)
-		return (NULL);
+		return (free(d->args), NULL);
 	if (!d->cmd)
-		return (NULL);
+		return (free(d->args), NULL);
 	if (!d->cmd)
 		d->cmd = ft_strdup("\0");
 	d->args[d->ind_args] = NULL;
