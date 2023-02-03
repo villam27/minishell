@@ -47,10 +47,10 @@ int	get_process_return(int pid)
 	ret = 0;
 	waitpid(pid, &ret, 0);
 	ret = WEXITSTATUS(ret);
-	if (g_err == 130 || g_err == 131)
-		return (ret);
 	if (ret)
 		g_err = ret;
+	else if (g_err == 130 || g_err == 131)
+		return (ret);
 	else
 		g_err = 0;
 	return (ret);
