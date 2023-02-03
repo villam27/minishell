@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/30 17:15:18 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/03 11:28:47 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <readline/history.h>
 # include <fcntl.h>
 # include <signal.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 int	g_err;
 

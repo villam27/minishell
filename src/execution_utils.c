@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:37:57 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/28 10:39:33 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/03 11:27:15 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,13 @@ int	run_builtin(t_command **cmds, t_env_var **vars)
 
 void	run_everything(t_command **cmds, t_env_var **vars)
 {
-	int	r;
-
 	if (!cmds)
 		return ;
 	if (size_commands(*cmds) == 1 && is_builtins(*cmds))
-		r = run_builtin(cmds, vars);
+		run_builtin(cmds, vars);
 	else if (size_commands(*cmds))
-		r = run_cmds(cmds, vars);
+		run_cmds(cmds, vars);
+	
 }
 
 int	arg_size(char **args)

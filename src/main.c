@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:38:52 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/28 14:22:15 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/03 11:29:14 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@ int	g_err = 0;
 
 t_env_var	*init_cmds(char **envp)
 {
-	int			i;
 	t_env_var	*vars;
 
 	vars = NULL;
-	i = 0;
 	if (!envp)
 		return (NULL);
 	ft_export(envp, &vars);

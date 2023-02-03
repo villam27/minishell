@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:45:16 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 18:08:33 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/03 11:30:24 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 int	open_adequatly(char *file_name, int way)
 {
 	int	fd;
-	int	i;
 
-	i = -1;
 	if (way == -7)
 		fd = open(file_name, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (way == -8)

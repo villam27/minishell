@@ -6,13 +6,15 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 15:00:12 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/27 15:04:13 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/03 11:27:59 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
 # include "minishell.h"
+#include <sys/types.h>
+#include <sys/wait.h>
 
 void	run_everything(t_command **cmds_list, t_env_var **vars);
 

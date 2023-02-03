@@ -6,7 +6,7 @@
 /*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 09:25:46 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/24 15:22:05 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/03 11:30:00 by tibernot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,11 @@ void	rm_heredocs(t_list **lst)
 
 void	update_string_hd(t_list *lst, int i)
 {
-	int		j;
 	t_list	*start;
 	t_list	*end;
 
 	end = NULL;
 	start = NULL;
-	j = 0;
 	start = get_beggining(lst->content, i, '<');
 	end = get_end(lst->content, i);
 	if (end)
