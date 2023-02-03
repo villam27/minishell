@@ -90,6 +90,8 @@ int	single_export(char *value, t_env_var **vars)
 	p_env = 0;
 	if (ft_strchr(value, '='))
 		p_env = 1;
+	if (value[0] == '=')
+		return (print_var_error("export", value), 1);
 	variable = split_args(value);
 	if (!variable)
 		return (1);

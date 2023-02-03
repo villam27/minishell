@@ -86,7 +86,7 @@ int	good_heredocs(char	*str, t_list *hd)
 	{
 		if (str[i] == '<' && str[i - 1] == '<'
 			&& !in_quote(str, i) && !in_quote(str, i - 1))
-		nb_hd--;
+			nb_hd--;
 	}
 	if (nb_hd != 0)
 		return (0);

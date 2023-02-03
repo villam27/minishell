@@ -13,8 +13,8 @@
 #ifndef EXECUTION_H
 # define EXECUTION_H
 # include "minishell.h"
-#include <sys/types.h>
-#include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 void	run_everything(t_command **cmds_list, t_env_var **vars);
 

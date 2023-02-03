@@ -20,10 +20,12 @@ int	ft_env(t_env_var *vars)
 	tmp = NULL;
 	while (vars)
 	{
-		tmp = str_without_external_quotes(ft_strdup(vars->content));
+		if (vars->content)
+			tmp = str_without_external_quotes(ft_strdup(vars->content));
 		if (tmp)
 			ft_printf("%s=%s\n", vars->name, tmp);
-		free(tmp);		tmp = NULL;
+		free(tmp);
+		tmp = NULL;
 		vars = vars->next;
 	}
 	g_err = 0;

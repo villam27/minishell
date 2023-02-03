@@ -69,7 +69,6 @@ void	run_everything(t_command **cmds, t_env_var **vars)
 		run_builtin(cmds, vars);
 	else if (size_commands(*cmds))
 		run_cmds(cmds, vars);
-	
 }
 
 int	arg_size(char **args)

@@ -19,8 +19,8 @@
 # include <readline/history.h>
 # include <fcntl.h>
 # include <signal.h>
-#include <sys/types.h>
-#include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 int	g_err;
 

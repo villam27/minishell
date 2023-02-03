@@ -124,7 +124,8 @@ void	rm_external_quotes(t_list **cmds)
 		{
 			if (ft_strncmp(tmp2->content, "export", 6) == 0)
 				is_export = 1;
-			tmp2->content = str_without_external_quotes2(tmp2->content, is_export);
+			tmp2->content = str_without_external_quotes2(tmp2->content,
+					is_export);
 			tmp2 = tmp2->next;
 		}
 		i++;

@@ -89,11 +89,6 @@ char	*str_without_external_quotes2(char *str, int is_an_export)
 	int		is_dquote;
 	int		j;
 
-	(void) is_an_export;
-	(void) i;
-	(void) j;
-	(void) is_quote;
-	(void) is_dquote;
 	i = 0;
 	j = 0;
 	is_quote = 0;
