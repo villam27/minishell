@@ -71,6 +71,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_main_data	d;
 
+	signal(SIGQUIT, sigquit);
 	set_main_data(&d, argc, argv, envp);
 	while (d.line)
 	{

@@ -36,6 +36,7 @@ static int	child_process(t_command *cmd, int pipes[2][2],
 		close(cmd->fd_in);
 	if (!run_builtins(cmd, vars))
 	{
+		g_err = 0;
 		envp = get_envp(*vars);
 		if (execve(cmd->cmd, cmd->args, envp) < 0)
 			return (good_error_message(cmd->cmd), free_all(envp), exit(127), -1);

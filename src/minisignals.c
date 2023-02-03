@@ -33,7 +33,7 @@ void	sigquit(int sig)
 {
 	(void)sig;
 	rl_redisplay();
-	g_err = 1;
+	g_err = 130;
 }
 
 void	intquit(int sig)
