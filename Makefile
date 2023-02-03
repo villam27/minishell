@@ -58,8 +58,8 @@ SRC_FILES		= 	command.c \
 	builtins/ft_pwd.c \
 	builtins/ft_unset.c
 
-RD_LIB_H=~/.brew/opt/readline/include
-RD_LIB_A=-L ~/.brew/opt/readline/lib -lreadline
+RD_LIB_H=~/usr/include
+RD_LIB_A=-L ~/usr/lib/x86_64-linux-gnu/libreadline.a -lreadline
 
 SRC 			= 	$(addprefix $(SRC_FOLDER), $(SRC_FILES))
 
@@ -70,13 +70,13 @@ INCLUDES_FILES 	= 	minishell.h \
 INCLUDES 		= 	$(addprefix $(SRC_FOLDER), $(INCLUDES_FILES))
 
 OBJ 			= 	${SRC_FILES:.c=.o}
-CFLAGS 			= -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS 			= -Wall -Wextra -Werror #-g3 -fsanitize=address
 OBJS			= 	$(addprefix $(OBJS_FOLDER), $(OBJ))
 
 all : title makelibft $(NAME)
 
 $(NAME) : $(OBJS_FOLDER) $(OBJS) $(LIBFT)
-	$(CC) -o $(NAME) $(CFLAGS) $(RD_LIB_A) $(OBJS) $(LIBFT)
+	$(CC) -o $(NAME) $(CFLAGS) $(OBJS) $(RD_LIB_A) $(LIBFT)
 	@printf "$(GREEN)Creating $(PURPLE)$(NAME)$(END): OK\n"
 
 $(OBJS_FOLDER)%.o : $(SRC_FOLDER)%.c $(INCLUDES) Makefile

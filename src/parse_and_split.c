@@ -95,14 +95,21 @@ t_list	*astr_to_t_list(char **str)
 {
 	t_list	*lst;
 	int		i;
+	char	*tmp;
 
 	if (!str)
 		return (NULL);
+	tmp = ft_strdup(str[0]);
+	if (!tmp)
+		return (NULL);
 	i = 1;
-	lst = ft_lstnew(str[0]);
+	lst = ft_lstnew(tmp);
 	while (str[i])
 	{
-		ft_lstadd_back(&lst, ft_lstnew(str[i]));
+		tmp = ft_strdup(str[i]);
+		if (!tmp)
+			return (ft_lstclear(&lst, free), NULL);
+		ft_lstadd_back(&lst, ft_lstnew(tmp));
 		i++;
 	}
 	if (ft_lstsize(lst) != i)
@@ -128,7 +135,7 @@ t_list	**get_all(char	*line)
 		res[i] = ft_split_not_in_quotes(blocs[i], ' ');
 	res[i] = NULL;
 	alst = aastr_to_at_list(res);
-	free(res);
+	free_aastring(res);
 	rm_heredocs(alst);
 	replace_file_in_file_outs(alst);
 	return (free_all(blocs), alst);

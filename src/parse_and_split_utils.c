@@ -58,7 +58,7 @@ void	free_aastring(char ***str)
 	i = 0;
 	if (!str)
 		return ;
-	while (i < 1)
+	while (str[i])
 	{
 		free_all(str[i]);
 		i++;

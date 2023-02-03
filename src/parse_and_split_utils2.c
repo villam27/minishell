@@ -107,8 +107,6 @@ t_list	**aastr_to_at_list(char ***aastr)
 	while (aastr[i])
 	{
 		blocs[i] = astr_to_t_list(aastr[i]);
-		if (aastr[i])
-			free(aastr[i]);
 		if (!blocs[i])
 			return (free_alist(blocs), NULL);
 		i++;
