@@ -81,35 +81,37 @@ int	size_without_external_quote2(char *str)
 	return (res);
 }
 
+void	set_s_wthout_e_quote2_data(t_s_wthout_e_quote2_data *d)
+{
+	d->i = 0;
+	d->j = 0;
+	d->is_quote = 0;
+	d->is_dquote = 0;
+}
+
 char	*str_without_external_quotes2(char *str, int is_an_export)
 {
-	char	*res;
-	int		i;
-	int		is_quote;
-	int		is_dquote;
-	int		j;
+	t_s_wthout_e_quote2_data	d;
 
-	i = 0;
-	j = 0;
-	is_quote = 0;
-	is_dquote = 0;
+	set_s_wthout_e_quote2_data(&d);
 	if (!str)
 		return (NULL);
-	res = malloc(sizeof(char) * (size_without_external_quote2(str) + 1));
-	if (!res)
+	d.res = malloc(sizeof(char) * (size_without_external_quote2(str) + 1));
+	if (!d.res)
 		return (NULL);
-	while (str[i])
+	while (str[d.i])
 	{
-		if (!((str[i] == '\"' && !is_quote) || (str[i] == '\'' && !is_dquote)))
-			res[j++] = str[i];
+		if (!((str[d.i] == '\"' && !d.is_quote)
+				|| (str[d.i] == '\'' && !d.is_dquote)))
+			d.res[d.j++] = str[d.i];
 		if (is_an_export)
-			pass_equal(str, &i, res, &j);
-		if (i >= (int)ft_strlen(str))
-			return (free(str), res);
-		is_quote = is_quote ^ ((str[i] == '\'') * !is_dquote);
-		is_dquote = is_dquote ^ ((str[i] == '\"') * !is_quote);
-		i++;
+			pass_equal(str, &d.i, d.res, &d.j);
+		if (d.i >= (int)ft_strlen(str))
+			return (free(str), d.res);
+		d.is_quote = d.is_quote ^ ((str[d.i] == '\'') * !d.is_dquote);
+		d.is_dquote = d.is_dquote ^ ((str[d.i] == '\"') * !d.is_quote);
+		d.i++;
 	}
-	res[j] = '\0';
-	return (free(str), res);
+	d.res[d.j] = '\0';
+	return (free(str), d.res);
 }

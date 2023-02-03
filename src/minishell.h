@@ -121,6 +121,15 @@ typedef struct s_main_data
 	struct termios	term;
 }	t_main_data;
 
+typedef struct s_s_wthout_e_quote2_data
+{
+	char	*res;
+	int		i;
+	int		is_quote;
+	int		is_dquote;
+	int		j;
+}	t_s_wthout_e_quote2_data;
+
 /*
 	command init and destruction
 */
