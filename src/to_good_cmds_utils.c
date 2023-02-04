@@ -20,13 +20,14 @@ int	in_squote(char *str, int index)
 
 	i = 0;
 	is_dquote = 0;
+	is_squote = 0;
 	while (i < index)
 	{
 		is_squote = is_squote ^ ((str[i] == '\'') * !is_dquote);
 		is_dquote = is_dquote ^ ((str[i] == '\"') * !is_squote);
 		i++;
 	}
-	return (is_dquote);
+	return (is_squote);
 }
 
 void	to_good_tildes(t_list **cmds, t_env_var **vars)

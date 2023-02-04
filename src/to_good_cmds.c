@@ -109,7 +109,7 @@ void	to_good_args(t_list **cmds, t_env_var **vars)
 void	to_good_cmds(t_list **cmds, t_env_var **vars)
 {
 	to_good_args(cmds, vars);
-	split_alst_on_space(cmds);
 	to_good_tildes(cmds, vars);
 	rm_external_quotes(cmds);
+	split_alst_on_space(cmds);
 }

@@ -74,15 +74,17 @@ int	is_builtin_str(char *str)
 
 int	change_fds(int *fd_in, int *fd_out, int way, int *fds)
 {
-	if ((way == -10) && *fd_in != -2 && *fd_in != fds[0])
+	if ((way == -10) && *fd_in > 2 && *fd_in != fds[0])
 		close(fds[-1]);
 	if (way == -10)
 		*fd_in = fds[0];
-	else if (*fd_out != -2 && *fd_out != fds[0])
+	else if (*fd_out > 2 && *fd_out != fds[0])
 		close(fds[-1]);
 	if (way != -10)
 		*fd_out = fds[0];
-	if (*fd_in == -1 || *fd_out == -1)
-		return (close(*fd_in), close(*fd_out), 0);
+	if (*fd_in == -1 && *fd_out > 2)
+		return (close(*fd_out), 0);
+	if (*fd_in > 2 && *fd_out == -1)
+		return (close(*fd_out), 0);
 	return (1);
 }

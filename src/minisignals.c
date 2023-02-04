@@ -19,7 +19,7 @@ void	sigint(int sig)
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_redisplay();
-	g_err = 1;
+	g_err = 130;
 }
 
 void	sigquit_process(int sig)

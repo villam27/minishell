@@ -17,8 +17,8 @@ static int	put_exit_error(char *str)
 	ft_putstr_fd("exit\nminishell: exit: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": numeric argument required\n", 2);
-	g_err = 255;
-	return (255);
+	g_err = 2;
+	return (2);
 }
 
 u_int8_t	ft_atoc(char *str)

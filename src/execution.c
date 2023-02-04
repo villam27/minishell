@@ -52,6 +52,7 @@ static int	new_process(t_command *cmd, int pipes[2][2],
 
 	signal(SIGINT, &intquit);
 	signal(SIGQUIT, &sigquit_process);
+	g_err = 0;
 	pid = fork();
 	if (pid < 0)
 		return ((void)ft_putstr_fd("minishell: fork: Resource \
