@@ -19,7 +19,7 @@ static int	child_process(t_command *cmd, int pipes[2][2],
 	t_command *last, t_env_var **vars)
 {
 	char	**envp;
-	
+
 	if (cmd->here)
 		cmd->fd_in = get_heredoc_fd(cmd->here);
 	dup2(cmd->fd_in, STDIN_FILENO);
@@ -39,7 +39,8 @@ static int	child_process(t_command *cmd, int pipes[2][2],
 		g_err = 0;
 		envp = get_envp(*vars);
 		if (execve(cmd->cmd, cmd->args, envp) < 0)
-			return (good_error_message(cmd->cmd), free_all(envp), exit(127), -1);
+			return (good_error_message(cmd->cmd),
+				free_all(envp), exit(127), -1);
 	}
 	return (g_err = 0, exit(0), 0);
 }
