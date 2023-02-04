@@ -57,7 +57,7 @@ int	ft_unset(char **args, t_env_var **vars)
 	i = 1;
 	while (args[i])
 	{
-		if (ft_strcmp(args[i], "unset") || is_valid(args[i], "unset"))
+		if (ft_strcmp(args[i], "unset") && !is_valid(args[i], "unset"))
 			ft_unset_single(args[i], vars);
 		i++;
 	}
