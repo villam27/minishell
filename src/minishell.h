@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/02/03 11:28:47 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 15:33:55 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,12 +130,31 @@ typedef struct s_s_wthout_e_quote2_data
 	int		j;
 }	t_s_wthout_e_quote2_data;
 
+typedef struct s_to_good_args_data
+{
+	t_list	**tmp;
+	t_list	*tmp2;
+	t_list	**change_vars;
+	int		i;
+	char	*pre_str;
+	int		j;
+}	t_to_good_args_data;
+
+typedef struct s_split_alst_on_space_data
+{
+	int		i;
+	t_list	*tmp;
+	t_list	*tmp2;
+	t_list	*pre_tmp;
+}	t_split_alst_on_space_data;
+
 /*
 	command init and destruction
 */
 t_command	*init_command(char *cmd, char **args, t_env_var *vars);
 void		set_fd(t_command **cmd, int fd_in, int fd_out, int fd_err);
 void		set_heredoc(t_command **cmd, char *heredoc);
+void		close_fds(int in, int out);
 void		destroy_command(t_command *cmd);
 
 void		add_command(t_command **cmds_list, t_command *cmd);
@@ -215,7 +234,9 @@ void		put_alst(t_list **alst);
 int			in_squote(char *str, int index);
 void		to_good_tildes(t_list **cmds, t_env_var **vars);
 void		rm_external_quotes(t_list **cmds);
-void		split_alst_on_space(t_list **cmds);
+int			split_alst_on_space(t_list **cmds);
+int			amount_lst_in_alst(t_list **alst);
+int			set_good_args_data(t_list **cmds, t_to_good_args_data *d);
 /*signal*/
 void		sigint(int sig);
 void		sigquit_process(int sig);

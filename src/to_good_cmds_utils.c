@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   to_good_cmds_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:01:52 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/30 17:19:38 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 15:37:09 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ void	to_good_tildes(t_list **cmds, t_env_var **vars)
 	t_list	*tmp2;
 	int		i;
 
-	i = 0;
 	tmp = cmds;
+	i = 0;
+	if (!tmp)
+		return ;
 	while (tmp[i])
 	{
 		tmp2 = tmp[i];
@@ -95,7 +97,7 @@ char	*str_without_external_quotes(char *str)
 		return (NULL);
 	res = malloc(sizeof(char) * (size_without_external_quote(str) + 1));
 	if (!res)
-		return (NULL);
+		return (write(2, "did not malloc\n", 15), NULL);
 	while (str[i])
 	{
 		if (!((str[i] == '\"' && !is_quote) || (str[i] == '\'' && !is_dquote)))
@@ -117,6 +119,8 @@ void	rm_external_quotes(t_list **cmds)
 
 	i = 0;
 	tmp = cmds;
+	if (!tmp)
+		return ;
 	while (tmp[i])
 	{
 		is_export = 0;

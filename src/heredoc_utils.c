@@ -43,7 +43,7 @@ char	*str_append(char *origin, char *str2, char *str3)
 	res = ft_calloc((ft_strlen(origin)
 				+ ft_strlen(str2) + ft_strlen(str3) + 1), sizeof(char));
 	if (!res)
-		return (NULL);
+		return (write(2, "did not malloc\n", 15), NULL);
 	ft_strlcat(res, origin, ft_strlen(origin) + 1);
 	if (str2)
 		ft_strlcat(res, (char *)str2, ft_strlen(origin) + ft_strlen(str2) + 1);

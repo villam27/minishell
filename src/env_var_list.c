@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 12:41:22 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/12 19:02:47 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:52:50 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_env_var	*ft_env_var_lst_new(char *name, char *content)
 		return (NULL);
 	result = malloc(sizeof(t_env_var));
 	if (result == NULL)
-		return (NULL);
+		return (write(2, "did not malloc\n", 15), NULL);
 	result->content = content;
 	result->name = name;
 	result->next = NULL;

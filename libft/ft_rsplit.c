@@ -47,7 +47,7 @@ static char	*copy_str(char *s, char c, int *start, char r)
 		i++;
 	str = (char *)malloc(sizeof(char) * (i + 2));
 	if (str == NULL)
-		return (NULL);
+		return (write(2, "did not malloc\n", 15), NULL);
 	while (j < i)
 	{
 		str[j] = s[j];
@@ -71,7 +71,7 @@ char	**ft_rsplit(char const *s, char c, char r)
 		return (NULL);
 	strs = (char **)malloc(sizeof(char *) * (num_words((char *)s, c) + 1));
 	if (strs == NULL)
-		return (NULL);
+		return (write(2, "did not malloc\n", 15), NULL);
 	while (j < num_words((char *)s, c))
 	{
 		while (s[start] == c && s[start])

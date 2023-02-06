@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   to_good_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 17:20:55 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 17:51:17 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 15:34:24 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ char	*transform_vars(char *str, t_env_var **vars)
 {
 	int	i;
 
-	(void) vars;
 	i = 0;
 	if (!str)
 		return (NULL);
@@ -85,31 +84,47 @@ char	*transform_vars(char *str, t_env_var **vars)
 	return (str);
 }
 
-void	to_good_args(t_list **cmds, t_env_var **vars)
+t_list	**to_good_args(t_list **cmds, t_env_var **vars)
 {
-	t_list	**tmp;
-	t_list	*tmp2;
-	int		i;
+	t_to_good_args_data	d;
 
-	i = 0;
-	tmp = cmds;
-	while (tmp[i])
+	if (!set_good_args_data(cmds, &d))
+		return (NULL);
+	while (d.tmp[d.i])
 	{
-		tmp2 = tmp[i];
-		while (tmp2)
+		d.tmp2 = d.tmp[d.i];
+		while (d.tmp2)
 		{
-			tmp2->content = transform_vars(tmp2->content, vars);
-			tmp2 = tmp2->next;
+			d.pre_str = ft_strdup(d.tmp2->content);
+			if (!d.pre_str)
+				return (free(d.change_vars), NULL);
+			d.tmp2->content = transform_vars(d.tmp2->content, vars);
+			if (!d.tmp2->content)
+				return (free(d.pre_str), free(d.change_vars), NULL);
+			if (strcmp(d.pre_str, d.tmp2->content) != 0)
+				d.change_vars[d.j++] = d.tmp2;
+			free(d.pre_str);
+			d.tmp2 = d.tmp2->next;
 		}
-		i++;
+		d.i++;
 	}
-	i = 0;
+	d.change_vars[d.j] = NULL;
+	return (d.change_vars);
 }
 
 void	to_good_cmds(t_list **cmds, t_env_var **vars)
 {
-	to_good_args(cmds, vars);
+	t_list	**change_vars;
+
+	change_vars = to_good_args(cmds, vars);
+	if (!change_vars)
+	{
+		free_alist(cmds);
+		return ;
+	}
 	to_good_tildes(cmds, vars);
 	rm_external_quotes(cmds);
-	split_alst_on_space(cmds);
+	if (!split_alst_on_space(change_vars))
+		free_alist(cmds);
+	free(change_vars);
 }

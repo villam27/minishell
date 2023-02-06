@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:37:57 by alboudje          #+#    #+#             */
-/*   Updated: 2023/02/03 11:27:15 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:18:28 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,18 @@ int	run_builtin(t_command **cmds, t_env_var **vars)
 
 void	run_everything(t_command **cmds, t_env_var **vars)
 {
+	int	*pids;
+
+	pids = malloc(sizeof(int) * size_commands(*cmds));
+	if (!pids)
+		return ((void)ft_putstr_fd("malloc error\n", 2));
 	if (!cmds)
 		return ;
 	if (size_commands(*cmds) == 1 && is_builtins(*cmds))
 		run_builtin(cmds, vars);
 	else if (size_commands(*cmds))
-		run_cmds(cmds, vars);
+		run_cmds(cmds, vars, pids);
+	free(pids);
 }
 
 int	arg_size(char **args)

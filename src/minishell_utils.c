@@ -17,6 +17,8 @@ int	is_in(char c, char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (1);
 	while (str[i])
 	{
 		if (str[i] == c)
@@ -31,6 +33,8 @@ void	put_astring(char **str)
 	int	i;
 
 	i = 0;
+	if (!str || !*str)
+		return ;
 	while (str[i])
 	{
 		ft_printf("-%s-\n", str[i]);
@@ -56,6 +60,8 @@ int	in_quote(char *str, int index)
 	i = 0;
 	is_quote = 0;
 	is_dquote = 0;
+	if (!str)
+		return (0);
 	while (i < index)
 	{
 		is_quote = is_quote ^ ((str[i] == '\'') * !is_dquote);
@@ -74,12 +80,10 @@ char	*add_str(char *str, char *str2)
 	res = ft_calloc(sizeof(char) * (ft_strlen(str)
 				+ ft_strlen(str2) + 1), sizeof(char));
 	if (!res)
-		return (NULL);
+		return (free(str), free(str2), write(2, "did not malloc\n", 15), NULL);
 	ft_strlcat(res, str, ft_strlen(str) + 1);
 	ft_strlcat(res, str2, ft_strlen(str) + ft_strlen(str2) + 1);
-	if (str)
-		free(str);
-	if (str2)
-		free(str2);
+	free(str);
+	free(str2);
 	return (res);
 }

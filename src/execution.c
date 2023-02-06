@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 14:59:53 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/28 14:11:54 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:39:57 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,15 @@ static int	child_process(t_command *cmd, int pipes[2][2],
 	else
 		dup2(STDOUT_FILENO, cmd->fd_out);
 	multi_close(pipes[0], pipes[1]);
-	if (cmd->fd_out > 2)
-		close(cmd->fd_out);
-	if (cmd->fd_in > 2)
-		close(cmd->fd_in);
+	close_fds(cmd->fd_in, cmd->fd_out);
+	if (!cmd->cmd)
+		return (g_err = 0, free_all(cmd->args), exit(0), 0);
 	if (!run_builtins(cmd, vars))
 	{
 		g_err = 0;
 		envp = get_envp(*vars);
 		if (execve(cmd->cmd, cmd->args, envp) < 0)
-			return (good_error_message(cmd->cmd),
+			return (good_error_message(cmd->cmd, envp),
 				free_all(envp), exit(127), -1);
 	}
 	return (g_err = 0, exit(0), 0);
@@ -68,41 +67,37 @@ temporarily unavailable\n", 2), -1);
 int	wait_cmds(int cmds_size, int *pids)
 {
 	int	i;
-	int	ret;
 
 	i = 0;
 	while (i < cmds_size)
 	{
-		ret = get_process_return(pids[i]);
+		get_process_return(pids[i]);
 		i++;
 	}
-	free(pids);
-	return (ret);
+	return (0);
 }
 
-void	modify_pipe(int pipe_fd[2][2])
+int	modify_pipe(int pipe_fd[2][2])
 {
 	close(pipe_fd[0][0]);
 	close(pipe_fd[0][1]);
 	pipe_fd[0][0] = pipe_fd[1][0];
 	pipe_fd[0][1] = pipe_fd[1][1];
 	if (pipe(pipe_fd[1]) < 0)
-		return ;
+		return (ft_putstr_fd("pipe broken\n", 2), 1);
+	return (0);
 }
 
-int	run_cmds(t_command **cmds_list, t_env_var **vars)
+int	run_cmds(t_command **cmds_list, t_env_var **vars, int *pids)
 {
 	int	cmds_size;
 	int	pipe_fd[2][2];
-	int	*pids;
 	int	i;
 
-	(void) vars;
 	i = -1;
 	cmds_size = size_commands(*cmds_list);
-	pids = malloc(sizeof(int) * cmds_size);
-	if (!pids || pipe(pipe_fd[1]) < 0)
-		return (free(pids), 1);
+	if (pipe(pipe_fd[1]) < 0)
+		return (ft_putstr_fd("pipe broken\n", 2), 1);
 	pipe_fd[0][0] = dup(0);
 	pipe_fd[0][1] = dup(1);
 	while (++i < cmds_size)
@@ -111,10 +106,11 @@ int	run_cmds(t_command **cmds_list, t_env_var **vars)
 				pipe_fd, (*cmds_list)->next, vars);
 		if (pids[i] < 0)
 			return (exit_all_fork_broken(pipe_fd, i, pids, cmds_list));
-		modify_pipe(pipe_fd);
+		if (modify_pipe(pipe_fd))
+			break ;
 		rm_command(cmds_list);
 	}
 	while (*cmds_list)
 		rm_command(cmds_list);
-	return (multi_close(pipe_fd[0], pipe_fd[1]), wait_cmds(cmds_size, pids));
+	return (multi_close(pipe_fd[0], pipe_fd[1]), wait_cmds(i, pids));
 }

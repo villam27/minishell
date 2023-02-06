@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_and_split_utils3.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 09:47:50 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/23 15:25:12 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:57:05 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	replace_file_in(t_list *lst)
 	while (tmp)
 	{
 		i = -1;
-		while (((char *)tmp->content)[++i])
+		while (tmp->content && ((char *)tmp->content)[++i])
 		{
 			if (((((char *)tmp->content)[i] == '<')
 				|| (((char *)tmp->content)[i] == '>'))

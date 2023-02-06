@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 15:14:54 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/23 15:16:29 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:51:57 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		i++;
 	result = malloc(sizeof(char) * (i + 1 - start));
 	if (!result)
-		return (0);
+		return (write(2, "did not malloc\n", 15), NULL);
 	i = 0;
 	while (s[i + start] && i < len)
 	{

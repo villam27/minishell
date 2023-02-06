@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+         #
+#    By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/30 15:31:27 by tibernot         ###   ########.fr        #
+#    Updated: 2023/02/06 15:36:44 by alboudje@st      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRC_FILES		= 	command.c \
 	to_good_cmds.c \
 	to_good_cmds_utils.c \
 	to_good_cmds_utils2.c \
+	to_good_cmds_utils3.c \
 	parsing_errors.c \
 	create_commands.c \
 	create_commands_utils.c \
@@ -70,7 +71,7 @@ INCLUDES_FILES 	= 	minishell.h \
 INCLUDES 		= 	$(addprefix $(SRC_FOLDER), $(INCLUDES_FILES))
 
 OBJ 			= 	${SRC_FILES:.c=.o}
-CFLAGS 			= -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS 			= -Wall -Werror -Wextra -g3 -fsanitize=address
 OBJS			= 	$(addprefix $(OBJS_FOLDER), $(OBJ))
 
 all : title makelibft $(NAME)

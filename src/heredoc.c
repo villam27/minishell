@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 12:50:34 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/27 13:35:15 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:54:15 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ char	*to_gd_hd(char *str)
 	is_quote = 0;
 	is_dquote = 0;
 	res = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (!res)
+		return (write(2, "did not malloc\n", 15), NULL);
 	while (str[i])
 	{
 		is_quote = is_quote ^ ((str[i] == '\'') * !is_dquote);
@@ -32,9 +34,7 @@ char	*to_gd_hd(char *str)
 		if (!is_in(str[i], "\'\"")
 			|| (str[i] == '\'' && is_dquote)
 			|| (str[i] == '\"' && is_quote))
-		{
 			res[j++] = str[i];
-		}
 		i++;
 	}
 	res[j] = '\0';
@@ -68,7 +68,7 @@ t_list	*create_heredocs(char *str)
 	return (lst);
 }
 
-int	good_heredocs(char	*str, t_list *hd)
+int	good_heredocs(char *str, t_list *hd)
 {
 	int		nb_hd;
 	int		i;
@@ -79,6 +79,8 @@ int	good_heredocs(char	*str, t_list *hd)
 	i = 0;
 	while (tmp)
 	{
+		if (!tmp->content)
+			return (1);
 		tmp = tmp->next;
 		nb_hd++;
 	}
@@ -128,10 +130,11 @@ char	**do_heredocs(char *str)
 	if (ft_lstsize(heredocs) == 0)
 		return (NULL);
 	if (!good_heredocs(str, heredocs))
-		ft_lstclear(&heredocs, free);
+		return (ft_lstclear(&heredocs, free), NULL);
 	res = malloc(sizeof(char *) * (ft_lstsize(heredocs) + 1));
 	if (!res)
-		return (NULL);
+		return (ft_lstclear(&heredocs, free), write(2, "did not malloc\n", 15),
+			NULL);
 	tmp = heredocs;
 	while (tmp)
 	{

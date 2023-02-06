@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboudje <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:16:15 by alboudje          #+#    #+#             */
-/*   Updated: 2022/11/13 13:21:01 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:51:46 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	s2_size = ft_strlen(s2);
 	result = (char *)malloc(sizeof(char) * (s1_size + s2_size + 1));
 	if (result == NULL)
-		return (NULL);
+		return (write(2, "did not malloc\n", 15), NULL);
 	copy(result, (char *)s1, 0);
 	copy(result, (char *)s2, s1_size);
 	result[s1_size + s2_size] = '\0';

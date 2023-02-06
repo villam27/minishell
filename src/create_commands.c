@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_commands.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:45:16 by tibernot          #+#    #+#             */
-/*   Updated: 2023/02/03 11:30:24 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:41:59 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ int	*open_fds(t_list **lst)
 
 	d.fds = malloc(sizeof(int) * (amount_fd(lst)));
 	if (!d.fds)
-		return (NULL);
+		return (write(2, "did not malloc\n", 15), NULL);
 	d.tmp = lst;
 	d.i = -1;
 	d.j = 0;
-	while (d.tmp[++d.i])
+	while (d.tmp && d.tmp[++d.i])
 	{
 		d.tmp2 = d.tmp[d.i];
 		while (d.tmp2)
@@ -68,7 +68,8 @@ int	good_fds(t_create_command_data *d, char **hds, int *fds)
 	d_tmp = *d;
 	while (d_tmp.tmp)
 	{
-		if (d_tmp.tmp->content && (((char *)(d_tmp.tmp->content))[0]) == 2)
+		if ((d_tmp.tmp->content && (((char *)(d_tmp.tmp->content))[0]) == 2)
+			&& (hds != NULL))
 		{
 			d->heredoc = hds[0];
 			hds++;
@@ -83,10 +84,9 @@ int	good_fds(t_create_command_data *d, char **hds, int *fds)
 		}
 		d_tmp.tmp = d_tmp.tmp->next;
 	}
-	if (d->fd_out == -2)
+	if (d->fd_out == -15)
 		d->fd_out = 1;
-	if (d->fd_in == -2)
-		d->fd_in = 0;
+	d->fd_in = ((d->fd_in != -15) * d->fd_in);
 	return (1);
 }
 
@@ -95,8 +95,10 @@ t_command	*create_command(t_list *lst, char **hds, int *fds, t_env_var *vars)
 	t_create_command_data	d;
 
 	set_create_command_data(&d, lst);
-	if (!d.args || !good_fds(&d, hds, fds))
-		return (free(d.args), NULL);
+	if (!d.args)
+		return (NULL);
+	if (!good_fds(&d, hds, fds))
+		return (well_set_command(&d, vars, 1));
 	while (d.tmp)
 	{
 		if (d.tmp->content && !d.pre_is_fd
@@ -125,9 +127,8 @@ t_command	*create_commands(t_list **lst, t_env_var *vars, char **hds)
 	d.tmp = lst;
 	d.fds_size = amount_fd(lst);
 	d.cmds = NULL;
-	if (lst)
-		d.fds = open_fds(lst);
-	while (d.tmp[d.i])
+	d.fds = open_fds(lst);
+	while (d.tmp && d.tmp[d.i])
 	{
 		add_command(&(d.cmds),
 			create_command(d.tmp[d.i], hds + d.hd_ind, d.fds + d.fd_ind, vars));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 12:20:16 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/26 13:45:09 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:08:13 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	add_env(char *name, char *content, t_env_var **vars, int p_env)
 	t_env_var	*new;
 	t_env_var	*temp;
 
+	if (!name)
+		return (1);
 	new = ft_env_new(name, content, p_env);
 	if (!new)
 		return (1);
@@ -65,15 +67,21 @@ t_env_var	*ft_env_new(char *name, char *content, int p_env)
 {
 	t_env_var	*result;
 
-	if (!name)
-		return (NULL);
 	result = malloc(sizeof(t_env_var));
 	if (result == NULL)
 		return (NULL);
 	if (content)
+	{
 		result->content = ft_strdup(content);
+		if (!result->content)
+			return (free(result), NULL);
+	}
 	else if (p_env)
+	{
 		result->content = ft_strdup("");
+		if (!result->content)
+			return (free(result), NULL);
+	}
 	else
 		result->content = NULL;
 	result->name = ft_strdup(name);

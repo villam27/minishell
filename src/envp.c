@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:51:37 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/26 14:41:20 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:52:54 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	**get_envp(t_env_var *vars)
 	size = get_vars_size(vars);
 	envp = malloc(sizeof(char *) * (size + 1));
 	if (!envp)
-		return (NULL);
+		return (write(2, "did not malloc\n", 15), NULL);
 	temp = vars;
 	while (i < size)
 	{

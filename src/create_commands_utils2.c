@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_commands_utils2.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:07:46 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/26 10:06:56 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 14:11:29 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,13 @@ void	set_create_command_data(t_create_command_data *d, t_list *lst)
 	d->pre_is_fd = 0;
 	d->cmd = NULL;
 	d->heredoc = NULL;
-	d->fd_in = -2;
-	d->fd_out = -2;
+	d->fd_in = -15;
+	d->fd_out = -15;
 	d->tmp = lst;
 	d->ind_args = 0;
 	d->args = malloc(sizeof(char *) * (ft_lstsize(lst) + 1));
+	if (!d->args)
+		write(2, "did not malloc\n", 15);
 }
 
 int	amount_fd(t_list **lst)
@@ -76,8 +78,10 @@ int	amount_fd(t_list **lst)
 
 	i = 0;
 	res = 0;
+	if (!lst || !*lst)
+		return (0);
 	tmp = lst;
-	while (tmp[i])
+	while (tmp && tmp[i])
 	{
 		tmp2 = tmp[i];
 		while (tmp2)

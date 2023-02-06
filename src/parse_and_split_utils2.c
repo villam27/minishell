@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_and_split_utils2.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 09:25:46 by tibernot          #+#    #+#             */
-/*   Updated: 2023/02/03 11:30:00 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:00:38 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*str_to_chr(char *str, char c)
 	if (str)
 		free(str);
 	if (!res)
-		return (NULL);
+		return (write(2, "did not malloc\n", 15), NULL);
 	res[0] = c;
 	return (res);
 }
@@ -103,7 +103,7 @@ t_list	**aastr_to_at_list(char ***aastr)
 	i = 0;
 	blocs = malloc(sizeof(t_list *) * (ft_aastrlen(aastr) + 1));
 	if (!blocs)
-		return (NULL);
+		return (write(2, "did not malloc\n", 15), NULL);
 	while (aastr[i])
 	{
 		blocs[i] = astr_to_t_list(aastr[i]);

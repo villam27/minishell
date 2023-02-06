@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:43:05 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/30 16:04:28 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 15:42:29 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	**split_args(char *value)
 		{
 			result = malloc(sizeof(char *) * 3);
 			if (!result)
-				return (NULL);
+				return (write(2, "did not malloc\n", 15), NULL);
 			result[0] = ft_strdup(value);
 			if (!result[0])
 				return (free(result), NULL);
@@ -86,8 +86,12 @@ int	single_export(char *value, t_env_var **vars)
 	t_env_var	*var;
 	char		**variable;
 	int			p_env;
+	int			return_value;
 
 	p_env = 0;
+	return_value = 0;
+	if (!value)
+		return (-1);
 	if (ft_strchr(value, '='))
 		p_env = 1;
 	if (value[0] == '=')
@@ -96,33 +100,40 @@ int	single_export(char *value, t_env_var **vars)
 	if (!variable)
 		return (1);
 	var = get_var_addr(variable[0], vars);
-	if (var)
-		mod_env(variable[1], &var, p_env);
+	if (var) p_env);
 	else
-		add_env(variable[0], variable[1], vars, p_env);
+		return_value = add_env(variable[0], variable[1], vars, p_env);
 	free_all(variable);
+	if (return_value)
+		return (1);
 	return (0);
 }
 
 int	ft_export(char **value, t_env_var **vars)
 {
 	int	i;
+	int	res;
 
 	i = 1;
 	if (!value[1])
-	{
-		ft_print_env(*vars);
-		return (0);
-	}
+		return (ft_print_env(*vars), 0);
 	while (value[i])
 	{
-		if (single_export(value[i], vars))
+		res = single_export(value[i], vars);
+		if (res < 0)
 		{
 			g_err = 0;
 			return (0);
 		}
+		if (res > 0)
+		{
+			ft_putstr_fd("malloc error\n", 2);
+			g_err = 1;
+			return (1);
+		}
 		i++;
 	}
+		return_value = mod_env(variable[1], &var,
 	g_err = 1;
 	return (1);
 }

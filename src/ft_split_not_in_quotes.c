@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_not_in_quotes.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:27:15 by ratinax           #+#    #+#             */
-/*   Updated: 2023/01/23 15:09:47 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:54:08 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char	**ft_split_not_in_quotes(char *s, char c)
 	nb_words = count_words_not_in_quote(s, c);
 	astring = malloc(sizeof(char *) * (nb_words + 1));
 	if (!astring)
-		return (NULL);
+		return (write(2, "did not malloc\n", 15), NULL);
 	while (i < nb_words)
 	{
 		astring[i] = ft_substr(s, start_word(s, c, i), size_word(s, c, i));

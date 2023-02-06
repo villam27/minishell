@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_and_split.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 11:30:37 by ratinax           #+#    #+#             */
-/*   Updated: 2023/01/24 15:23:46 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:54:23 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ t_list	*get_beggining(char	*str, int i, char c)
 		return (NULL);
 	if (!res)
 		return (NULL);
-	if (!res->content)
-		return (ft_lstclear(&res, free), NULL);
 	return (res);
 }
 
@@ -56,8 +54,6 @@ t_list	*get_end(char *str, int i)
 						ft_strlen(str)));
 			if (!res)
 				return (NULL);
-			if (!res->content)
-				return (ft_lstclear(&res, free), NULL);
 			return (res);
 		}
 		j++;
@@ -82,8 +78,6 @@ t_list	*get_end_hd(char *str, int i)
 						ft_strlen(str)));
 			if (!res)
 				return (NULL);
-			if (!res->content)
-				return (ft_lstclear(&res, free), NULL);
 			return (res);
 		}
 		j++;
@@ -95,21 +89,16 @@ t_list	*astr_to_t_list(char **str)
 {
 	t_list	*lst;
 	int		i;
-	char	*tmp;
 
 	if (!str)
 		return (NULL);
-	tmp = ft_strdup(str[0]);
-	if (!tmp)
-		return (NULL);
 	i = 1;
-	lst = ft_lstnew(tmp);
+	lst = ft_lstnew(ft_strdup(str[0]));
+	if (!lst)
+		return (NULL);
 	while (str[i])
 	{
-		tmp = ft_strdup(str[i]);
-		if (!tmp)
-			return (ft_lstclear(&lst, free), NULL);
-		ft_lstadd_back(&lst, ft_lstnew(tmp));
+		ft_lstadd_back(&lst, ft_lstnew(ft_strdup(str[i])));
 		i++;
 	}
 	if (ft_lstsize(lst) != i)
@@ -130,7 +119,7 @@ t_list	**get_all(char	*line)
 		return (NULL);
 	res = malloc(sizeof(char **) * (ft_astrlen(blocs) + 1));
 	if (!res)
-		return (free_all(blocs), NULL);
+		return (free_all(blocs), write(2, "did not malloc\n", 15), NULL);
 	while (blocs[++i])
 		res[i] = ft_split_not_in_quotes(blocs[i], ' ');
 	res[i] = NULL;

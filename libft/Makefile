@@ -6,7 +6,7 @@
 #    By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 23:55:26 by alboudje          #+#    #+#              #
-#    Updated: 2023/01/23 16:37:49 by tibernot         ###   ########.fr        #
+#    Updated: 2023/02/04 11:52:25 by tibernot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,18 +69,18 @@ HEADERS		=	libft.h
 AR			=	ar
 ARFLAGS 	=	-rcs
 OBJ			=	${SRC:.c=.o}
-CFLAGS		=	-Wall -Werror -Wextra
+CFLAGS		=	#-Wall -Werror -Wextra
 CC			=	gcc
 
 all : $(NAME)
 
 $(NAME) : $(OBJ)
 	@$(AR) $(ARFLAGS) $(NAME) $(OBJ)
-	@printf "$(GREEN)Creating $(CYAN)$(NAME)$(END): OK\n"
+	@printf '$(GREEN)Creating $(CYAN)$(NAME)$(END): OK\n'
 
 %.o : %.c $(HEADERS) Makefile
 	@$(CC) $(CFLAGS) -o $@ -c $<
-	@printf "$(GREEN)Compiling $(NAME): $(CYAN)$<: $(GREEN)OK$(END)\n"
+	@printf '$(GREEN)Compiling $(NAME): $(CYAN)$<: $(GREEN)OK$(END)\n'
 
 clean :
 	-rm -f $(OBJ)

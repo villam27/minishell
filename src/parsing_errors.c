@@ -14,6 +14,8 @@
 
 static int	while_quote(char *str, int *i)
 {
+	if (!str)
+		return (1);
 	(*i)++;
 	while (str[*i] && str[*i] != '\'')
 		(*i)++;
@@ -24,6 +26,8 @@ static int	while_quote(char *str, int *i)
 
 static int	while_dquote(char *str, int *i)
 {
+	if (!str)
+		return (1);
 	(*i)++;
 	while (str[*i] && str[*i] != '\"')
 		(*i)++;
@@ -54,7 +58,7 @@ int	parsing_errors(char *str)
 	chev = 0;
 	bchev = 0;
 	pipe = 1;
-	while (str[i])
+	while (str && str[i])
 	{
 		chev = (chev + is_in(str[i], "<")) * is_in(str[i], "< \n\t");
 		bchev = (bchev + is_in(str[i], ">")) * is_in(str[i], "> \n\t");

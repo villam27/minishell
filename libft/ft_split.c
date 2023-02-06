@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:20:12 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/24 15:32:35 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:51:34 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char	*copy_str(char *s, char c, int *start)
 		i++;
 	str = (char *)malloc(sizeof(char) * (i + 1));
 	if (str == NULL)
-		return (NULL);
+		return (write(2, "did not malloc\n", 15), NULL);
 	while (j < i)
 	{
 		str[j] = s[j];
@@ -86,7 +86,7 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	strs = (char **)malloc(sizeof(char *) * (num_words((char *)s, c) + 1));
 	if (strs == NULL)
-		return (NULL);
+		return (write(2, "did not malloc\n", 15), NULL);
 	while (j < num_words((char *)s, c))
 	{
 		while (s[start] == c && s[start])

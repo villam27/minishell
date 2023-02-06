@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   to_good_cmds_utils2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 10:50:53 by tibernot          #+#    #+#             */
-/*   Updated: 2023/01/30 17:19:55 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:54:32 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,15 @@ t_list	*split_lst_on_space(t_list **lst, t_list **pre_lst)
 	while (i > 0)
 	{
 		tmp = ft_lstnew(ft_strdup(res[i]));
+		if (!tmp)
+			return (free_all(res), NULL);
 		tmp->next = (*lst)->next;
 		(*lst)->next = tmp;
 		i--;
 	}
 	tmp = ft_lstnew(ft_strdup(res[0]));
+	if (!tmp)
+		return (free_all(res), NULL);
 	free_all(res);
 	if (pre_lst && (*pre_lst))
 		(*pre_lst)->next = tmp;
@@ -98,7 +102,7 @@ char	*str_without_external_quotes2(char *str, int is_an_export)
 		return (NULL);
 	d.res = malloc(sizeof(char) * (size_without_external_quote2(str) + 1));
 	if (!d.res)
-		return (NULL);
+		return (write(2, "did not malloc\n", 15), NULL);
 	while (str[d.i])
 	{
 		if (!((str[d.i] == '\"' && !d.is_quote)

@@ -52,7 +52,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (ft_strdup(""));
 	result = (char *)malloc(sizeof(char) * (end - start + 2));
 	if (!result)
-		return (NULL);
+		return (write(2, "did not malloc\n", 15), NULL);
 	ft_strlcpy(result, s1 + start, end - start + 2);
 	return (result);
 }

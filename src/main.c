@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:38:52 by tibernot          #+#    #+#             */
-/*   Updated: 2023/02/03 11:29:14 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 14:40:04 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,14 @@ t_env_var	*init_cmds(char **envp)
 	t_env_var	*vars;
 
 	vars = NULL;
-	if (!envp)
+	if (!envp || !*envp)
 		return (NULL);
-	ft_export(envp, &vars);
+	if (!ft_export(envp, &vars))
+	{
+		while (vars)
+			ft_unset_single(vars->name, &vars);
+		return (NULL);
+	}
 	check_shlvl(&vars);
 	return (vars);
 }
@@ -55,13 +60,18 @@ void	parse_exec(t_main_data *d)
 
 void	set_main_data(t_main_data *d, int argc, char **argv, char **envp)
 {
+	d->vars = init_cmds(envp);
+	if (!d->vars)
+	{
+		ft_putendl_fd("Environment variable not set", 2);
+		exit(1);
+	}
 	tcgetattr(STDIN_FILENO, &(d->save));
 	tcgetattr(STDIN_FILENO, &(d->term));
 	d->term.c_lflag &= ECHO;
 	d->cmds = NULL;
 	(void) argc;
 	(void) argv;
-	d->vars = init_cmds(envp);
 	d->line = "l";
 	d->hds = NULL;
 	g_err = 0;
@@ -83,15 +93,15 @@ int	main(int argc, char **argv, char **envp)
 			tcsetattr(STDIN_FILENO, TCSANOW, &(d.save));
 			return (clear_history(), free(d.line), printf("exit\n"), exit(0), 0);
 		}
-		else
+		add_history(d.line);
+		if (parsing_errors(d.line) && !is_only_space(d.line))
 		{
-			add_history(d.line);
-			if (parsing_errors(d.line) && !is_only_space(d.line))
-				ft_putendl_fd("Parsing error", 2);
-			else
-				parse_exec(&d);
-			free(d.line);
+			g_err = 2;
+			ft_putendl_fd("Parsing error", 2);
 		}
+		else
+			parse_exec(&d);
+		free(d.line);
 	}
 	return (0);
 }

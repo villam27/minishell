@@ -26,10 +26,6 @@ void	ft_change_var(t_env_var **vars, char *name, char *new_content)
 	tmp->content = new_content;
 }
 
-/*
-
-return :
-*/
 char	*ft_get_var_content(t_env_var **vars, char *name)
 {
 	t_env_var	*tmp;

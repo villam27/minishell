@@ -67,7 +67,7 @@ char	*ft_itoa(int n)
 	size = get_size(n);
 	result = (char *)malloc(sizeof(char) * (size + sign + 1));
 	if (result == NULL)
-		return (NULL);
+		return (write(2, "did not malloc\n", 15), NULL);
 	result[0] = 0;
 	fill(result, n);
 	return (result);

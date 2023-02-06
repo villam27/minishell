@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tibernot <tibernot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:13:25 by alboudje          #+#    #+#             */
-/*   Updated: 2023/01/28 14:13:25 by tibernot         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:24:20 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,20 @@ int	get_heredoc_fd(char *here)
 
 	pipe(fd);
 	ft_putstr_fd(here, fd[1]);
+	free(here);
 	close(fd[1]);
 	return (fd[0]);
 }
 
-void	good_error_message(char *str)
+void	good_error_message(char *str, char **envp)
 {
-	ft_putstr_fd("Minishell: ", 2);
-	ft_putstr_fd(str, 2);
-	ft_putendl_fd(": command not found", 2);
-	g_err = 127;
+	if (!envp)
+		ft_putendl_fd("No envp", 2);
+	else
+	{
+		ft_putstr_fd("Minishell: ", 2);
+		ft_putstr_fd(str, 2);
+		ft_putendl_fd(": command not found", 2);
+		g_err = 127;
+	}
 }

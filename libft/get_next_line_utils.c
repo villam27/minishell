@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboudje <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 11:31:33 by alboudje          #+#    #+#             */
-/*   Updated: 2022/12/19 12:09:00 by alboudje         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:52:02 by alboudje@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*ft_gnlstrjoin(char *s1, char *s2, size_t s2_size)
 	if (result == NULL)
 	{
 		free(s1);
-		return (NULL);
+		return (write(2, "did not malloc\n", 15), NULL);
 	}
 	result[0] = 0;
 	ft_gnlstrcat(result, (char *)s1);
