@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
+/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 13:37:04 by alboudje          #+#    #+#             */
-/*   Updated: 2023/02/06 15:33:55 by alboudje@st      ###   ########.fr       */
+/*   Updated: 2023/02/07 13:08:07 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-int	g_err;
+extern int	g_err;
 
 typedef struct s_env_var
 {

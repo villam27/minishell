@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+         #
+#    By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/09 13:17:41 by alboudje          #+#    #+#              #
-#    Updated: 2023/02/06 15:36:44 by alboudje@st      ###   ########.fr        #
+#    Updated: 2023/02/07 12:57:22 by alboudje         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			= 	minishell
-CC 				= 	cc
+CC 				= 	clang
 
 LIBFT 			= 	libft/libft.a
 LIBFT_FILES		= libft/*.h libft/Makefile

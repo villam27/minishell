@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alboudje@student.42lyon.fr <alboudje>      +#+  +:+       +#+        */
+/*   By: alboudje <alboudje@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:43:05 by alboudje          #+#    #+#             */
-/*   Updated: 2023/02/06 15:42:29 by alboudje@st      ###   ########.fr       */
+/*   Updated: 2023/02/07 12:46:45 by alboudje         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ int	single_export(char *value, t_env_var **vars)
 	if (!variable)
 		return (1);
 	var = get_var_addr(variable[0], vars);
-	if (var) p_env);
+	if (var)
+		return_value = mod_env(variable[1], &var, p_env);
 	else
 		return_value = add_env(variable[0], variable[1], vars, p_env);
 	free_all(variable);
@@ -133,7 +134,6 @@ int	ft_export(char **value, t_env_var **vars)
 		}
 		i++;
 	}
-		return_value = mod_env(variable[1], &var,
 	g_err = 1;
 	return (1);
 }
